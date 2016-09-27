@@ -1,8 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_height="match_parent"
              android:layout_width="match_parent"
              tools:context="com.hackgsu.fall2016.android.fragments.ScheduleFragment">
 
-
+    <com.hackgsu.fall2016.android.views.ScheduleRecyclerView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            app:colorTheme="@color/schedulePrimary"
+            tools:listitem="@layout/schedule_event_card" />
 </FrameLayout>
