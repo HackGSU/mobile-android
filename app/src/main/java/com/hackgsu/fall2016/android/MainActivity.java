@@ -28,49 +28,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	private Toolbar           toolbar;
 
 	@Override
-	protected void onCreate (Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-
-		DrawerLayout          drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-		drawer.addDrawerListener(toggle);
-		toggle.syncState();
-
-		appbar = (AppBarLayout) findViewById(R.id.appbar);
-
-		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-		navigationView.setNavigationItemSelectedListener(this);
-
-		final List<Fragment> fragments = new ArrayList<>();
-
-		fragments.add(new AnnouncementsFragment());
-		fragments.add(new ScheduleFragment());
-		fragments.add(new FacilityMapFragment());
-		fragments.add(new MentorsFragment());
-		fragments.add(new SponsorsFragment());
-
-		fragNavController = new FragNavController(getSupportFragmentManager(), R.id.fragment_frame, fragments);
-		fragNavController.setNavListener(new FragNavController.NavListener() {
-			@Override
-			public void onTabTransaction (Fragment fragment, int index) {
-				if (index < 3) { lastHomeFragment = (BaseFragment) fragments.get(index); }
-			}
-
-			@Override
-			public void onFragmentTransaction (Fragment fragment) {
-
-			}
-		});
-		fragNavController.switchTab(FragNavController.TAB1);
-
-		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-		bottomBar.setOnTabSelectListener(this);
-	}
-
-	@Override
 	public void onBackPressed () {
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -112,6 +69,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	@Override
 	public void onTabSelected (@IdRes int tabId) {
 		handleAction(tabId);
+	}
+
+	@Override
+	protected void onCreate (Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		DrawerLayout          drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		drawer.addDrawerListener(toggle);
+		toggle.syncState();
+
+		appbar = (AppBarLayout) findViewById(R.id.appbar);
+
+		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
+
+		final List<Fragment> fragments = new ArrayList<>();
+
+		fragments.add(new AnnouncementsFragment());
+		fragments.add(new ScheduleFragment());
+		fragments.add(new FacilityMapFragment());
+		fragments.add(new MentorsFragment());
+		fragments.add(new SponsorsFragment());
+
+		fragNavController = new FragNavController(getSupportFragmentManager(), R.id.fragment_frame, fragments);
+		fragNavController.setNavListener(new FragNavController.NavListener() {
+			@Override
+			public void onTabTransaction (Fragment fragment, int index) {
+				if (index < 3) { lastHomeFragment = (BaseFragment) fragments.get(index); }
+			}
+
+			@Override
+			public void onFragmentTransaction (Fragment fragment) {
+
+			}
+		});
+		fragNavController.switchTab(FragNavController.TAB1);
+
+		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+		bottomBar.setOnTabSelectListener(this);
 	}
 
 	private void handleAction (@IdRes int id) {

@@ -17,12 +17,6 @@ public class ScheduleFragment extends BaseFragment {
 	}
 
 	@Override
-	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_schedule, container, false);
-	}
-
-	@Override
 	public int getPrimaryColor () {
 		return R.color.schedulePrimary;
 	}
@@ -30,5 +24,11 @@ public class ScheduleFragment extends BaseFragment {
 	@Override
 	public int getTabIndex () {
 		return FragNavController.TAB2;
+	}
+
+	@Override
+	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
+		return inflater.inflate(R.layout.fragment_schedule, container, false);
 	}
 }

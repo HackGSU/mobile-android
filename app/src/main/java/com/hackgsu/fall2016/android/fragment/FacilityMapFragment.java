@@ -17,12 +17,6 @@ public class FacilityMapFragment extends BaseFragment {
 	}
 
 	@Override
-	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_facility_map, container, false);
-	}
-
-	@Override
 	public int getPrimaryColor () {
 		return R.color.facilityMapPrimary;
 	}
@@ -30,5 +24,11 @@ public class FacilityMapFragment extends BaseFragment {
 	@Override
 	public int getTabIndex () {
 		return FragNavController.TAB3;
+	}
+
+	@Override
+	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
+		return inflater.inflate(R.layout.fragment_facility_map, container, false);
 	}
 }
