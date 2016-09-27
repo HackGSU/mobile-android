@@ -27,7 +27,7 @@
 
     <com.roughike.bottombar.BottomBar
             android:id="@+id/bottomBar"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
             app:bb_behavior="shifting|shy|underNavbar"

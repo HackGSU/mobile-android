@@ -2,7 +2,10 @@ package com.hackgsu.fall2016.android.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
@@ -71,6 +74,12 @@ public class ScheduleRecyclerView extends RecyclerView {
 			openBtn = (AppCompatButton) itemView.findViewById(R.id.event_open_btn);
 			shareBtn = (AppCompatButton) itemView.findViewById(R.id.event_share_btn);
 			bookmarkBtn = (ImageButton) itemView.findViewById(R.id.event_bookmark_btn);
+
+			//noinspection deprecation
+			Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.circle));
+			DrawableCompat.setTint(drawable, colorTheme);
+			icon.setBackground(drawable);
+			openBtn.setTextColor(colorTheme);
 		}
 
 		public void loadEvent (ScheduleEvent scheduleEvent) {
@@ -85,6 +94,7 @@ public class ScheduleRecyclerView extends RecyclerView {
 		a.recycle();
 
 		setClipToPadding(false);
+		setLayoutManager(new LinearLayoutManager(getContext()));
 		setAdapter(new ScheduleEventAdapter());
 	}
 }

@@ -6,8 +6,10 @@
              tools:context="com.hackgsu.fall2016.android.fragments.ScheduleFragment">
 
     <com.hackgsu.fall2016.android.views.ScheduleRecyclerView
+            android:id="@+id/scheduleRecyclerView"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:paddingBottom="60dp"
             app:colorTheme="@color/schedulePrimary"
             tools:listitem="@layout/schedule_event_card" />
 </FrameLayout>
