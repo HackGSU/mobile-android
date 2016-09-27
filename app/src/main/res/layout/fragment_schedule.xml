@@ -4,9 +4,5 @@
              android:layout_width="match_parent"
              tools:context="com.hackgsu.fall2016.android.fragments.ScheduleFragment">
 
-    <TextView
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:text="This is the schedule fragment" />
 
 </FrameLayout>

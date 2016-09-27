@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="ScheduleRecyclerView">
+        <attr format="color" name="colorTheme" />
+    </declare-styleable>
+</resources>
