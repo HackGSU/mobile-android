@@ -1,4 +1,4 @@
-package com.hackgsu.fall2016.android.fragment;
+package com.hackgsu.fall2016.android.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,24 +11,22 @@ import com.ncapdevi.fragnav.FragNavController;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ScheduleFragment extends BaseFragment {
-	public ScheduleFragment () {
-		// Required empty public constructor
-	}
+public class AnnouncementsFragment extends BaseFragment {
+	public AnnouncementsFragment () { }
 
 	@Override
 	public int getPrimaryColor () {
-		return R.color.schedulePrimary;
+		return R.color.announcementsPrimary;
 	}
 
 	@Override
 	public int getTabIndex () {
-		return FragNavController.TAB2;
+		return FragNavController.TAB1;
 	}
 
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_schedule, container, false);
+		return inflater.inflate(R.layout.fragment_announcements, container, false);
 	}
 }

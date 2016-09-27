@@ -1,4 +1,4 @@
-package com.hackgsu.fall2016.android.fragment;
+package com.hackgsu.fall2016.android.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,24 +11,22 @@ import com.ncapdevi.fragnav.FragNavController;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MentorsFragment extends BaseFragment {
-	public MentorsFragment () {
-		// Required empty public constructor
-	}
+public class FacilityMapFragment extends BaseFragment {
+	public FacilityMapFragment () { }
 
 	@Override
 	public int getPrimaryColor () {
-		return R.color.mentorsPrimary;
+		return R.color.facilityMapPrimary;
 	}
 
 	@Override
 	public int getTabIndex () {
-		return FragNavController.TAB4;
+		return FragNavController.TAB3;
 	}
 
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_mentors, container, false);
+		return inflater.inflate(R.layout.fragment_facility_map, container, false);
 	}
 }

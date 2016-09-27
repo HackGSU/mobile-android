@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.hackgsu.fall2016.android.fragment.*;
+import com.hackgsu.fall2016.android.fragments.*;
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 	@Override
 	public void onBackPressed () {
+		// TODO: 9/27/16 : Handle the case where when the user is in a fragment other than the three main fragments, instead of closing the app, it will return to home
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START);
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 	@Override
 	public boolean onCreateOptionsMenu (Menu menu) {
-
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -49,9 +49,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	public boolean onOptionsItemSelected (MenuItem item) {
 		int id = item.getItemId();
 
-		if (id == R.id.action_settings) {
-			return true;
-		}
+		// TODO: 9/27/16 : Toggle icon and actually mute notifications
+		if (id == R.id.action_mute_notifications) { return true; }
 
 		return super.onOptionsItemSelected(item);
 	}
@@ -115,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	}
 
 	private void handleAction (@IdRes int id) {
+		// TODO: 9/27/16 : Animate background color change
 		switch (id) {
 			case R.id.nav_home:
 				showBottomBar();

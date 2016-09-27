@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_height="match_parent"
              android:layout_width="match_parent"
-             tools:context="com.hackgsu.fall2016.android.fragment.AnnouncementsFragment">
+             tools:context="com.hackgsu.fall2016.android.fragments.AnnouncementsFragment">
 
     <TextView
             android:layout_height="match_parent"

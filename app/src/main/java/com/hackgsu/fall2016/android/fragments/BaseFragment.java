@@ -1,4 +1,4 @@
-package com.hackgsu.fall2016.android.fragment;
+package com.hackgsu.fall2016.android.fragments;
 
 import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
