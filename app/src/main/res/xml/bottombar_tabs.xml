@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs
+        >
+    <tab
+            id="@+id/tab_announcements"
+            barColorWhenSelected="@color/announcementsPrimary"
+            icon="@drawable/ic_announcements"
+            title="Announcements" />
+    <tab
+            id="@+id/tab_schedule"
+            barColorWhenSelected="@color/schedulePrimary"
+            icon="@drawable/ic_schedule"
+            title="Schedule" />
+    <tab
+            id="@+id/tab_facility_map"
+            barColorWhenSelected="@color/facilityMapPrimary"
+            icon="@drawable/ic_map"
+            title="Facility Map" />
+</tabs>

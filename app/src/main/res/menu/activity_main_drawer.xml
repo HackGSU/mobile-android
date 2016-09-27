@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/ic_home"
+                android:title="Home" />
+        <item
+                android:id="@+id/nav_mentors"
+                android:icon="@drawable/ic_mentors"
+                android:title="Mentors" />
+        <item
+                android:id="@+id/nav_sponsors"
+                android:icon="@drawable/ic_sponsors"
+                android:title="Sponsors" />
+    </group>
+
+    <item android:title="Links">
+        <menu>
+            <item
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/ic_menu_about"
+                    android:title="About" />
+            <item
+                    android:id="@+id/nav_send_feedback"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="Send feedback" />
+            <item
+                    android:id="@+id/nav_code_of_conduct"
+                    android:icon="@drawable/ic_menu_code_of_conduct"
+                    android:title="Code of conduct" />
+        </menu>
+    </item>
+
+</menu>

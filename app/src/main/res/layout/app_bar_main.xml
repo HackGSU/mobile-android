@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        tools:context="com.hackgsu.fall2016.android.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="?attr/colorPrimary"
+            android:paddingTop="25dp"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_width="match_parent"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
+    <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottomBar"
+            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            app:bb_behavior="shifting|shy|underNavbar"
+            app:bb_showShadow="true"
+            app:bb_tabXmlResource="@xml/bottombar_tabs"
+            app:bb_tabletMode="@bool/is_tablet"
+            bb_activeTabAlpha="133"
+            bb_inActiveTabAlpha="80" />
+
+
+</android.support.design.widget.CoordinatorLayout>

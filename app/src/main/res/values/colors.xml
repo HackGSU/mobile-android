@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1E9AD6</color>
+    <color name="colorPrimaryDark">#0581BD</color>
+    <color name="colorAccent">#FB8C00</color>
+
+
+    <color name="announcementsPrimary">@color/colorPrimary</color>
+    <color name="announcementsPrimaryDark">@color/colorPrimaryDark</color>
+    <color name="announcementsAccent">@color/colorAccent</color>
+
+    <color name="schedulePrimary">#C8242D</color>
+    <color name="schedulePrimaryDark">#AF0B14</color>
+    <color name="scheduleAccent">#44699B</color>
+
+    <color name="facilityMapPrimary">#9E9E9E</color>
+    <color name="facilityMapPrimaryDark">#9e9e9e</color>
+    <color name="facilityMapAccent">#CC0000</color>
+
+    <color name="mentorsPrimary">#388e3c</color>
+    <color name="mentorsPrimaryDark">#33691e</color>
+    <color name="mentorsAccent">#CC0000</color>
+
+    <color name="sponsorsPrimary">#388e3c</color>
+    <color name="sponsorsPrimaryDark">#33691e</color>
+    <color name="sponsorsAccent">#CC0000</color>
+</resources>
