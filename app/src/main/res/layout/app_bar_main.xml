@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        tools:context="com.hackgsu.fall2016.android.MainActivity">
+        tools:context="com.hackgsu.fall2016.android.activities.MainActivity">
 
     <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"

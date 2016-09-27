@@ -1,4 +1,4 @@
-package com.hackgsu.fall2016.android;
+package com.hackgsu.fall2016.android.activities;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.fragments.*;
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
@@ -26,49 +27,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	private FragNavController fragNavController;
 	private BaseFragment      lastHomeFragment;
 	private Toolbar           toolbar;
-
-	@Override
-	public void onBackPressed () {
-		// TODO: 9/27/16 : Handle the case where when the user is in a fragment other than the three main fragments, instead of closing the app, it will return to home
-		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		if (drawer.isDrawerOpen(GravityCompat.START)) {
-			drawer.closeDrawer(GravityCompat.START);
-		}
-		else {
-			super.onBackPressed();
-		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu (Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected (MenuItem item) {
-		int id = item.getItemId();
-
-		// TODO: 9/27/16 : Toggle icon and actually mute notifications
-		if (id == R.id.action_mute_notifications) { return true; }
-
-		return super.onOptionsItemSelected(item);
-	}
-
-	@SuppressWarnings ("StatementWithEmptyBody")
-	@Override
-	public boolean onNavigationItemSelected (MenuItem item) {
-		handleAction(item.getItemId());
-
-		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		drawer.closeDrawer(GravityCompat.START);
-		return true;
-	}
-
-	@Override
-	public void onTabSelected (@IdRes int tabId) {
-		handleAction(tabId);
-	}
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -111,6 +69,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 		bottomBar.setOnTabSelectListener(this);
+	}
+
+	@Override
+	public void onBackPressed () {
+		// TODO: 9/27/16 : Handle the case where when the user is in a fragment other than the three main fragments, instead of closing the app, it will return to home
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		if (drawer.isDrawerOpen(GravityCompat.START)) {
+			drawer.closeDrawer(GravityCompat.START);
+		}
+		else {
+			super.onBackPressed();
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu (Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected (MenuItem item) {
+		int id = item.getItemId();
+
+		// TODO: 9/27/16 : Toggle icon and actually mute notifications
+		if (id == R.id.action_mute_notifications) { return true; }
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	@SuppressWarnings ("StatementWithEmptyBody")
+	@Override
+	public boolean onNavigationItemSelected (MenuItem item) {
+		handleAction(item.getItemId());
+
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		drawer.closeDrawer(GravityCompat.START);
+		return true;
+	}
+
+	@Override
+	public void onTabSelected (@IdRes int tabId) {
+		handleAction(tabId);
 	}
 
 	private void handleAction (@IdRes int id) {
