@@ -20,6 +20,7 @@ public abstract class BaseFragment extends Fragment {
 	public abstract
 	@FragNavControllerTabIndex
 	int getTabIndex ();
+	public abstract String getTitle ();
 
 	@IntDef ({ TAB1, TAB2, TAB3, TAB4, TAB5 })
 	@Retention (RetentionPolicy.SOURCE)

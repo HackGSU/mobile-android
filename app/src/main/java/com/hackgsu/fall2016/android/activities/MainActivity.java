@@ -1,6 +1,7 @@
 package com.hackgsu.fall2016.android.activities;
 
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -57,18 +58,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		fragNavController.setNavListener(new FragNavController.NavListener() {
 			@Override
 			public void onTabTransaction (Fragment fragment, int index) {
-				if (index < 3) { lastHomeFragment = (BaseFragment) fragments.get(index); }
+				BaseFragment baseFragment = null;
+				if (fragment instanceof BaseFragment) {
+					baseFragment = ((BaseFragment) fragment);
+				}
+
+				if (baseFragment == null) { return; }
+
+				if (index < 3) { lastHomeFragment = baseFragment; }
+				setTitle(baseFragment.getTitle());
 			}
 
 			@Override
 			public void onFragmentTransaction (Fragment fragment) {
-
+				fragNavController.pop();
 			}
 		});
 		fragNavController.switchTab(FragNavController.TAB1);
 
 		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 		bottomBar.setOnTabSelectListener(this);
+		//		drawer.
 	}
 
 	@Override
@@ -115,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	}
 
 	private void handleAction (@IdRes int id) {
-		// TODO: 9/27/16 : Animate background color change
+		@ColorInt int color = R.color.colorPrimary;
 		switch (id) {
 			case R.id.nav_home:
 				showBottomBar();
@@ -125,24 +135,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 				break;
 			case R.id.tab_announcements:
 				fragNavController.switchTab(FragNavController.TAB1);
-				appbar.setBackgroundResource(R.color.announcementsPrimary);
+				color = getResources().getColor(R.color.announcementsPrimary);
 				break;
 			case R.id.tab_schedule:
 				fragNavController.switchTab(FragNavController.TAB2);
-				appbar.setBackgroundResource(R.color.schedulePrimary);
+				color = getResources().getColor(R.color.schedulePrimary);
 				break;
 			case R.id.tab_facility_map:
 				fragNavController.switchTab(FragNavController.TAB3);
-				appbar.setBackgroundResource(R.color.facilityMapPrimary);
+				color = getResources().getColor(R.color.facilityMapPrimary);
 				break;
 			case R.id.nav_mentors:
 				fragNavController.switchTab(FragNavController.TAB4);
-				appbar.setBackgroundResource(R.color.mentorsPrimary);
+				color = getResources().getColor(R.color.mentorsPrimary);
 				hideBottomBar();
 				break;
 			case R.id.nav_sponsors:
 				fragNavController.switchTab(FragNavController.TAB5);
-				appbar.setBackgroundResource(R.color.sponsorsPrimary);
+				color = getResources().getColor(R.color.sponsorsPrimary);
 				hideBottomBar();
 				break;
 			case R.id.nav_code_of_conduct:
@@ -152,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			default:
 				break;
 		}
+		appbar.setBackgroundColor(color);
 	}
 
 	private void showBottomBar () { bottomBar.animate().translationY(0).setDuration(500).start(); }
