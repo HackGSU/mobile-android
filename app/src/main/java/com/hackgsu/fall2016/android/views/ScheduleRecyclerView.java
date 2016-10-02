@@ -3,6 +3,7 @@ package com.hackgsu.fall2016.android.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,6 +64,7 @@ public class ScheduleRecyclerView extends RecyclerView {
 		private final AppCompatButton shareBtn;
 		private final TextView        subtitle;
 		private final TextView        title;
+		private       ScheduleEvent   scheduleEvent;
 
 		public ScheduleEventViewHolder (View itemView) {
 			super(itemView);
@@ -83,7 +85,34 @@ public class ScheduleRecyclerView extends RecyclerView {
 		}
 
 		public void loadEvent (ScheduleEvent scheduleEvent) {
-			// TODO: 9/27/16 : bind object data to view
+			this.scheduleEvent = scheduleEvent;
+
+			title.setText(scheduleEvent.getTitle());
+			description.setText(scheduleEvent.getDescription());
+			subtitle.setText(scheduleEvent.getSubtitle());
+			icon.setImageDrawable(scheduleEvent.getIcon() == null ? getContext().getResources()
+																				.getDrawable(R.drawable.ic_schedule) : scheduleEvent.getIcon());
+			bookmarkBtn.setImageResource(scheduleEvent.isBookmarked() ? R.drawable.ic_bookmarked : R.drawable.ic_not_bookmarked);
+			bookmarkBtn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick (View v) {
+					bookmarkBtnClicked();
+				}
+			});
+		}
+
+		private void bookmarkBtnClicked () {
+			boolean isBookmarked = !scheduleEvent.isBookmarked();
+			scheduleEvent.setIsBookmarked(isBookmarked);
+			bookmarkBtn.setImageResource(isBookmarked ? R.drawable.ic_bookmarked : R.drawable.ic_not_bookmarked);
+			Snackbar.make(itemView, isBookmarked ? R.string.bookmarked_event : R.string.unbookmarked_event, Snackbar.LENGTH_SHORT)
+					.setAction("Undo", new OnClickListener() {
+						@Override
+						public void onClick (View v) {
+							bookmarkBtnClicked();
+						}
+					})
+					.show();
 		}
 	}
 

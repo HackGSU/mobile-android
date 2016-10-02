@@ -3,4 +3,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_mute_notifications">Mute Notifications</string>
+    <string name="bookmarked_event">Bookmarked event</string>
+    <string name="unbookmarked_event">Unbookmarked event</string>
 </resources>
