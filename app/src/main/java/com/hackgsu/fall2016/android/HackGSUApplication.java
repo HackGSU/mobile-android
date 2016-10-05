@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by Joshua King on 9/27/16.
  */
-public class HackGNUApplication extends Application {
+public class HackGSUApplication extends Application {
 	@Override
 	public void onCreate () {
 		super.onCreate();
