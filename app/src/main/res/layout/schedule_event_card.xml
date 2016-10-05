@@ -35,7 +35,8 @@
                         android:layout_alignParentTop="true"
                         android:layout_margin="10dp"
                         android:background="@drawable/circle"
-                        android:padding="13dp" />
+                        android:padding="13dp"
+                        android:tint="@android:color/white" />
 
                 <LinearLayout
                         android:layout_height="wrap_content"

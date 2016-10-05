@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.hackgsu.fall2016.android.DataStore;
+import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.model.ScheduleEvent;
 
@@ -84,14 +85,15 @@ public class ScheduleRecyclerView extends RecyclerView {
 			openBtn.setTextColor(colorTheme);
 		}
 
-		public void loadEvent (ScheduleEvent scheduleEvent) {
+		public void loadEvent (final ScheduleEvent scheduleEvent) {
 			this.scheduleEvent = scheduleEvent;
+
+			String timeTillString = HackGSUApplication.toHumanReadableRelative(scheduleEvent.getTimestamp());
 
 			title.setText(scheduleEvent.getTitle());
 			description.setText(scheduleEvent.getDescription());
-			subtitle.setText(scheduleEvent.getSubtitle());
-			icon.setImageDrawable(scheduleEvent.getIcon() == null ? getContext().getResources()
-																				.getDrawable(R.drawable.ic_schedule) : scheduleEvent.getIcon());
+			subtitle.setText(timeTillString);
+			icon.setImageResource(scheduleEvent.getIcon() == 0 ? R.drawable.ic_schedule : scheduleEvent.getIcon());
 			bookmarkBtn.setImageResource(scheduleEvent.isBookmarked() ? R.drawable.ic_bookmarked : R.drawable.ic_not_bookmarked);
 			bookmarkBtn.setOnClickListener(new OnClickListener() {
 				@Override
@@ -99,6 +101,26 @@ public class ScheduleRecyclerView extends RecyclerView {
 					bookmarkBtnClicked();
 				}
 			});
+
+			if (scheduleEvent.getDescription() == null || scheduleEvent.getDescription().length() == 0) {
+				description.setVisibility(View.GONE);
+			}
+			else {
+				description.setVisibility(View.VISIBLE);
+			}
+
+			if (scheduleEvent.getAction() == null) {
+				openBtn.setVisibility(View.GONE);
+			}
+			else {
+				openBtn.setVisibility(View.VISIBLE);
+				openBtn.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick (View v) {
+						scheduleEvent.getAction().run();
+					}
+				});
+			}
 		}
 
 		private void bookmarkBtnClicked () {
