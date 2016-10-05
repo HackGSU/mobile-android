@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	private AppBarLayout      appbar;
 	private BottomBar         bottomBar;
 	private FragNavController fragNavController;
+	private BaseFragment      lastFragment;
 	private BaseFragment      lastHomeFragment;
 	private Toolbar           toolbar;
 
@@ -65,13 +66,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 				if (baseFragment == null) { return; }
 
+				lastFragment = baseFragment;
 				if (index < 3) { lastHomeFragment = baseFragment; }
 				setTitle(baseFragment.getTitle());
 			}
 
 			@Override
 			public void onFragmentTransaction (Fragment fragment) {
-				fragNavController.pop();
 			}
 		});
 		fragNavController.switchTab(FragNavController.TAB1);
@@ -122,6 +123,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	@Override
 	public void onTabSelected (@IdRes int tabId) {
 		handleAction(tabId);
+	}
+
+	@Override
+	protected void onResume () {
+		super.onResume();
+
+		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, lastFragment).commitNow();
 	}
 
 	private void handleAction (@IdRes int id) {
