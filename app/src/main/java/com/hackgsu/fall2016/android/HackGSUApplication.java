@@ -36,7 +36,6 @@ public class HackGSUApplication extends Application {
 
 		JodaTimeAndroid.init(this);
 
-		// TODO: 9/27/16 : Parse, probably, a json file here
 		ArrayList<ScheduleEvent> scheduleEvents      = new ArrayList<>();
 		Runnable                 openWebsiteRunnable = getUrlRunnable("http://www.hackgsu.com/#schedule");
 		scheduleEvents.add(new ScheduleEvent("Early Check-in Begins / Late Registration", "", getDateTimeOfHackathon(0, 17, 0), R.drawable.ic_clipboard)
