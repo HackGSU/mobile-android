@@ -1,6 +1,7 @@
 package com.hackgsu.fall2016.android.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.Snackbar;
@@ -19,9 +20,6 @@ import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.model.ScheduleEvent;
 
-/**
- * TODO: document your custom view class.
- */
 public class ScheduleRecyclerView extends RecyclerView {
 	private int colorTheme;
 
@@ -99,6 +97,16 @@ public class ScheduleRecyclerView extends RecyclerView {
 				@Override
 				public void onClick (View v) {
 					bookmarkBtnClicked();
+				}
+			});
+			shareBtn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick (View v) {
+					Intent intent = new Intent(Intent.ACTION_SEND);
+					intent.putExtra(Intent.EXTRA_TEXT, scheduleEvent.getShareText());
+					intent.setType("text/plain");
+					intent = Intent.createChooser(intent, "Share this event with");
+					getContext().startActivity(intent);
 				}
 			});
 

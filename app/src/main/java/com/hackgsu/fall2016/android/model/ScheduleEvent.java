@@ -1,6 +1,7 @@
 package com.hackgsu.fall2016.android.model;
 
 import android.support.annotation.DrawableRes;
+import com.hackgsu.fall2016.android.HackGSUApplication;
 import org.joda.time.LocalDateTime;
 
 /**
@@ -79,5 +80,10 @@ public class ScheduleEvent {
 
 	public Runnable getAction () {
 		return action;
+	}
+
+	public String getShareText () {
+		// TODO: 10/6/16 : Maybe make this share message more better..? Also add Play Store link
+		return String.format("Look at this event at hackGSU\n\nTitle: %s\nWhen: %s", getTitle(), HackGSUApplication.toHumanReadableRelative(getTimestamp()));
 	}
 }
