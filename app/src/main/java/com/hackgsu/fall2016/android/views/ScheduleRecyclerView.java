@@ -115,7 +115,6 @@ public class ScheduleRecyclerView extends RecyclerView {
 			DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder().appendDayOfWeekText().appendLiteral(" - ");
 			DateTimeFormatter        dateTimeFormatter        = HackGSUApplication.getTimeFormatter24OrNot(getContext(), dateTimeFormatterBuilder);
 
-			//			DateTimeFormatter dateTimeFormatterBuilder = DateTimeFormat.forPattern("D - h:mm a");
 			title.setText(scheduleEvent.getTimestamp().toString(dateTimeFormatter));
 			description.setText(scheduleEvent.getTitle());
 			subtitle.setText(timeTillString);
