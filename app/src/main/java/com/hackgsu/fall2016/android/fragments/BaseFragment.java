@@ -21,10 +21,11 @@ public abstract class BaseFragment extends Fragment {
 	@FragNavControllerTabIndex
 	int getTabIndex ();
 	public abstract String getTitle ();
-
 	@IntDef ({ TAB1, TAB2, TAB3, TAB4, TAB5 })
 	@Retention (RetentionPolicy.SOURCE)
 	public @interface FragNavControllerTabIndex { }
+
+	public void onFocus () {}
 
 	public void selectTab (FragNavController fragNavController) {
 		fragNavController.switchTab(getTabIndex());

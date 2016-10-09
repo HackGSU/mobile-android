@@ -24,4 +24,5 @@
     <color name="sponsorsPrimary">#388e3c</color>
     <color name="sponsorsPrimaryDark">#33691e</color>
     <color name="sponsorsAccent">#CC0000</color>
+    <color name="schedule_card_gray">#EEEEEE</color>
 </resources>

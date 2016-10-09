@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 				if (baseFragment == null) { return; }
 
+				baseFragment.onFocus();
 				lastFragment = baseFragment;
 				if (index < 3) { lastHomeFragment = baseFragment; }
 				setTitle(baseFragment.getTitle());
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 	@Override
 	public boolean onCreateOptionsMenu (Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.menu_main, menu);
 		return true;
 	}
 
