@@ -1,7 +1,7 @@
 package com.hackgsu.fall2016.android.activities;
 
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
 	}
 
 	private void handleAction (@IdRes int id) {
-		@ColorInt int color = R.color.colorPrimary;
+		@ColorRes int color = R.color.colorPrimary;
 
 		setMenuItemVisibility(R.id.scroll_to_now, false);
 
@@ -157,29 +157,29 @@ public class MainActivity extends AppCompatActivity
 				showBottomBar();
 				bottomBar.selectTabAtPosition(lastHomeFragment.getTabIndex());
 				lastHomeFragment.selectTab(fragNavController);
-				appbar.setBackgroundResource(lastHomeFragment.getPrimaryColor());
+				color = lastHomeFragment.getPrimaryColor();
 				break;
 			case R.id.tab_announcements:
 				fragNavController.switchTab(FragNavController.TAB1);
-				color = getResources().getColor(R.color.announcementsPrimary);
+				color = R.color.announcementsPrimary;
 				break;
 			case R.id.tab_schedule:
 				fragNavController.switchTab(FragNavController.TAB2);
-				color = getResources().getColor(R.color.schedulePrimary);
+				color = R.color.schedulePrimary;
 				setMenuItemVisibility(R.id.scroll_to_now, true);
 				break;
 			case R.id.tab_facility_map:
 				fragNavController.switchTab(FragNavController.TAB3);
-				color = getResources().getColor(R.color.facilityMapPrimary);
+				color = R.color.facilityMapPrimary;
 				break;
 			case R.id.nav_mentors:
 				fragNavController.switchTab(FragNavController.TAB4);
-				color = getResources().getColor(R.color.mentorsPrimary);
+				color = R.color.mentorsPrimary;
 				hideBottomBar();
 				break;
 			case R.id.nav_sponsors:
 				fragNavController.switchTab(FragNavController.TAB5);
-				color = getResources().getColor(R.color.sponsorsPrimary);
+				color = R.color.sponsorsPrimary;
 				hideBottomBar();
 				break;
 			case R.id.nav_code_of_conduct:
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity
 			default:
 				break;
 		}
-		appbar.setBackgroundColor(color);
+		appbar.setBackgroundResource(color);
 	}
 
 	@Nullable
