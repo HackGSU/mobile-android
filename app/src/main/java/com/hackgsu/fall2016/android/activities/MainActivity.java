@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity
 	private BaseFragment      lastFragment;
 	private BaseFragment      lastHomeFragment;
 	private Menu              menu;
+	private NavigationView    navigationView;
 	private Toolbar           toolbar;
 
 	@Override
@@ -48,8 +49,9 @@ public class MainActivity extends AppCompatActivity
 
 		appbar = (AppBarLayout) findViewById(R.id.appbar);
 
-		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+		navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
+		navigationView.setCheckedItem(R.id.nav_home);
 
 		final List<Fragment> fragments = new ArrayList<>();
 
@@ -161,6 +163,7 @@ public class MainActivity extends AppCompatActivity
 				bottomBar.selectTabAtPosition(lastHomeFragment.getTabIndex());
 				lastHomeFragment.selectTab(fragNavController);
 				color = lastHomeFragment.getPrimaryColor();
+				navigationView.setCheckedItem(R.id.nav_home);
 				break;
 			case R.id.tab_announcements:
 				fragNavController.switchTab(FragNavController.TAB1);
@@ -179,10 +182,12 @@ public class MainActivity extends AppCompatActivity
 				fragNavController.switchTab(FragNavController.TAB4);
 				color = R.color.mentorsPrimary;
 				hideBottomBar();
+				navigationView.setCheckedItem(R.id.nav_mentors);
 				break;
 			case R.id.nav_sponsors:
 				fragNavController.switchTab(FragNavController.TAB5);
 				color = R.color.sponsorsPrimary;
+				navigationView.setCheckedItem(R.id.nav_sponsors);
 				hideBottomBar();
 				break;
 			case R.id.nav_code_of_conduct:
