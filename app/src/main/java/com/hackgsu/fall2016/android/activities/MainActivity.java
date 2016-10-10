@@ -94,8 +94,11 @@ public class MainActivity extends AppCompatActivity
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START);
 		}
-		else {
+		else if (lastFragment.equals(lastHomeFragment)) {
 			super.onBackPressed();
+		}
+		else {
+			handleAction(R.id.nav_home);
 		}
 	}
 
