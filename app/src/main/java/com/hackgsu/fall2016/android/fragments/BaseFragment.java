@@ -25,7 +25,7 @@ public abstract class BaseFragment extends Fragment {
 	@Retention (RetentionPolicy.SOURCE)
 	public @interface FragNavControllerTabIndex { }
 
-	public void onFocus () {}
+	public void onReselected () {}
 
 	public void selectTab (FragNavController fragNavController) {
 		fragNavController.switchTab(getTabIndex());

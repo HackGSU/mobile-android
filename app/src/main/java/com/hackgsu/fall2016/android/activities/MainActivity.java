@@ -3,6 +3,7 @@ package com.hackgsu.fall2016.android.activities;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -17,17 +18,20 @@ import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.fragments.*;
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnTabSelectListener {
+public class MainActivity extends AppCompatActivity
+		implements NavigationView.OnNavigationItemSelectedListener, OnTabSelectListener, OnTabReselectListener {
 	private AppBarLayout      appbar;
 	private BottomBar         bottomBar;
 	private FragNavController fragNavController;
 	private BaseFragment      lastFragment;
 	private BaseFragment      lastHomeFragment;
+	private Menu              menu;
 	private Toolbar           toolbar;
 
 	@Override
@@ -66,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 				if (baseFragment == null) { return; }
 
-				baseFragment.onFocus();
 				lastFragment = baseFragment;
 				if (index < 3) { lastHomeFragment = baseFragment; }
 				setTitle(baseFragment.getTitle());
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 		bottomBar.setOnTabSelectListener(this);
+		bottomBar.setOnTabReselectListener(this);
 		//		drawer.
 	}
 
@@ -98,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	@Override
 	public boolean onCreateOptionsMenu (Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
+		this.menu = menu;
+		setMenuItemVisibility(R.id.scroll_to_now, false);
 		return true;
 	}
 
@@ -107,6 +113,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 		// TODO: 9/27/16 : Toggle icon and actually mute notifications
 		if (id == R.id.action_mute_notifications) { return true; }
+		else if (id == R.id.scroll_to_now) {
+			if (lastFragment instanceof ScheduleFragment) { ((ScheduleFragment) lastFragment).getScheduleRecyclerView().showNowRow(); }
+		}
 
 		return super.onOptionsItemSelected(item);
 	}
@@ -127,6 +136,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	}
 
 	@Override
+	public void onTabReSelected (@IdRes int tabId) {
+		lastFragment.onReselected();
+	}
+
+	@Override
 	protected void onResume () {
 		super.onResume();
 
@@ -135,6 +149,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 	private void handleAction (@IdRes int id) {
 		@ColorInt int color = R.color.colorPrimary;
+
+		setMenuItemVisibility(R.id.scroll_to_now, false);
+
 		switch (id) {
 			case R.id.nav_home:
 				showBottomBar();
@@ -149,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			case R.id.tab_schedule:
 				fragNavController.switchTab(FragNavController.TAB2);
 				color = getResources().getColor(R.color.schedulePrimary);
+				setMenuItemVisibility(R.id.scroll_to_now, true);
 				break;
 			case R.id.tab_facility_map:
 				fragNavController.switchTab(FragNavController.TAB3);
@@ -172,6 +190,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 				break;
 		}
 		appbar.setBackgroundColor(color);
+	}
+
+	@Nullable
+	private MenuItem setMenuItemVisibility (@IdRes int id, boolean visible) {
+		MenuItem menuItem = null;
+		if (menu != null) {
+			menuItem = menu.findItem(id);
+			if (menuItem != null) { menuItem.setVisible(visible); }
+		}
+		return menuItem;
 	}
 
 	private void showBottomBar () { bottomBar.animate().translationY(0).setDuration(500).start(); }

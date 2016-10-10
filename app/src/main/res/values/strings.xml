@@ -6,4 +6,5 @@
     <string name="bookmarked_event">Bookmarked event</string>
     <string name="unbookmarked_event">Unbookmarked event</string>
     <string name="now">NOW</string>
+    <string name="scroll_to_now">Scroll to now</string>
 </resources>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
@@ -14,6 +13,7 @@ import com.hackgsu.fall2016.android.DataStore;
 import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.model.ScheduleEvent;
+import com.hackgsu.fall2016.android.utils.SmoothLinearLayoutManager;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
@@ -23,7 +23,9 @@ import static com.hackgsu.fall2016.android.views.ScheduleRecyclerView.ScheduleEv
 import static com.hackgsu.fall2016.android.views.ScheduleRecyclerView.ScheduleEventViewHolder.STANDARD_VIEW_TYPE;
 
 public class ScheduleRecyclerView extends RecyclerView {
-	private int colorTheme;
+	private ScheduleEventAdapter      adapter;
+	private int                       colorTheme;
+	private SmoothLinearLayoutManager layoutManager;
 
 	public ScheduleRecyclerView (Context context) {
 		super(context);
@@ -40,7 +42,7 @@ public class ScheduleRecyclerView extends RecyclerView {
 		init(attrs, defStyle);
 	}
 
-	private class ScheduleEventAdapter extends RecyclerView.Adapter<ScheduleEventViewHolder> {
+	public class ScheduleEventAdapter extends RecyclerView.Adapter<ScheduleEventViewHolder> {
 		@Override
 		public ScheduleEventViewHolder onCreateViewHolder (ViewGroup parent, int viewType) {
 			if (viewType == NOW_VIEW_TYPE) { return new ScheduleEventViewHolder(View.inflate(getContext(), R.layout.now_layout, null), viewType); }
@@ -71,8 +73,10 @@ public class ScheduleRecyclerView extends RecyclerView {
 			ArrayList<ScheduleEvent> scheduleEvents = DataStore.getScheduleEvents();
 			int                      i;
 			for (i = 0; i < scheduleEvents.size(); i++) {
-				if (scheduleEvents.get(i).getTimestamp().toDateTime().isAfter(System.currentTimeMillis())) { return i; }
-				//				if (scheduleEvents.get(i).getTimestamp().toDateTime().isAfter(HackGSUApplication.getDateTimeOfHackathon(1, 14, 0).toDateTime().getMillis())) { return i; }
+				//				if (scheduleEvents.get(i).getTimestamp().toDateTime().isAfter(System.currentTimeMillis())) { return i; }
+				if (scheduleEvents.get(i).getTimestamp().toDateTime().isAfter(HackGSUApplication.getDateTimeOfHackathon(1, 14, 0)
+																								.toDateTime()
+																								.getMillis())) { return i; }
 			}
 			return i;
 		}
@@ -144,14 +148,36 @@ public class ScheduleRecyclerView extends RecyclerView {
 		}
 	}
 
+	@Override
+	public ScheduleEventAdapter getAdapter () {
+		return adapter;
+	}
+
+	@Override
+	public SmoothLinearLayoutManager getLayoutManager () {
+		return layoutManager;
+	}
+
+	public void showNowRow () {
+		HackGSUApplication.delayRunnableOnUI(250, new Runnable() {
+			@Override
+			public void run () {
+				layoutManager.smoothScrollToPosition(ScheduleRecyclerView.this, null, adapter.getIndexOfNowRow());
+			}
+		});
+	}
+
 	private void init (AttributeSet attrs, int defStyle) {
 		final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.ScheduleRecyclerView, defStyle, 0);
 		//noinspection deprecation
 		colorTheme = a.getColor(R.styleable.ScheduleRecyclerView_colorTheme, getResources().getColor(android.R.color.black));
 		a.recycle();
 
+		layoutManager = new SmoothLinearLayoutManager(getContext());
+		adapter = new ScheduleEventAdapter();
+
 		setClipToPadding(false);
-		setLayoutManager(new LinearLayoutManager(getContext()));
-		setAdapter(new ScheduleEventAdapter());
+		setLayoutManager(layoutManager);
+		setAdapter(adapter);
 	}
 }

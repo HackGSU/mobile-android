@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -16,7 +18,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.hackgsu.fall2016.android.events.ScheduleUpdatedEvent;
 import com.hackgsu.fall2016.android.model.ScheduleEvent;
+import com.hackgsu.fall2016.android.utils.BusUtils;
 import net.danlew.android.joda.JodaTimeAndroid;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -33,13 +37,31 @@ public class HackGSUApplication extends Application {
 	private FirebaseAuth                   firebaseAuth;
 	private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
+	public static void delayRunnableOnUI (final long millsToDelay, final Runnable runnableToRun) {
+		new Thread(new Runnable() {
+			public void run () {
+				try {
+					Thread.sleep(millsToDelay);
+				} catch (InterruptedException var2) {
+					;
+				}
+
+				(new Handler(Looper.getMainLooper())).post(runnableToRun);
+			}
+		}).start();
+	}
+
+	public static LocalDateTime getDateTimeOfHackathon (int dayIndex, int hour, int minute) {
+		return getDateTimeOfHackathon().plusDays(dayIndex).withHourOfDay(hour).withMinuteOfHour(minute);
+	}
+
 	@NonNull
 	public static LocalDateTime getDateTimeOfHackathon () {
 		return new LocalDateTime().withDate(2016, 10, 21).withMillisOfSecond(0).withSecondOfMinute(0).withHourOfDay(19);
 	}
 
-	public static LocalDateTime getDateTimeOfHackathon (int dayIndex, int hour, int minute) {
-		return getDateTimeOfHackathon().plusDays(dayIndex).withHourOfDay(hour).withMinuteOfHour(minute);
+	public static DateTimeFormatter getTimeFormatter24OrNot (Context context) {
+		return getTimeFormatter24OrNot(context, new DateTimeFormatterBuilder());
 	}
 
 	public static DateTimeFormatter getTimeFormatter24OrNot (Context context, DateTimeFormatterBuilder dateTimeFormatterBuilder) {
@@ -50,10 +72,6 @@ public class HackGSUApplication extends Application {
 			dateTimeFormatterBuilder.appendHourOfHalfday(1).appendLiteral(":").appendMinuteOfHour(2).appendLiteral(" ").appendPattern("a");
 		}
 		return dateTimeFormatterBuilder.toFormatter();
-	}
-
-	public static DateTimeFormatter getTimeFormatter24OrNot (Context context) {
-		return getTimeFormatter24OrNot(context, new DateTimeFormatterBuilder());
 	}
 
 	@NonNull
@@ -76,48 +94,21 @@ public class HackGSUApplication extends Application {
 																	 .getMillis(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE);
 	}
 
+	public static void toast (final Context context, final String string) {
+		delayRunnableOnUI(0, new Runnable() {
+			@Override
+			public void run () {
+				Toast.makeText(context, string, Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+
 	@Override
 	public void onCreate () {
 		super.onCreate();
 
 		JodaTimeAndroid.init(this);
-		final SharedPreferences firebasePrefs = getSharedPreferences("firebasePrefs", MODE_PRIVATE);
-		firebaseAuth = FirebaseAuth.getInstance();
-
-		firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-			@Override
-			public void onAuthStateChanged (@NonNull FirebaseAuth firebaseAuth) {
-				FirebaseUser user = firebaseAuth.getCurrentUser();
-				if (user != null) {
-					Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-
-					refreshSchedule();
-				}
-				else {
-					Log.d(TAG, "onAuthStateChanged:signed_out");
-				}
-			}
-		};
-
-		firebaseAuth.addAuthStateListener(firebaseAuthListener);
-
-		if (!firebasePrefs.getBoolean("hasAuthed", false)) {
-			firebaseAuth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-				@Override
-				public void onComplete (@NonNull Task<AuthResult> task) {
-					Log.d(TAG, "signInAnonymously:onComplete:" + task.isSuccessful());
-
-					if (!task.isSuccessful()) {
-						Log.w(TAG, "signInAnonymously", task.getException());
-						Toast.makeText(HackGSUApplication.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-					}
-					else { firebasePrefs.edit().putBoolean("hasAuthed", true).apply(); }
-				}
-			});
-		}
-
-		String string = toHumanReadableRelative(getDateTimeOfHackathon());
-		Toast.makeText(this, "Opening Ceremonies " + string.replaceFirst("In", "in"), Toast.LENGTH_LONG).show();
+		connectToFirebaseAndDownloadData();
 	}
 
 	@Override
@@ -129,6 +120,53 @@ public class HackGSUApplication extends Application {
 		}
 	}
 
+	private void connectToFirebaseAndDownloadData () {
+		new Thread(new Runnable() {
+			@Override
+			public void run () {
+
+				final SharedPreferences firebasePrefs = getSharedPreferences("firebasePrefs", MODE_PRIVATE);
+				firebaseAuth = FirebaseAuth.getInstance();
+
+				firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+					@Override
+					public void onAuthStateChanged (@NonNull FirebaseAuth firebaseAuth) {
+						FirebaseUser user = firebaseAuth.getCurrentUser();
+						if (user != null) {
+							Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+
+							refreshSchedule();
+						}
+						else {
+							Log.d(TAG, "onAuthStateChanged:signed_out");
+						}
+					}
+				};
+
+				firebaseAuth.addAuthStateListener(firebaseAuthListener);
+
+				if (!firebasePrefs.getBoolean("hasAuthed", false)) {
+					firebaseAuth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+						@Override
+						public void onComplete (@NonNull Task<AuthResult> task) {
+							Log.d(TAG, "signInAnonymously:onComplete:" + task.isSuccessful());
+
+							if (!task.isSuccessful()) {
+								Log.w(TAG, "signInAnonymously", task.getException());
+								Toast.makeText(HackGSUApplication.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+							}
+							else { firebasePrefs.edit().putBoolean("hasAuthed", true).apply(); }
+						}
+					});
+				}
+
+				String string = toHumanReadableRelative(getDateTimeOfHackathon());
+				string = "Opening Ceremonies " + string.replaceFirst("In", "in");
+				toast(HackGSUApplication.this, string);
+			}
+		}).start();
+	}
+
 	private void refreshSchedule () {
 		DatabaseReference              dbRef          = FirebaseDatabase.getInstance().getReference();
 		final ArrayList<ScheduleEvent> scheduleEvents = new ArrayList<>();
@@ -138,6 +176,8 @@ public class HackGSUApplication extends Application {
 				for (DataSnapshot child : snapshot.getChildren()) {
 					scheduleEvents.add(child.getValue(ScheduleEvent.class));
 				}
+
+				BusUtils.post(new ScheduleUpdatedEvent(scheduleEvents));
 			}
 
 			@Override

@@ -2,6 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+            android:id="@+id/scroll_to_now"
+            android:icon="@drawable/ic_now"
+            android:orderInCategory="100"
+            android:title="@string/scroll_to_now"
+            app:showAsAction="ifRoom"
+            />
+
+    <item
             android:id="@+id/action_mute_notifications"
             android:icon="@drawable/ic_bell"
             android:orderInCategory="100"
