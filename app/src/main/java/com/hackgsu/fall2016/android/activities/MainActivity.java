@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.fragments.*;
 import com.ncapdevi.fragnav.FragNavController;
@@ -23,6 +24,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener, OnTabSelectListener, OnTabReselectListener {
@@ -210,7 +212,17 @@ public class MainActivity extends AppCompatActivity
 		return menuItem;
 	}
 
-	private void showBottomBar () { bottomBar.animate().translationY(0).setDuration(500).start(); }
+	private void showBottomBar () {
+		bottomBar.setVisibility(View.VISIBLE);
+		bottomBar.animate().translationY(0).setDuration(500).start();
+	}
 
-	private void hideBottomBar () { bottomBar.animate().translationY(bottomBar.getHeight()).setDuration(500).start(); }
+	private void hideBottomBar () {
+		bottomBar.animate().translationY(bottomBar.getHeight()).setDuration(500).withEndAction(new TimerTask() {
+			@Override
+			public void run () {
+				bottomBar.setVisibility(View.GONE);
+			}
+		}).start();
+	}
 }

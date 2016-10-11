@@ -90,8 +90,12 @@ public class HackGSUApplication extends Application {
 	}
 
 	public static String toHumanReadableRelative (LocalDateTime timestamp) {
+		return toHumanReadableRelative(timestamp, false);
+	}
+
+	public static String toHumanReadableRelative (LocalDateTime timestamp, boolean seconds) {
 		return (String) DateUtils.getRelativeTimeSpanString(timestamp.toDateTime()
-																	 .getMillis(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE);
+																	 .getMillis(), System.currentTimeMillis(), seconds ? DateUtils.SECOND_IN_MILLIS : DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE);
 	}
 
 	public static void toast (final Context context, final String string) {
