@@ -3,6 +3,7 @@ package com.hackgsu.fall2016.android.fragments;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
 import android.support.v4.app.Fragment;
+import com.hackgsu.fall2016.android.interfaces.BackHandler;
 import com.ncapdevi.fragnav.FragNavController;
 
 import java.lang.annotation.Retention;
@@ -13,7 +14,7 @@ import static com.ncapdevi.fragnav.FragNavController.*;
 /**
  * Created by Joshua King on 9/27/16.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements BackHandler {
 	public abstract
 	@ColorRes
 	int getPrimaryColor ();
@@ -24,6 +25,9 @@ public abstract class BaseFragment extends Fragment {
 	@IntDef ({ TAB1, TAB2, TAB3, TAB4, TAB5 })
 	@Retention (RetentionPolicy.SOURCE)
 	public @interface FragNavControllerTabIndex { }
+
+	@Override
+	public abstract boolean onBackPressed ();
 
 	public void onReselected () {}
 

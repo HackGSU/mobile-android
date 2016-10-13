@@ -55,6 +55,11 @@ public class ScheduleFragment extends BaseFragment {
 		if (scheduleRecyclerView != null) { scheduleRecyclerView.showNowRow(); }
 	}
 
+	@Override
+	public boolean onBackPressed () {
+		return false;
+	}
+
 	@Subscribe
 	public void onEvent (ScheduleUpdatedEvent scheduleUpdatedEvent) { notifyDataSetChanged(); }
 

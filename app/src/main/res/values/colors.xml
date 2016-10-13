@@ -17,6 +17,8 @@
 
     <color name="mentorsPrimary">#009688</color>
     <color name="mentorsPrimaryDark">#00796b</color>
+    <color name="mentorsAccent">#FFC107</color>
+    <color name="mentorsAccentDark">#FF8F00</color>
 
     <color name="sponsorsPrimary">#388e3c</color>
     <color name="sponsorsPrimaryDark">#33691e</color>

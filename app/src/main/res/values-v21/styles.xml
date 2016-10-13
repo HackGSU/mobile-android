@@ -21,4 +21,16 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
+
+    <style name="AppTheme.MentorsScreen">
+        <item name="colorPrimary">@color/mentorsPrimary</item>
+        <item name="colorPrimaryDark">@color/mentorsPrimary</item>
+        <item name="colorAccent">@color/mentorsAccent</item>
+
+        <item name="android:navigationBarColor">@color/mentorsPrimary</item>
+        <!--<item name="android:windowTranslucentNavigation">false</item>-->
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+    </style>
+
 </resources>

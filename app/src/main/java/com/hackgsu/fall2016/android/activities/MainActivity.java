@@ -98,6 +98,10 @@ public class MainActivity extends AppCompatActivity
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START);
 		}
+		else if (lastFragment.onBackPressed()) {
+			//noinspection UnnecessaryReturnStatement
+			return;
+		}
 		else if (lastFragment.equals(lastHomeFragment)) {
 			super.onBackPressed();
 		}

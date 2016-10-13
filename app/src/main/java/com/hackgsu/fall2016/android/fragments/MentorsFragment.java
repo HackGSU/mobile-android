@@ -2,7 +2,7 @@ package com.hackgsu.fall2016.android.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
  */
 public class MentorsFragment extends BaseFragment {
 	private MentorsRequestRecyclerViewAdapter adapter;
+	private RequestMentorFragment             requestMentorFragment;
 	private SwipeRefreshLayout                swipeRefreshLayout;
 
 	public MentorsFragment () {
@@ -50,11 +51,21 @@ public class MentorsFragment extends BaseFragment {
 			}
 		});
 
+		getContext().setTheme(R.style.AppTheme_MentorsScreen);
+		requestMentorFragment = new RequestMentorFragment();
+
 		FloatingActionButton fab = ((FloatingActionButton) view.findViewById(R.id.fab));
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick (View v) {
-				Snackbar.make(v, "Blah blah", Snackbar.LENGTH_LONG).show();
+				getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+					@Override
+					public void onBackStackChanged () {
+						System.out.println("sdfsf");
+					}
+				});
+				requestMentorFragment = new RequestMentorFragment();
+				requestMentorFragment.show(getFragmentManager(), requestMentorFragment.getTag());
 			}
 		});
 
@@ -76,6 +87,11 @@ public class MentorsFragment extends BaseFragment {
 	@Override
 	public String getTitle () {
 		return "Mentors";
+	}
+
+	@Override
+	public boolean onBackPressed () {
+		return requestMentorFragment.onBackPressed();
 	}
 
 	private void updateMentorsData (boolean shouldShowRefreshing) {
