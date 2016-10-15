@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
-		implements NavigationView.OnNavigationItemSelectedListener, OnTabSelectListener, OnTabReselectListener {
+		implements NavigationView.OnNavigationItemSelectedListener, OnTabSelectListener, OnTabReselectListener, AppBarLayout.OnOffsetChangedListener {
 	private AppBarLayout      appbar;
 	private BottomBar         bottomBar;
 	private FragNavController fragNavController;
@@ -89,6 +89,11 @@ public class MainActivity extends AppCompatActivity
 		bottomBar.setOnTabSelectListener(this);
 		bottomBar.setOnTabReselectListener(this);
 		//		drawer.
+	}
+
+	@Override
+	public void onOffsetChanged (AppBarLayout appBarLayout, int verticalOffset) {
+		appBarLayout.setExpanded(false, false);
 	}
 
 	@Override
@@ -162,6 +167,7 @@ public class MainActivity extends AppCompatActivity
 		@ColorRes int color = R.color.colorPrimary;
 
 		setMenuItemVisibility(R.id.scroll_to_now, false);
+		appbar.removeOnOffsetChangedListener(MainActivity.this);
 
 		switch (id) {
 			case R.id.nav_home:
@@ -189,12 +195,16 @@ public class MainActivity extends AppCompatActivity
 				color = R.color.mentorsPrimary;
 				hideBottomBar();
 				navigationView.setCheckedItem(R.id.nav_mentors);
+				appbar.setExpanded(false, false);
+				appbar.addOnOffsetChangedListener(MainActivity.this);
 				break;
 			case R.id.nav_sponsors:
 				fragNavController.switchTab(FragNavController.TAB5);
 				color = R.color.sponsorsPrimary;
 				navigationView.setCheckedItem(R.id.nav_sponsors);
 				hideBottomBar();
+				appbar.setExpanded(false, false);
+				appbar.addOnOffsetChangedListener(MainActivity.this);
 				break;
 			case R.id.nav_code_of_conduct:
 				break;

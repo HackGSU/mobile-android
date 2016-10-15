@@ -1,8 +1,8 @@
 package com.hackgsu.fall2016.android.fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.adapters.MentorsRequestRecyclerViewAdapter;
+import com.hackgsu.fall2016.android.controllers.MentorsController;
 import com.hackgsu.fall2016.android.model.MentorRequest;
+import com.hackgsu.fall2016.android.utils.CallbackWithType;
 import com.hackgsu.fall2016.android.utils.SmoothLinearLayoutManager;
 import com.ncapdevi.fragnav.FragNavController;
 
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 public class MentorsFragment extends BaseFragment {
 	private MentorsRequestRecyclerViewAdapter adapter;
 	private RequestMentorFragment             requestMentorFragment;
+	private View                              rootView;
 	private SwipeRefreshLayout                swipeRefreshLayout;
 
 	public MentorsFragment () {
@@ -35,14 +38,14 @@ public class MentorsFragment extends BaseFragment {
 
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_mentor_request_list, container, false);
+		rootView = inflater.inflate(R.layout.fragment_mentor_request_list, container, false);
 
-		final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.mentor_requests_recyclerview);
+		final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.mentor_requests_recyclerview);
 		recyclerView.setLayoutManager(new SmoothLinearLayoutManager(getContext()));
-		adapter = new MentorsRequestRecyclerViewAdapter();
+		adapter = new MentorsRequestRecyclerViewAdapter(getFragmentManager(), this);
 		recyclerView.setAdapter(adapter);
 
-		swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_to_refresh);
+		swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_to_refresh);
 		swipeRefreshLayout.setColorSchemeResources(R.color.mentorsPrimary, R.color.mentorsPrimaryDark);
 		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
@@ -52,26 +55,25 @@ public class MentorsFragment extends BaseFragment {
 		});
 
 		getContext().setTheme(R.style.AppTheme_MentorsScreen);
-		requestMentorFragment = new RequestMentorFragment();
 
-		FloatingActionButton fab = ((FloatingActionButton) view.findViewById(R.id.fab));
+		FloatingActionButton fab = ((FloatingActionButton) rootView.findViewById(R.id.fab));
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick (View v) {
-				getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-					@Override
-					public void onBackStackChanged () {
-						System.out.println("sdfsf");
-					}
-				});
 				requestMentorFragment = new RequestMentorFragment();
+				requestMentorFragment.setTargetFragment(MentorsFragment.this, 0);
 				requestMentorFragment.show(getFragmentManager(), requestMentorFragment.getTag());
 			}
 		});
 
-		updateMentorsData(true);
+		return rootView;
+	}
 
-		return view;
+	@Override
+	public void onResume () {
+		super.onResume();
+
+		updateMentorsData(true);
 	}
 
 	@Override
@@ -91,21 +93,28 @@ public class MentorsFragment extends BaseFragment {
 
 	@Override
 	public boolean onBackPressed () {
-		return requestMentorFragment.onBackPressed();
+		return requestMentorFragment != null && requestMentorFragment.onBackPressed();
 	}
 
-	private void updateMentorsData (boolean shouldShowRefreshing) {
+	public void updateMentorsData (boolean shouldShowRefreshing) {
 		if (shouldShowRefreshing) { swipeRefreshLayout.setRefreshing(true); }
 
-		final ArrayList<MentorRequest> mentorRequests = new ArrayList<>();
-		mentorRequests.add(new MentorRequest("Our mobile app keeps crashing and won't even give us any error", "I can't get the iOS app to start because iOS is stupid and should just be destroyed."));
-
-		HackGSUApplication.delayRunnableOnUI(1000, new Runnable() {
+		AsyncTask.execute(new Runnable() {
 			@Override
 			public void run () {
-				adapter.setMentorRequests(mentorRequests);
-				adapter.notifyDataSetChanged();
-				swipeRefreshLayout.setRefreshing(false);
+				MentorsController.updateRequestsForThisDevice(getContext(), new CallbackWithType<ArrayList<MentorRequest>>() {
+					@Override
+					public void onComplete (final ArrayList<MentorRequest> mentorRequests) {
+						HackGSUApplication.delayRunnableOnUI(1000, new Runnable() {
+							@Override
+							public void run () {
+								adapter.setMentorRequests(mentorRequests);
+								adapter.notifyDataSetChanged();
+								swipeRefreshLayout.setRefreshing(false);
+							}
+						});
+					}
+				});
 			}
 		});
 	}

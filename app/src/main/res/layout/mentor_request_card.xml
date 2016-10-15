@@ -76,8 +76,10 @@
                     android:id="@+id/description"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
+                    android:ellipsize="end"
+                    android:maxLines="3"
                     android:padding="15dp"
-                    android:text="Request breif desc" />
+                    android:text="Request brief desc" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </FrameLayout>

@@ -73,10 +73,8 @@ public class ScheduleRecyclerView extends RecyclerView {
 			ArrayList<ScheduleEvent> scheduleEvents = DataStore.getScheduleEvents();
 			int                      i;
 			for (i = 0; i < scheduleEvents.size(); i++) {
-				//				if (scheduleEvents.get(i).getTimestamp().toDateTime().isAfter(System.currentTimeMillis())) { return i; }
-				if (scheduleEvents.get(i).getTimestamp().toDateTime().isAfter(HackGSUApplication.getDateTimeOfHackathon(1, 14, 0)
-																								.toDateTime()
-																								.getMillis())) { return i; }
+				if (scheduleEvents.get(i).getTimestamp().toDateTime().isAfter(System.currentTimeMillis())) { return i; }
+				//				if (scheduleEvents.get(i).getTimestamp().toDateTime().isAfter(HackGSUApplication.getDateTimeOfHackathon(1, 14, 0).toDateTime().getMillis())) { return i; }
 			}
 			return i;
 		}

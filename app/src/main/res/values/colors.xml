@@ -4,21 +4,23 @@
     <color name="colorPrimaryDark">#0581BD</color>
     <color name="colorAccent">#FB8C00</color>
 
+    <color name="red">#C8242D</color>
+    <color name="light_red">#EF5350</color>
 
     <color name="announcementsPrimary">@color/colorPrimary</color>
     <color name="announcementsPrimaryDark">@color/colorPrimaryDark</color>
     <color name="announcementsAccent">@color/colorAccent</color>
 
-    <color name="schedulePrimary">#C8242D</color>
+    <color name="schedulePrimary">@color/red</color>
     <color name="schedulePrimaryDark">#AF0B14</color>
 
-    <color name="facilityMapPrimary">#9E9E9E</color>
-    <color name="facilityMapPrimaryDark">#9e9e9e</color>
+    <color name="facilityMapPrimary">#009688</color>
+    <color name="facilityMapPrimaryDark">#00796B</color>
 
-    <color name="mentorsPrimary">#009688</color>
-    <color name="mentorsPrimaryDark">#00796b</color>
-    <color name="mentorsAccent">#FFC107</color>
-    <color name="mentorsAccentDark">#FF8F00</color>
+    <color name="mentorsPrimary">#FF9800</color>
+    <color name="mentorsPrimaryDark">#F57C00</color>
+    <color name="mentorsAccent">#607D8B</color>
+    <color name="mentorsAccentDark">#455A64</color>
 
     <color name="sponsorsPrimary">#388e3c</color>
     <color name="sponsorsPrimaryDark">#33691e</color>

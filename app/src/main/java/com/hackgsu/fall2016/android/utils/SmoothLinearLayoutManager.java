@@ -56,23 +56,24 @@ public class SmoothLinearLayoutManager extends LinearLayoutManager {
 			protected void onStop () {
 				super.onStop();
 
-				final View viewAtPosition   = findViewByPosition(position);
-				int        dyToMakeVisible  = calculateDyToMakeVisible(viewAtPosition, getVerticalSnapPreference());
-				int        timeForScrolling = calculateTimeForScrolling(dyToMakeVisible) + calculateTimeForDeceleration(dyToMakeVisible);
-				System.out.println(timeForScrolling);
-				viewAtPosition.animate()
-							  .setDuration(100)
-							  .scaleX(1.2f)
-							  .scaleY(1.2f)
-							  .alpha(0.5f)
-							  .setStartDelay(timeForScrolling)
-							  .withEndAction(new Runnable() {
-								  @Override
-								  public void run () {
-									  viewAtPosition.animate().setStartDelay(0).setDuration(100).scaleY(1).scaleX(1).alpha(1).start();
-								  }
-							  })
-							  .start();
+				final View viewAtPosition = findViewByPosition(position);
+				if (viewAtPosition != null) {
+					int dyToMakeVisible  = calculateDyToMakeVisible(viewAtPosition, getVerticalSnapPreference());
+					int timeForScrolling = calculateTimeForScrolling(dyToMakeVisible) + calculateTimeForDeceleration(dyToMakeVisible);
+					viewAtPosition.animate()
+								  .setDuration(100)
+								  .scaleX(1.2f)
+								  .scaleY(1.2f)
+								  .alpha(0.5f)
+								  .setStartDelay(timeForScrolling)
+								  .withEndAction(new Runnable() {
+									  @Override
+									  public void run () {
+										  viewAtPosition.animate().setStartDelay(0).setDuration(100).scaleY(1).scaleX(1).alpha(1).start();
+									  }
+								  })
+								  .start();
+				}
 			}
 		};
 
