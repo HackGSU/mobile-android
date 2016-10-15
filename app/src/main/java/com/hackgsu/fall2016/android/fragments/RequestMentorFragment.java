@@ -66,7 +66,6 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 		dialog.setOnKeyListener(new Dialog.OnKeyListener() {
 			@Override
 			public boolean onKey (DialogInterface arg0, int keyCode, KeyEvent event) {
-				// TODO Auto-generated method stub
 				if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
 					if (!onBackPressed()) { getDialog().dismiss(); }
 				}

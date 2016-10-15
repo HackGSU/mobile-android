@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity
 
 	@Override
 	public void onBackPressed () {
-		// TODO: 9/27/16 : Handle the case where when the user is in a fragment other than the three main fragments, instead of closing the app, it will return to home
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START);
