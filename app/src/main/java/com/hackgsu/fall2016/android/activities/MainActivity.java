@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity
 		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 		bottomBar.setOnTabSelectListener(this);
 		bottomBar.setOnTabReselectListener(this);
-		//		drawer.
 	}
 
 	@Override
