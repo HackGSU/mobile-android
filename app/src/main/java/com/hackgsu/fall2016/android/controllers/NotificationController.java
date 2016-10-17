@@ -27,7 +27,7 @@ public class NotificationController {
 	private static PendingIntent createActivityIntent (Context context, Class<?> cls, Bundle extras) {
 		Intent intent = new Intent(context, cls);
 		intent.putExtras(extras);
-		return PendingIntent.getActivity(context, 0, intent, 0);
+		return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 	}
 
 	private static Notification createAnnouncementsHeader (Context context) {

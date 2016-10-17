@@ -26,11 +26,6 @@ public class SmoothLinearLayoutManager extends LinearLayoutManager {
 	}
 
 	@Override
-	public void scrollToPositionWithOffset (int position, int offset) {
-		smoothScrollTo(position);
-	}
-
-	@Override
 	public void smoothScrollToPosition (RecyclerView recyclerView, RecyclerView.State state, final int position) {
 		smoothScrollTo(position);
 	}

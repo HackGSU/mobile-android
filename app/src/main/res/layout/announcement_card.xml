@@ -38,8 +38,8 @@
 
             <TextView
                     android:id="@+id/announcement_title"
-                    android:layout_height="0dp"
-                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
@@ -49,14 +49,22 @@
                     app:layout_constraintLeft_toRightOf="@+id/icon_imageview"
                     app:layout_constraintRight_toLeftOf="@+id/announcement_bookmark_btn"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="title"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="title" />
 
             <TextView
                     android:id="@+id/announcement_subtitle"
                     android:layout_height="0dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
@@ -65,7 +73,9 @@
                     app:layout_constraintLeft_toLeftOf="@+id/announcement_title"
                     app:layout_constraintRight_toLeftOf="@+id/announcement_bookmark_btn"
                     app:layout_constraintTop_toBottomOf="@+id/announcement_title"
-                    android:text="subtitle" />
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    tools:text="subtitle" />
 
 
             <ImageButton
@@ -104,7 +114,7 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:paddingTop="10dp"
-                    android:text="Event breif desc" />
+                    tools:text="Event breif desc" />
 
 
             <android.support.v7.widget.AppCompatButton

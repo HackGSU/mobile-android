@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.fragments.*;
 import com.hackgsu.fall2016.android.model.Announcement;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity
 	private AppBarLayout      appbar;
 	private BottomBar         bottomBar;
 	private FragNavController fragNavController;
+	private boolean           hasScrolled;
 	private BaseFragment      lastFragment;
 	private BaseFragment      lastHomeFragment;
 	private Menu              menu;
@@ -47,8 +49,8 @@ public class MainActivity extends AppCompatActivity
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		DrawerLayout          drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		DrawerLayout                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
 
@@ -80,6 +82,17 @@ public class MainActivity extends AppCompatActivity
 				lastFragment = baseFragment;
 				if (index < 3) { lastHomeFragment = baseFragment; }
 				setTitle(baseFragment.getTitle());
+
+				HackGSUApplication.delayRunnableOnUI(500, new Runnable() {
+					@Override
+					public void run () {
+						if (!hasScrolled && getIntent().hasExtra(HIGHLIGHT_ANNOUNCEMENT) && lastHomeFragment instanceof AnnouncementsFragment) {
+							Announcement announcementToHighlight = (Announcement) getIntent().getSerializableExtra(HIGHLIGHT_ANNOUNCEMENT);
+							((AnnouncementsFragment) lastHomeFragment).highlightAnnouncement(announcementToHighlight);
+							hasScrolled = true;
+						}
+					}
+				});
 			}
 
 			@Override
@@ -91,11 +104,6 @@ public class MainActivity extends AppCompatActivity
 		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 		bottomBar.setOnTabSelectListener(this);
 		bottomBar.setOnTabReselectListener(this);
-
-		if (getIntent().hasExtra(HIGHLIGHT_ANNOUNCEMENT) && lastHomeFragment instanceof AnnouncementsFragment) {
-			Announcement announcementToHighlight = (Announcement) getIntent().getSerializableExtra(HIGHLIGHT_ANNOUNCEMENT);
-			((AnnouncementsFragment) lastHomeFragment).highlightAnnouncement(announcementToHighlight);
-		}
 	}
 
 	@Override

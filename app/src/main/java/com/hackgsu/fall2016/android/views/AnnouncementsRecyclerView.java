@@ -94,6 +94,7 @@ public class AnnouncementsRecyclerView extends ThemedEmptyStateRecyclerView {
 			DateTimeFormatter        dateTimeFormatter        = HackGSUApplication.getTimeFormatter24OrNot(getContext(), dateTimeFormatterBuilder);
 
 			title.setText(announcement.getTitle());
+			title.setSelected(true);
 			description.setText(announcement.getBodyText());
 			subtitle.setTypeface(Typeface.MONOSPACE);
 			subtitle.setText(String.format("%s | %s", timeTillString, announcement.getTimestampDateTime().toString(dateTimeFormatter)));
@@ -156,12 +157,10 @@ public class AnnouncementsRecyclerView extends ThemedEmptyStateRecyclerView {
 	@Override
 	protected void init (AttributeSet attrs, int defStyle) {
 		super.init(attrs, defStyle);
-		layoutManager = new SmoothLinearLayoutManager(getContext());
-		adapter = new AnnouncementEventAdapter();
 
 		setClipToPadding(false);
-		setLayoutManager(layoutManager);
-		setAdapter(adapter);
+		setLayoutManager(layoutManager = new SmoothLinearLayoutManager(getContext()));
+		setAdapter(adapter = new AnnouncementEventAdapter());
 	}
 
 	public boolean shouldShowOnlyBookmarked () {

@@ -98,7 +98,9 @@ public class Announcement implements Serializable, Comparable<Announcement> {
 	public void setTopic (String topic) {
 		try {
 			this.topic = Topic.valueOf(topic);
-		} catch (IllegalArgumentException ignored) {}
+		} catch (IllegalArgumentException ignored) {
+			this.topic = Topic.GENERAL;
+		}
 	}
 
 	@Exclude

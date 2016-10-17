@@ -11,6 +11,7 @@ import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.events.AnnouncementsUpdatedEvent;
 import com.hackgsu.fall2016.android.model.Announcement;
 import com.hackgsu.fall2016.android.utils.BusUtils;
+import com.hackgsu.fall2016.android.utils.SmoothLinearLayoutManager;
 import com.hackgsu.fall2016.android.views.AnnouncementsRecyclerView;
 import com.ncapdevi.fragnav.FragNavController;
 import org.greenrobot.eventbus.Subscribe;
@@ -86,7 +87,10 @@ public class AnnouncementsFragment extends BaseFragment {
 			if (announcements.get(i).getFirebaseKey().equals(announcementToHighlight.getFirebaseKey())) { index = i; }
 		}
 
-		if (index >= 0) { announcementRecyclerView.getLayoutManager().scrollToPosition(index); }
+		if (index >= 0) {
+			SmoothLinearLayoutManager smoothLinearLayoutManager = announcementRecyclerView.getLayoutManager();
+			if (smoothLinearLayoutManager != null) { smoothLinearLayoutManager.scrollToPosition(index); }
+		}
 	}
 
 	private void notifyDataSetChanged () {
