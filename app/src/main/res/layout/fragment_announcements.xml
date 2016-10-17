@@ -1,12 +1,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_height="match_parent"
              android:layout_width="match_parent"
              tools:context="com.hackgsu.fall2016.android.fragments.AnnouncementsFragment">
 
-    <TextView
+    <com.hackgsu.fall2016.android.views.AnnouncementsRecyclerView
+            android:id="@+id/announcementRecyclerView"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:text="This is the announcements fragment" />
+            android:paddingBottom="60dp"
+            android:paddingTop="10dp"
+            app:colorTheme="@color/announcementsPrimary"
+            app:emptyStateDrawable="@drawable/no_announcements"
+            tools:listitem="@layout/announcement_card" />
 
 </FrameLayout>

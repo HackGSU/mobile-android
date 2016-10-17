@@ -10,12 +10,12 @@ import java.io.Serializable;
  * Created by Joshua King on 10/10/16.
  */
 public class MentorRequest implements Serializable {
+	private String               category;
 	private String               description;
 	private String               firebaseKey;
 	private String               floor;
 	private String               location;
 	private String               mentor;
-	private String               platform;
 	private String               slackUsername;
 	private MentorRequest.Status status;
 	private String               teamName;
@@ -27,8 +27,7 @@ public class MentorRequest implements Serializable {
 	public MentorRequest (String title,
 						  String teamName,
 						  String floor,
-						  String location,
-						  String platform,
+						  String location, String category,
 						  String slackUsername,
 						  String description,
 						  Status status) {
@@ -36,7 +35,7 @@ public class MentorRequest implements Serializable {
 		this.teamName = teamName;
 		this.floor = floor;
 		this.location = location;
-		this.platform = platform;
+		this.category = category;
 		this.slackUsername = slackUsername;
 		this.description = description;
 		this.status = status;
@@ -44,8 +43,8 @@ public class MentorRequest implements Serializable {
 		setTimestampToNow();
 	}
 
-	public MentorRequest (String title, String teamName, String floor, String location, String platform, String slackUsername, String description) {
-		this(title, teamName, floor, location, platform, slackUsername, description, Status.Pending);
+	public MentorRequest (String title, String teamName, String floor, String location, String category, String slackUsername, String description) {
+		this(title, teamName, floor, location, category, slackUsername, description, Status.Pending);
 	}
 
 	public enum Status {
@@ -99,8 +98,8 @@ public class MentorRequest implements Serializable {
 		this.location = location;
 	}
 
-	public void setPlatform (String platform) {
-		this.platform = platform;
+	public void setCategory (String category) {
+		this.category = category;
 	}
 
 	public void setSlackUsername (String slackUsername) {
@@ -123,8 +122,8 @@ public class MentorRequest implements Serializable {
 		return mentor;
 	}
 
-	public String getPlatform () {
-		return platform;
+	public String getCategory () {
+		return category;
 	}
 
 	public String getSlackUsername () {

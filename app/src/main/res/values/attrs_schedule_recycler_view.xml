@@ -1,6 +1,8 @@
 <resources>
-    <declare-styleable name="ScheduleRecyclerView">
+    <declare-styleable name="ThemedEmptyStateRecyclerView">
         <attr format="color"
               name="colorTheme" />
+        <attr format="reference"
+              name="emptyStateDrawable" />
     </declare-styleable>
 </resources>

@@ -2,7 +2,6 @@ package com.hackgsu.fall2016.android.views;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -22,9 +21,8 @@ import java.util.ArrayList;
 import static com.hackgsu.fall2016.android.views.ScheduleRecyclerView.ScheduleEventViewHolder.NOW_VIEW_TYPE;
 import static com.hackgsu.fall2016.android.views.ScheduleRecyclerView.ScheduleEventViewHolder.STANDARD_VIEW_TYPE;
 
-public class ScheduleRecyclerView extends RecyclerView {
+public class ScheduleRecyclerView extends ThemedEmptyStateRecyclerView {
 	private ScheduleEventAdapter      adapter;
-	private int                       colorTheme;
 	private SmoothLinearLayoutManager layoutManager;
 
 	public ScheduleRecyclerView (Context context) {
@@ -74,7 +72,6 @@ public class ScheduleRecyclerView extends RecyclerView {
 			int                      i;
 			for (i = 0; i < scheduleEvents.size(); i++) {
 				if (scheduleEvents.get(i).getTimestamp().toDateTime().isAfter(System.currentTimeMillis())) { return i; }
-				//				if (scheduleEvents.get(i).getTimestamp().toDateTime().isAfter(HackGSUApplication.getDateTimeOfHackathon(1, 14, 0).toDateTime().getMillis())) { return i; }
 			}
 			return i;
 		}
@@ -100,12 +97,12 @@ public class ScheduleRecyclerView extends RecyclerView {
 				openBtn = (AppCompatButton) itemView.findViewById(R.id.event_open_btn);
 				shareBtn = (AppCompatButton) itemView.findViewById(R.id.event_share_btn);
 
-				openBtn.setTextColor(colorTheme);
+				openBtn.setTextColor(getColorTheme());
 			}
 			else if (viewType == NOW_VIEW_TYPE) {
-				itemView.findViewById(R.id.bar_left).setBackgroundColor(colorTheme);
-				itemView.findViewById(R.id.bar_right).setBackgroundColor(colorTheme);
-				((TextView) itemView.findViewById(R.id.now_label)).setTextColor(colorTheme);
+				itemView.findViewById(R.id.bar_left).setBackgroundColor(getColorTheme());
+				itemView.findViewById(R.id.bar_right).setBackgroundColor(getColorTheme());
+				((TextView) itemView.findViewById(R.id.now_label)).setTextColor(getColorTheme());
 			}
 		}
 
@@ -156,20 +153,9 @@ public class ScheduleRecyclerView extends RecyclerView {
 		return layoutManager;
 	}
 
-	public void showNowRow () {
-		HackGSUApplication.delayRunnableOnUI(250, new Runnable() {
-			@Override
-			public void run () {
-				layoutManager.smoothScrollToPosition(ScheduleRecyclerView.this, null, adapter.getIndexOfNowRow());
-			}
-		});
-	}
-
-	private void init (AttributeSet attrs, int defStyle) {
-		final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.ScheduleRecyclerView, defStyle, 0);
-		//noinspection deprecation
-		colorTheme = a.getColor(R.styleable.ScheduleRecyclerView_colorTheme, getResources().getColor(android.R.color.black));
-		a.recycle();
+	@Override
+	protected void init (AttributeSet attrs, int defStyle) {
+		super.init(attrs, defStyle);
 
 		layoutManager = new SmoothLinearLayoutManager(getContext());
 		adapter = new ScheduleEventAdapter();
@@ -177,5 +163,14 @@ public class ScheduleRecyclerView extends RecyclerView {
 		setClipToPadding(false);
 		setLayoutManager(layoutManager);
 		setAdapter(adapter);
+	}
+
+	public void showNowRow () {
+		HackGSUApplication.delayRunnableOnUI(250, new Runnable() {
+			@Override
+			public void run () {
+				layoutManager.smoothScrollToPosition(ScheduleRecyclerView.this, null, adapter.getIndexOfNowRow());
+			}
+		});
 	}
 }

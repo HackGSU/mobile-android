@@ -13,13 +13,24 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/mentor_requests_recyclerview"
+        <FrameLayout
                 android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:paddingBottom="60dp"
-                android:paddingTop="10dp"
-                tools:listitem="@layout/mentor_request_card" />
+                android:layout_width="match_parent">
+
+            <ImageView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:padding="50dp"
+                    android:src="@drawable/paw_scratch_grayscale" />
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mentor_requests_recyclerview"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:paddingBottom="60dp"
+                    android:paddingTop="10dp"
+                    tools:listitem="@layout/mentor_request_card" />
+        </FrameLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.fragments.*;
+import com.hackgsu.fall2016.android.model.Announcement;
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -28,6 +29,8 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener, OnTabSelectListener, OnTabReselectListener, AppBarLayout.OnOffsetChangedListener {
+	public static final String HIGHLIGHT_ANNOUNCEMENT = "highlight_announcement";
+	private boolean           announcementsFilteredByBookmarked;
 	private AppBarLayout      appbar;
 	private BottomBar         bottomBar;
 	private FragNavController fragNavController;
@@ -88,6 +91,11 @@ public class MainActivity extends AppCompatActivity
 		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 		bottomBar.setOnTabSelectListener(this);
 		bottomBar.setOnTabReselectListener(this);
+
+		if (getIntent().hasExtra(HIGHLIGHT_ANNOUNCEMENT) && lastHomeFragment instanceof AnnouncementsFragment) {
+			Announcement announcementToHighlight = (Announcement) getIntent().getSerializableExtra(HIGHLIGHT_ANNOUNCEMENT);
+			((AnnouncementsFragment) lastHomeFragment).highlightAnnouncement(announcementToHighlight);
+		}
 	}
 
 	@Override
@@ -118,6 +126,7 @@ public class MainActivity extends AppCompatActivity
 		getMenuInflater().inflate(R.menu.menu_main, menu);
 		this.menu = menu;
 		setMenuItemVisibility(R.id.scroll_to_now, false);
+		setMenuItemVisibility(R.id.filter_bookmarked_announcements, true);
 		return true;
 	}
 
@@ -129,6 +138,13 @@ public class MainActivity extends AppCompatActivity
 		if (id == R.id.action_mute_notifications) { return true; }
 		else if (id == R.id.scroll_to_now) {
 			if (lastFragment instanceof ScheduleFragment) { ((ScheduleFragment) lastFragment).getScheduleRecyclerView().showNowRow(); }
+		}
+		else if (id == R.id.filter_bookmarked_announcements) {
+			announcementsFilteredByBookmarked = !announcementsFilteredByBookmarked;
+			item.setIcon(announcementsFilteredByBookmarked ? R.drawable.ic_bookmarked_items : R.drawable.ic_bookmarked_items_off);
+			if (lastFragment instanceof AnnouncementsFragment) {
+				((AnnouncementsFragment) lastFragment).setShowOnlyBookmarked(announcementsFilteredByBookmarked);
+			}
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -165,6 +181,7 @@ public class MainActivity extends AppCompatActivity
 		@ColorRes int color = R.color.colorPrimary;
 
 		setMenuItemVisibility(R.id.scroll_to_now, false);
+		setMenuItemVisibility(R.id.filter_bookmarked_announcements, false);
 		appbar.removeOnOffsetChangedListener(MainActivity.this);
 
 		switch (id) {
@@ -178,6 +195,9 @@ public class MainActivity extends AppCompatActivity
 			case R.id.tab_announcements:
 				fragNavController.switchTab(FragNavController.TAB1);
 				color = R.color.announcementsPrimary;
+				MenuItem menuItem = setMenuItemVisibility(R.id.filter_bookmarked_announcements, true);
+				if (menuItem != null) { menuItem.setIcon(R.drawable.ic_bookmarked_items_off); }
+				announcementsFilteredByBookmarked = false;
 				break;
 			case R.id.tab_schedule:
 				fragNavController.switchTab(FragNavController.TAB2);

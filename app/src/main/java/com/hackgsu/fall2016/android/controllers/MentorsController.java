@@ -24,6 +24,7 @@ public class MentorsController {
 
 	public static Mentor getMentor (String mentorId) {
 		return new Mentor("Mr Mentor");
+		// TODO: 10/15/16 : CREATE MENTOR REPO
 	}
 
 	public static void sendRequest (MentorRequest mentorRequest, final Context context, final CallbackWithType<DatabaseError> callback) {
@@ -43,6 +44,7 @@ public class MentorsController {
 					SharedPreferences prefs              = HackGSUApplication.getPrefs(context);
 					final Set<String> myMentorRequestIds = prefs.getStringSet(MENTOR_REQUESTS_KEY, new HashSet<String>());
 					myMentorRequestIds.add(databaseReference.getKey());
+					prefs.edit().remove(MENTOR_REQUESTS_KEY).commit();
 					prefs.edit().putStringSet(MENTOR_REQUESTS_KEY, myMentorRequestIds).commit();
 
 					callback.onComplete(databaseError);

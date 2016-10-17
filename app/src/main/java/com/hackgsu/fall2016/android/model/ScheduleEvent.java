@@ -8,7 +8,7 @@ import org.joda.time.format.DateTimeFormatter;
 /**
  * Created by Joshua King on 9/27/16.
  */
-public class ScheduleEvent {
+public class ScheduleEvent implements Comparable<ScheduleEvent> {
 	private String description;
 	private long   timestamp;
 	private String title;
@@ -21,6 +21,11 @@ public class ScheduleEvent {
 		this.title = title;
 		this.description = description;
 		this.timestamp = timestamp;
+	}
+
+	@Override
+	public int compareTo (ScheduleEvent other) {
+		return other == null || other.getTimestamp().isBefore(getTimestamp()) ? 1 : -1;
 	}
 
 	public String getDescription () {

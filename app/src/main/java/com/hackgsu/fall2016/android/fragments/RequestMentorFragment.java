@@ -111,7 +111,7 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 		final TextInputEditText    teamNameEditText      = (TextInputEditText) contentView.findViewById(R.id.team_name);
 		final Spinner              floorSpinner          = (Spinner) contentView.findViewById(R.id.floor_spinner);
 		final TextInputEditText    locationEditText      = (TextInputEditText) contentView.findViewById(R.id.location);
-		final TextInputEditText    platformEditText      = (TextInputEditText) contentView.findViewById(R.id.platform);
+		final TextInputEditText    platformEditText      = (TextInputEditText) contentView.findViewById(R.id.category);
 		final TextInputEditText    slackUsernameEditText = (TextInputEditText) contentView.findViewById(R.id.slack_username);
 		final TextInputEditText    descriptionEditText   = (TextInputEditText) contentView.findViewById(R.id.description);
 		final FloatingActionButton fab                   = (FloatingActionButton) contentView.findViewById(R.id.fab);
@@ -177,7 +177,7 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 				teamNameEditText.setText(mentorRequest.getTeamName());
 				floorSpinner.setSelection(floorIndex);
 				locationEditText.setText(mentorRequest.getLocation());
-				platformEditText.setText(mentorRequest.getPlatform());
+				platformEditText.setText(mentorRequest.getCategory());
 				slackUsernameEditText.setText(mentorRequest.getSlackUsername());
 				descriptionEditText.setText(mentorRequest.getDescription());
 			}
@@ -221,7 +221,7 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 						mentorRequest.setTeamName(teamName);
 						mentorRequest.setFloor(floor);
 						mentorRequest.setLocation(location);
-						mentorRequest.setPlatform(platform);
+						mentorRequest.setCategory(platform);
 						mentorRequest.setSlackUsername(slackUsername);
 						mentorRequest.setDescription(description);
 					}

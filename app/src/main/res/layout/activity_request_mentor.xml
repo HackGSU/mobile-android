@@ -6,6 +6,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:fitsSystemWindows="true"
+        style="@style/AppTheme.MentorsScreen"
         tools:context="com.hackgsu.fall2016.android.activities.RequestMentorActivity">
 
     <include
@@ -20,7 +21,7 @@
             app:layout_anchor="@+id/app_bar"
             app:layout_anchorGravity="bottom|right"
             android:src="@drawable/ic_send"
-            app:fabSize="mini" />
+            android:tint="@color/transparent_black" />
 
     <!--<View-->
     <!--android:layout_height="50dp"-->

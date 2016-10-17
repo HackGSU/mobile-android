@@ -54,7 +54,7 @@ public class MentorsFragment extends BaseFragment {
 			}
 		});
 
-		getContext().setTheme(R.style.AppTheme_MentorsScreen);
+		//		getContext().setTheme(R.style.AppTheme_MentorsScreen);
 
 		FloatingActionButton fab = ((FloatingActionButton) rootView.findViewById(R.id.fab));
 		fab.setOnClickListener(new View.OnClickListener() {
