@@ -142,9 +142,7 @@ public class MainActivity extends AppCompatActivity
 	public boolean onOptionsItemSelected (MenuItem item) {
 		int id = item.getItemId();
 
-		// TODO: 9/27/16 : Toggle icon and actually mute notifications
-		if (id == R.id.action_mute_notifications) { return true; }
-		else if (id == R.id.scroll_to_now) {
+		if (id == R.id.scroll_to_now) {
 			if (lastFragment instanceof ScheduleFragment) { ((ScheduleFragment) lastFragment).getScheduleRecyclerView().showNowRow(); }
 		}
 		else if (id == R.id.filter_bookmarked_announcements) {

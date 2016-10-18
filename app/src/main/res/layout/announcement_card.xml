@@ -114,7 +114,7 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:paddingTop="10dp"
-                    tools:text="Event breif desc" />
+                    tools:text="Event brief desc" />
 
 
             <android.support.v7.widget.AppCompatButton

@@ -33,4 +33,14 @@
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
     </style>
 
+    <style name="AppTheme.AnnouncementsScreen">
+        <item name="colorPrimary">@color/announcementsPrimary</item>
+        <item name="colorPrimaryDark">@color/announcementsPrimaryDark</item>
+        <item name="colorAccent">@color/announcementsAccent</item>
+
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
 </resources>

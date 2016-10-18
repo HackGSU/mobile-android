@@ -25,7 +25,7 @@ public class AnnouncementController {
 	public static final String ANNOUNCEMENTS_NOTIFIED_KEY   = "announcements_notified";
 	public static final String ANNOUNCEMENTS_TABLE          = "announcements";
 
-	public static void sendOrUpdateAnnouncement (Announcement announcement, final CallbackWithType<DatabaseError> callback) {
+	public static void sendOrUpdateAnnouncement (Announcement announcement, final CallbackWithType<Void> callback) {
 		FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 		if (currentUser != null) {
 			DatabaseReference dbRef           = FirebaseDatabase.getInstance().getReference();
@@ -39,7 +39,10 @@ public class AnnouncementController {
 				@SuppressLint ("CommitPrefEdits")
 				@Override
 				public void onComplete (DatabaseError databaseError, DatabaseReference databaseReference) {
-					if (callback != null) { callback.onComplete(databaseError); }
+					if (callback != null) {
+						if (databaseError == null) { callback.onComplete(null); }
+						else { callback.onError(); }
+					}
 				}
 			});
 		}

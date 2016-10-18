@@ -28,4 +28,5 @@
     <color name="schedule_card_gray">#22000000</color>
     <color name="dark_window_bkg">#303030</color>
     <color name="transparent_white">#11FFFFFF</color>
+    <color name="transparent_white_x2">#33FFFFFF</color>
 </resources>

@@ -33,6 +33,7 @@ public class DataStore {
 	}
 
 	public static void setAnnouncements (Context context, ArrayList<Announcement> announcements) {
+		Collections.sort(announcements);
 		AnnouncementController.setIsBookmarkedByMeBasedOnPrefs(context, announcements);
 		AnnouncementController.setIsLikedByMeBasedOnPrefs(context, announcements);
 		DataStore.announcements = announcements;

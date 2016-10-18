@@ -21,6 +21,7 @@ import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.controllers.AnnouncementController;
 import com.hackgsu.fall2016.android.model.Announcement;
 import com.hackgsu.fall2016.android.utils.SmoothLinearLayoutManager;
+import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
@@ -44,6 +45,13 @@ public class AnnouncementsRecyclerView extends ThemedEmptyStateRecyclerView {
 	public AnnouncementsRecyclerView (Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init(attrs, defStyle);
+	}
+
+	public static String getTimestampString (Context context, LocalDateTime dateTime) {
+		String                   timeTillString           = HackGSUApplication.toHumanReadableRelative(dateTime);
+		DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder().appendDayOfWeekText().appendLiteral(" - ");
+		DateTimeFormatter        dateTimeFormatter        = HackGSUApplication.getTimeFormatter24OrNot(context, dateTimeFormatterBuilder);
+		return String.format("%s | %s", timeTillString, dateTime.toString(dateTimeFormatter));
 	}
 
 	public class AnnouncementEventAdapter extends Adapter<AnnouncementsEventViewHolder> {
@@ -88,16 +96,11 @@ public class AnnouncementsRecyclerView extends ThemedEmptyStateRecyclerView {
 		}
 
 		public void loadAnnouncement (final Announcement announcement) {
-			String timeTillString = HackGSUApplication.toHumanReadableRelative(announcement.getTimestampDateTime());
-
-			DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder().appendDayOfWeekText().appendLiteral(" - ");
-			DateTimeFormatter        dateTimeFormatter        = HackGSUApplication.getTimeFormatter24OrNot(getContext(), dateTimeFormatterBuilder);
-
 			title.setText(announcement.getTitle());
 			title.setSelected(true);
 			description.setText(announcement.getBodyText());
 			subtitle.setTypeface(Typeface.MONOSPACE);
-			subtitle.setText(String.format("%s | %s", timeTillString, announcement.getTimestampDateTime().toString(dateTimeFormatter)));
+			subtitle.setText(getTimestampString(getContext(), announcement.getTimestampDateTime()));
 
 			Drawable circleBackground = DrawableCompat.wrap(ContextCompat.getDrawable(getContext(), R.drawable.circle));
 			DrawableCompat.setTint(circleBackground, getColorTheme());

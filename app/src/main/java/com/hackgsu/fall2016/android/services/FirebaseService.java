@@ -43,7 +43,7 @@ public class FirebaseService extends Service {
 					Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
 					HackGSUApplication.refreshSchedule();
-					HackGSUApplication.getAnnouncements(getApplicationContext());
+					HackGSUApplication.refreshAnnouncements(getApplicationContext());
 
 					DatabaseReference dbRef            = FirebaseDatabase.getInstance().getReference();
 					DatabaseReference announcementsRef = dbRef.child("announcements").getRef();

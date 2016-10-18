@@ -44,6 +44,11 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <activity
+                android:label="@string/title_activity_send_new_announcement"
+                android:name=".activities.PostNewAnnouncementActivity"
+                android:theme="@style/AppTheme.AnnouncementsScreen">
+        </activity>
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
@@ -43,6 +44,10 @@ public class HackGSUApplication extends Application {
 		return announcement;
 	}
 
+	public static float convertDpToPx (float dp, Context context) {
+		return dp * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+	}
+
 	public static void delayRunnableOnUI (final long millsToDelay, final Runnable runnableToRun) {
 		new Thread(new Runnable() {
 			public void run () {
@@ -55,19 +60,6 @@ public class HackGSUApplication extends Application {
 				(new Handler(Looper.getMainLooper())).post(runnableToRun);
 			}
 		}).start();
-	}
-
-	public static void getAnnouncements (final Context context) {
-		DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-		dbRef.child("announcements").getRef().addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange (DataSnapshot snapshot) {
-				parseDataSnapshotForAnnouncements(context, snapshot);
-			}
-
-			@Override
-			public void onCancelled (DatabaseError databaseError) { }
-		});
 	}
 
 	public static LocalDateTime getDateTimeOfHackathon (int dayIndex, int hour, int minute) {
@@ -135,6 +127,19 @@ public class HackGSUApplication extends Application {
 		BusUtils.post(new AnnouncementsUpdatedEvent(announcements));
 	}
 
+	public static void refreshAnnouncements (final Context context) {
+		DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+		dbRef.child("announcements").getRef().addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange (DataSnapshot snapshot) {
+				parseDataSnapshotForAnnouncements(context, snapshot);
+			}
+
+			@Override
+			public void onCancelled (DatabaseError databaseError) { }
+		});
+	}
+
 	public static void refreshSchedule () {
 		DatabaseReference              dbRef          = FirebaseDatabase.getInstance().getReference();
 		final ArrayList<ScheduleEvent> scheduleEvents = new ArrayList<>();
@@ -200,7 +205,7 @@ public class HackGSUApplication extends Application {
 
 				String string = toHumanReadableRelative(getDateTimeOfHackathon());
 				string = "Opening Ceremonies " + string.replaceFirst("In", "in");
-				toast(HackGSUApplication.this, string);
+				//				toast(HackGSUApplication.this, string);
 			}
 		});
 	}

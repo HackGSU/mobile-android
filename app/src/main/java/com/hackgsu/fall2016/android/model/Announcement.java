@@ -23,6 +23,16 @@ public class Announcement implements Serializable, Comparable<Announcement> {
 	private String  title;
 	private Topic   topic;
 
+	public Announcement (String title, String bodyText, Topic topic) {
+		this.title = title;
+		this.bodyText = bodyText;
+		this.topic = topic;
+
+		setTimestamp(System.currentTimeMillis());
+	}
+
+	public Announcement () { }
+
 	public enum Topic {
 		GENERAL(R.drawable.ic_announcements), TECH(R.drawable.ic_devices), FOOD(R.drawable.ic_food);
 		private
@@ -41,7 +51,7 @@ public class Announcement implements Serializable, Comparable<Announcement> {
 
 	@Override
 	public int compareTo (Announcement other) {
-		return other == null || other.getTimestampDateTime().isBefore(getTimestampDateTime()) ? 1 : -1;
+		return other == null || other.getTimestampDateTime().isBefore(getTimestampDateTime()) ? -1 : 1;
 	}
 
 	@Exclude
