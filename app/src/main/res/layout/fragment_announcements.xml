@@ -40,6 +40,5 @@
             app:layout_behavior="com.hackgsu.fall2016.android.views.SlideUpBehavior"
             android:src="@drawable/ic_add"
             android:tint="@android:color/white"
-            app:rippleColor="@color/announcementsPrimaryDark"
             app:useCompatPadding="true" />
 </android.support.design.widget.CoordinatorLayout>

@@ -1,6 +1,8 @@
 package com.hackgsu.fall2016.android.activities;
 
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,11 +12,14 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -30,7 +35,12 @@ import org.joda.time.LocalDateTime;
 
 public class PostNewAnnouncementActivity extends AppCompatActivity {
 	Announcement.Topic[] topics = new Announcement.Topic[] { Announcement.Topic.GENERAL, Announcement.Topic.FOOD, Announcement.Topic.TECH };
-	private boolean isPosting;
+	private boolean           isPosting;
+	private NestedScrollView  nestedScrollView;
+	private TextInputEditText newAnnouncementBody;
+	private TextInputEditText newAnnouncementTitle;
+	private SeekBar           newAnnouncementTypeSeekbar;
+	private ProgressBar       progressBar;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -39,10 +49,11 @@ public class PostNewAnnouncementActivity extends AppCompatActivity {
 		final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		final TextInputEditText newAnnouncementTitle       = (TextInputEditText) findViewById(R.id.new_announcement_title);
-		final TextInputEditText newAnnouncementBody        = (TextInputEditText) findViewById(R.id.new_announcement_body);
-		final SeekBar           newAnnouncementTypeSeekbar = (SeekBar) findViewById(R.id.new_announcement_type_seekbar);
-		final ProgressBar       progressBar                = (ProgressBar) findViewById(R.id.progress_bar);
+		nestedScrollView = (NestedScrollView) findViewById(R.id.nested_scroll_view);
+		newAnnouncementTitle = (TextInputEditText) findViewById(R.id.new_announcement_title);
+		newAnnouncementBody = (TextInputEditText) findViewById(R.id.new_announcement_body);
+		newAnnouncementTypeSeekbar = (SeekBar) findViewById(R.id.new_announcement_type_seekbar);
+		progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
 		final TextView             announcementPreviewTitle         = (TextView) findViewById(R.id.announcement_title);
 		TextView                   announcementPreviewSubtitle      = (TextView) findViewById(R.id.announcement_subtitle);
@@ -117,50 +128,90 @@ public class PostNewAnnouncementActivity extends AppCompatActivity {
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick (final View view) {
-				String newAnnouncementTitleText = String.valueOf(newAnnouncementTitle.getText());
-				String newAnnouncementBodyText  = String.valueOf(newAnnouncementBody.getText());
-				if (HackGSUApplication.isNullOrEmpty(newAnnouncementTitleText)) {
-					setErrorOnEditText(newAnnouncementTitle, "Please provide a title");
-				}
-				else if (HackGSUApplication.isNullOrEmpty(newAnnouncementBodyText)) {
-					setErrorOnEditText(newAnnouncementBody, "Please provide an announcement body");
-				}
-				else if (!isPosting) {
-					isPosting = true;
-					progressBar.setVisibility(View.VISIBLE);
-					Snackbar.make(view, "Posting...", Snackbar.LENGTH_INDEFINITE).show();
-
-					newAnnouncementTitle.setEnabled(false);
-					newAnnouncementBody.setEnabled(false);
-					newAnnouncementTypeSeekbar.setEnabled(false);
-
-					Announcement announcement = new Announcement(newAnnouncementTitleText, newAnnouncementBodyText, topics[newAnnouncementTypeSeekbar.getProgress()]);
-					AnnouncementController.sendOrUpdateAnnouncement(announcement, new CallbackWithType<Void>() {
-						@Override
-						public void onComplete (Void aVoid) {
-							HackGSUApplication.refreshAnnouncements(getApplicationContext());
-							PostNewAnnouncementActivity.this.finish();
-						}
-
-						@Override
-						public void onError () {
-							newAnnouncementTitle.setEnabled(true);
-							newAnnouncementBody.setEnabled(true);
-							newAnnouncementTypeSeekbar.setEnabled(true);
-
-							Snackbar.make(view, "An error occurred... Sorry.", Snackbar.LENGTH_LONG).show();
-						}
-					});
-				}
+				confirmPostAnnouncement();
 			}
 		});
+	}
+
+	@Override
+	protected void onResume () {
+		super.onResume();
+
+		Display display = getWindowManager().getDefaultDisplay();
+		Point   size    = new Point();
+		display.getSize(size);
+		int height = size.y;
+
+		nestedScrollView.setMinimumHeight(height);
+	}
+
+	public void postAnnouncement () {
+		String newAnnouncementTitleText = String.valueOf(newAnnouncementTitle.getText());
+		String newAnnouncementBodyText  = String.valueOf(newAnnouncementBody.getText());
+
+		if (!isPosting) {
+			isPosting = true;
+			progressBar.setVisibility(View.VISIBLE);
+			Snackbar.make(newAnnouncementTitle, "Posting...", Snackbar.LENGTH_INDEFINITE).show();
+
+			newAnnouncementTitle.setEnabled(false);
+			newAnnouncementBody.setEnabled(false);
+			newAnnouncementTypeSeekbar.setEnabled(false);
+
+			Announcement announcement = new Announcement(newAnnouncementTitleText, newAnnouncementBodyText, topics[newAnnouncementTypeSeekbar.getProgress()]);
+			AnnouncementController.sendOrUpdateAnnouncement(announcement, new CallbackWithType<Void>() {
+				@Override
+				public void onComplete (Void aVoid) {
+					HackGSUApplication.refreshAnnouncements(getApplicationContext());
+					PostNewAnnouncementActivity.this.finish();
+				}
+
+				@Override
+				public void onError () {
+					newAnnouncementTitle.setEnabled(true);
+					newAnnouncementBody.setEnabled(true);
+					newAnnouncementTypeSeekbar.setEnabled(true);
+
+					Snackbar.make(newAnnouncementTitle, "An error occurred... Sorry.", Snackbar.LENGTH_LONG).show();
+				}
+			});
+		}
+	}
+
+	private void confirmPostAnnouncement () {
+		final String newAnnouncementTitleText = String.valueOf(newAnnouncementTitle.getText());
+		final String newAnnouncementBodyText  = String.valueOf(newAnnouncementBody.getText());
+		if (HackGSUApplication.isNullOrEmpty(newAnnouncementTitleText)) {
+			setErrorOnEditText(newAnnouncementTitle, "Please provide a title");
+		}
+		else if (HackGSUApplication.isNullOrEmpty(newAnnouncementBodyText)) {
+			setErrorOnEditText(newAnnouncementBody, "Please provide an announcement body");
+		}
+		else {
+			HackGSUApplication.hideKeyboard(nestedScrollView, this);
+			new AlertDialog.Builder(this).setTitle("Did you check the preview?")
+										 .setPositiveButton("Great! Post it. \uD83D\uDE03", new DialogInterface.OnClickListener() {
+											 @Override
+											 public void onClick (DialogInterface dialog, int which) {
+												 postAnnouncement();
+											 }
+										 })
+										 .setMessage("Warning: This will send a notification to every app user")
+										 .setNegativeButton("Wait! Cancel. \uD83D\uDE31", null)
+										 .setCancelable(false)
+										 .setIcon(R.drawable.ic_announcements)
+										 .show();
+		}
 	}
 
 	private void setErrorOnEditText (TextInputEditText editText, String error) {
 		if (HackGSUApplication.isNullOrEmpty(error)) {
 			error = "";
 		}
-		else { editText.requestFocus(); }
+		else {
+			editText.requestFocus();
+			HackGSUApplication.showKeyboard(editText, getApplicationContext());
+		}
 
 		if (editText.getParent() != null && editText.getParent().getParent() instanceof TextInputLayout) {
 			((TextInputLayout) editText.getParent().getParent()).setErrorEnabled(true);

@@ -47,7 +47,8 @@
         <activity
                 android:label="@string/title_activity_send_new_announcement"
                 android:name=".activities.PostNewAnnouncementActivity"
-                android:theme="@style/AppTheme.AnnouncementsScreen">
+                android:theme="@style/AppTheme.AnnouncementsScreen"
+                android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 
