@@ -13,6 +13,8 @@ import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
@@ -99,6 +101,14 @@ public class HackGSUApplication extends Application {
 		};
 	}
 
+	public static void hideKeyboard (View parentViewToGetFocus, Context context) {
+		View view = parentViewToGetFocus.findFocus();
+		if (view != null) {
+			InputMethodManager imm = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
+	}
+
 	public static boolean isNullOrEmpty (String s) {
 		return s == null || s.equals("");
 	}
@@ -159,6 +169,14 @@ public class HackGSUApplication extends Application {
 			public void onCancelled (DatabaseError databaseError) { }
 		});
 		DataStore.setScheduleEvents(scheduleEvents);
+	}
+
+	public static void showKeyboard (View parentViewToGetFocus, Context context) {
+		View view = parentViewToGetFocus.findFocus();
+		if (view != null) {
+			InputMethodManager imm = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+			imm.showSoftInput(view, 0);
+		}
 	}
 
 	public static String toHumanReadableRelative (LocalDateTime timestamp) {

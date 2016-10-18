@@ -29,4 +29,6 @@
     <color name="dark_window_bkg">#303030</color>
     <color name="transparent_white">#11FFFFFF</color>
     <color name="transparent_white_x2">#33FFFFFF</color>
+    <color name="barely_transparent_black">#DD000000</color>
+    <color name="mostly_transparent_black">#22000000</color>
 </resources>

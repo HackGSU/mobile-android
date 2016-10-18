@@ -1,14 +1,12 @@
 package com.hackgsu.fall2016.android.fragments;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.*;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -47,7 +45,7 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 				setAppBarExpandedWithAnimation(true);
 				contentView.findViewById(R.id.title_layout).animate().alpha(0).setDuration(500).start();
 				transparentNavigationBar();
-				hideKeyboard();
+				HackGSUApplication.hideKeyboard(RequestMentorFragment.this.contentView, RequestMentorFragment.this.getContext());
 			}
 		}
 
@@ -269,7 +267,7 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 					else { setErrorOnEditText(titleEditText, "Please provide a title"); }
 				}
 				else {
-					hideKeyboard();
+					HackGSUApplication.hideKeyboard(RequestMentorFragment.this.contentView, RequestMentorFragment.this.getContext());
 					activityProgressBar.setVisibility(View.VISIBLE);
 					fab.setEnabled(false);
 
@@ -365,14 +363,6 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && window != null) {
 			window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 			window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-		}
-	}
-
-	private void hideKeyboard () {
-		View view = contentView.findFocus();
-		if (view != null) {
-			InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 		}
 	}
 

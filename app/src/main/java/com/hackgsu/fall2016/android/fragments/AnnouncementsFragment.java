@@ -75,8 +75,6 @@ public class AnnouncementsFragment extends BaseFragment {
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_announcements, container, false);
-
-
 		announcementRecyclerView = (AnnouncementsRecyclerView) view.findViewById(R.id.announcementRecyclerView);
 		newAnnouncementFab = (FloatingActionButton) view.findViewById(R.id.fab);
 		announcementSwipeToRefresh = (SwipeRefreshLayout) view.findViewById(R.id.announcement_swipe_to_refresh);
