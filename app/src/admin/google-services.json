@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "628789744078",
+    "firebase_url": "https://hackgsu-20b92.firebaseio.com",
+    "project_id": "hackgsu-20b92",
+    "storage_bucket": "hackgsu-20b92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628789744078:android:ef24ee475ae1493c",
+        "android_client_info": {
+          "package_name": "com.hackgsu.fall2016.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628789744078-0l1r4jqtn66n0709s7ujoibc5g1s4k2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hackgsu.fall2016.android",
+            "certificate_hash": "BEB8EE7DE79650E4671A2E22FFBD7588A1BF8DD3"
+          }
+        },
+        {
+          "client_id": "628789744078-2qsb2mqndv7ic990vpvnvft4654lll5m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt6NBShr07SQLe2MpW_SBWY5ihOimdAz4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628789744078-eadc32r34t4i9dmpath2dddek650i61f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.PantherHackers.hackGSU"
+              }
+            },
+            {
+              "client_id": "628789744078-2qsb2mqndv7ic990vpvnvft4654lll5m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
