@@ -22,7 +22,7 @@ public final class BusUtils {
 	public static void post (final BaseEvent event, final boolean sticky) {
 		Log.i(TAG, "post: " + event);
 		get().removeStickyEvent(event.getClass());
-		HackGSUApplication.delayRunnableOnUI(0, new Runnable() {
+		HackGSUApplication.runOnUI(new Runnable() {
 			@Override
 			public void run () {
 				if (sticky) { get().postSticky(event); }

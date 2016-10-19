@@ -15,17 +15,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import com.hackgsu.fall2016.android.DataStore;
 import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.R;
+import com.hackgsu.fall2016.android.events.OpeningCeremoniesRoomNumberUpdateEvent;
 import com.hackgsu.fall2016.android.fragments.*;
 import com.hackgsu.fall2016.android.model.Announcement;
+import com.hackgsu.fall2016.android.utils.BusUtils;
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
+import org.greenrobot.eventbus.Subscribe;
+import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
@@ -40,6 +47,7 @@ public class MainActivity extends AppCompatActivity
 	private BaseFragment      lastHomeFragment;
 	private Menu              menu;
 	private NavigationView    navigationView;
+	private TextView          openingCeremoniesRoomNumber;
 	private Toolbar           toolbar;
 
 	@Override
@@ -53,57 +61,7 @@ public class MainActivity extends AppCompatActivity
 		final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
-
-		appbar = (AppBarLayout) findViewById(R.id.appbar);
-
-		navigationView = (NavigationView) findViewById(R.id.nav_view);
-		navigationView.setNavigationItemSelectedListener(this);
-		navigationView.setCheckedItem(R.id.nav_home);
-
-		final List<Fragment> fragments = new ArrayList<>();
-
-		fragments.add(new AnnouncementsFragment());
-		fragments.add(new ScheduleFragment());
-		fragments.add(new FacilityMapFragment());
-		fragments.add(new MentorsFragment());
-		fragments.add(new SponsorsFragment());
-
-		fragNavController = new FragNavController(getSupportFragmentManager(), R.id.fragment_frame, fragments);
-		fragNavController.setNavListener(new FragNavController.NavListener() {
-			@Override
-			public void onTabTransaction (Fragment fragment, int index) {
-				BaseFragment baseFragment = null;
-				if (fragment instanceof BaseFragment) {
-					baseFragment = ((BaseFragment) fragment);
-				}
-
-				if (baseFragment == null) { return; }
-
-				lastFragment = baseFragment;
-				if (index < 3) { lastHomeFragment = baseFragment; }
-				setTitle(baseFragment.getTitle());
-
-				HackGSUApplication.delayRunnableOnUI(500, new Runnable() {
-					@Override
-					public void run () {
-						if (!hasScrolled && getIntent().hasExtra(HIGHLIGHT_ANNOUNCEMENT) && lastHomeFragment instanceof AnnouncementsFragment) {
-							Announcement announcementToHighlight = (Announcement) getIntent().getSerializableExtra(HIGHLIGHT_ANNOUNCEMENT);
-							((AnnouncementsFragment) lastHomeFragment).highlightAnnouncement(announcementToHighlight);
-							hasScrolled = true;
-						}
-					}
-				});
-			}
-
-			@Override
-			public void onFragmentTransaction (Fragment fragment) {
-			}
-		});
-		fragNavController.switchTab(FragNavController.TAB1);
-
-		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-		bottomBar.setOnTabSelectListener(this);
-		bottomBar.setOnTabReselectListener(this);
+		BusUtils.register(this);
 	}
 
 	@Override
@@ -177,10 +135,108 @@ public class MainActivity extends AppCompatActivity
 	}
 
 	@Override
+	protected void onStart () {
+		super.onStart();
+
+		appbar = (AppBarLayout) findViewById(R.id.appbar);
+
+		navigationView = (NavigationView) findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
+		navigationView.setCheckedItem(R.id.nav_home);
+
+		if (navigationView.getHeaderCount() > 0) {
+			navigationView.removeHeaderView(navigationView.getHeaderView(0));
+		}
+		if (HackGSUApplication.getDateTimeOfHackathon().isAfter(new LocalDateTime(System.currentTimeMillis()))) {
+			final View  view  = navigationView.inflateHeaderView(R.layout.opening_ceremonies_nav_header);
+			final Timer timer = new Timer();
+			TimerTask timerTask = new TimerTask() {
+				@Override
+				public void run () {
+					HackGSUApplication.runOnUI(new Runnable() {
+						@Override
+						public void run () {
+							if (HackGSUApplication.getDateTimeOfHackathon().isAfter(new LocalDateTime(System.currentTimeMillis()))) {
+								TextView openingCeremoniesIn = (TextView) view.findViewById(R.id.opening_ceremonies_in);
+								openingCeremoniesRoomNumber = (TextView) view.findViewById(R.id.opening_ceremonies_room_number);
+
+								String openingCeremoniesInString = HackGSUApplication.toHumanReadableRelative(HackGSUApplication.getDateTimeOfHackathon(), true, false);
+								openingCeremoniesInString = String.format("Opening Ceremonies \n%s", openingCeremoniesInString.replaceFirst("In", "in"));
+								openingCeremoniesIn.setText(openingCeremoniesInString);
+								openingCeremoniesRoomNumber.setText(HackGSUApplication.isNullOrEmpty(DataStore.getOpeningCeremoniesRoomNumber()) ? "" : DataStore
+										.getOpeningCeremoniesRoomNumber());
+							}
+							else {
+								if (navigationView.getHeaderCount() > 0) { navigationView.removeHeaderView(navigationView.getHeaderView(0)); }
+								navigationView.inflateHeaderView(R.layout.nav_header_main);
+								timer.cancel();
+							}
+						}
+					});
+				}
+			};
+			timer.scheduleAtFixedRate(timerTask, 0, 1000);
+		}
+		else {
+			navigationView.inflateHeaderView(R.layout.nav_header_main);
+		}
+
+		final List<Fragment> fragments = new ArrayList<>();
+
+		fragments.add(new AnnouncementsFragment());
+		fragments.add(new ScheduleFragment());
+		fragments.add(new FacilityMapFragment());
+		fragments.add(new MentorsFragment());
+		fragments.add(new SponsorsFragment());
+
+		fragNavController = new FragNavController(getSupportFragmentManager(), R.id.fragment_frame, fragments);
+		fragNavController.setNavListener(new FragNavController.NavListener() {
+			@Override
+			public void onTabTransaction (Fragment fragment, int index) {
+				BaseFragment baseFragment = null;
+				if (fragment instanceof BaseFragment) {
+					baseFragment = ((BaseFragment) fragment);
+				}
+
+				if (baseFragment == null) { return; }
+
+				lastFragment = baseFragment;
+				if (index < 3) { lastHomeFragment = baseFragment; }
+				setTitle(baseFragment.getTitle());
+
+				HackGSUApplication.delayRunnableOnUI(500, new Runnable() {
+					@Override
+					public void run () {
+						if (!hasScrolled && getIntent().hasExtra(HIGHLIGHT_ANNOUNCEMENT) && lastHomeFragment instanceof AnnouncementsFragment) {
+							Announcement announcementToHighlight = (Announcement) getIntent().getSerializableExtra(HIGHLIGHT_ANNOUNCEMENT);
+							((AnnouncementsFragment) lastHomeFragment).highlightAnnouncement(announcementToHighlight);
+							hasScrolled = true;
+						}
+					}
+				});
+			}
+
+			@Override
+			public void onFragmentTransaction (Fragment fragment) {
+			}
+		});
+		fragNavController.switchTab(FragNavController.TAB1);
+
+		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+		bottomBar.setOnTabSelectListener(this);
+		bottomBar.setOnTabReselectListener(this);
+	}
+
+	@Override
 	protected void onResume () {
 		super.onResume();
 
 		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, lastFragment).commitNow();
+	}
+
+	@Subscribe
+	public void onEvent (OpeningCeremoniesRoomNumberUpdateEvent openingCeremoniesRoomNumberUpdateEvent) {
+		openingCeremoniesRoomNumber.setText(DataStore.getOpeningCeremoniesRoomNumber());
 	}
 
 	private void handleAction (@IdRes int id) {

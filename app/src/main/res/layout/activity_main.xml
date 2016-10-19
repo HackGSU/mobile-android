@@ -18,8 +18,10 @@
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:layout_gravity="start"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_main"
+            android:paddingBottom="48dp"
             app:menu="@menu/activity_main_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

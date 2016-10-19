@@ -51,7 +51,7 @@ public class MentorsRequestRecyclerViewAdapter extends RecyclerView.Adapter<Ment
 			title.setText(mentorRequest.getTitle());
 			boolean hasDescription = !HackGSUApplication.isNullOrEmpty(mentorRequest.getDescription());
 			description.setText(hasDescription ? mentorRequest.getDescription() : "(No description)");
-			timestamp.setText(HackGSUApplication.toHumanReadableRelative(mentorRequest.getTimestampDateTime(), true));
+			timestamp.setText(HackGSUApplication.toHumanReadableRelative(mentorRequest.getTimestampDateTime(), true, true));
 			subtitle.setText(mentorRequest.getSubtitle());
 
 			if (hasDescription) { description.setTypeface(Typeface.DEFAULT); }

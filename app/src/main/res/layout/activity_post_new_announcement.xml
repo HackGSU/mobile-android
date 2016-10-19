@@ -43,6 +43,16 @@
             android:visibility="gone"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
 
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_anchor="@+id/nested_scroll_view"
+            app:layout_anchorGravity="top|end"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_send" />
+
     <android.support.v4.widget.NestedScrollView
             android:id="@+id/nested_scroll_view"
             android:layout_height="match_parent"
@@ -176,16 +186,6 @@
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            app:layout_anchor="@id/nested_scroll_view"
-            app:layout_anchorGravity="top|end"
-            android:src="@drawable/ic_send"
-            app:fabSize="mini" />
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -17,7 +17,9 @@ import com.hackgsu.fall2016.android.DataStore;
 import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.controllers.AnnouncementController;
 import com.hackgsu.fall2016.android.controllers.NotificationController;
+import com.hackgsu.fall2016.android.events.OpeningCeremoniesRoomNumberUpdateEvent;
 import com.hackgsu.fall2016.android.model.Announcement;
+import com.hackgsu.fall2016.android.utils.BusUtils;
 
 import static android.content.ContentValues.TAG;
 
@@ -46,6 +48,17 @@ public class FirebaseService extends Service {
 					HackGSUApplication.refreshAnnouncements(getApplicationContext());
 
 					DatabaseReference dbRef            = FirebaseDatabase.getInstance().getReference();
+					dbRef.child("opening_ceremonies_room").getRef().addValueEventListener(new ValueEventListener() {
+						@Override
+						public void onDataChange (DataSnapshot dataSnapshot) {
+							String openingCeremoniesRoomNumber = dataSnapshot.getValue(String.class);
+							BusUtils.post(new OpeningCeremoniesRoomNumberUpdateEvent(openingCeremoniesRoomNumber));
+							DataStore.setOpeningCeremoniesRoomNumber(openingCeremoniesRoomNumber);
+						}
+
+						@Override
+						public void onCancelled (DatabaseError databaseError) { }
+					});
 					DatabaseReference announcementsRef = dbRef.child("announcements").getRef();
 					announcementsRef.addValueEventListener(new ValueEventListener() {
 						@Override
