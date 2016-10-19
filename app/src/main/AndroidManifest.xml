@@ -22,16 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-                android:label="@string/title_activity_request_mentor"
-                android:name=".activities.RequestMentorActivity"
-                android:theme="@style/AppTheme.MentorsScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <service android:name=".services.AnnouncementManipulationService" />
         <service android:name=".services.FirebaseService" />
@@ -50,6 +40,10 @@
                 android:theme="@style/AppTheme.AnnouncementsScreen"
                 android:windowSoftInputMode="adjustResize">
         </activity>
+        <activity
+            android:name=".activities.AboutPageActivity"
+            android:label="@string/title_activity_about_page"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

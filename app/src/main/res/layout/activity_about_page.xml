@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hackgsu.fall2016.android.views.AboutRecyclerView
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dp"
+    android:paddingBottom="50dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:listitem="@layout/about_person_card"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

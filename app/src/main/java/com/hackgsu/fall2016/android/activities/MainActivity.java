@@ -1,5 +1,6 @@
 package com.hackgsu.fall2016.android.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
@@ -285,6 +286,10 @@ public class MainActivity extends AppCompatActivity
 				hideBottomBar();
 				appbar.setExpanded(false, false);
 				appbar.addOnOffsetChangedListener(MainActivity.this);
+				break;
+			case R.id.nav_about:
+				Intent aboutPageIntent = new Intent(this, AboutPageActivity.class);
+				startActivity(aboutPageIntent);
 				break;
 			case R.id.nav_code_of_conduct:
 				break;
