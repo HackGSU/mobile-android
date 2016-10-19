@@ -30,6 +30,11 @@ android {
             signingConfig signingConfigs.debug
             debuggable true
         }
+        mentors {
+            debuggable true
+            signingConfig signingConfigs.debug
+            versionNameSuffix '-mentors'
+        }
     }
 }
 
