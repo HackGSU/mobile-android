@@ -55,9 +55,7 @@ public class HackGSUApplication extends Application {
 			public void run () {
 				try {
 					Thread.sleep(millsToDelay);
-				} catch (InterruptedException var2) {
-					;
-				}
+				} catch (InterruptedException ignored) {}
 
 				(new Handler(Looper.getMainLooper())).post(runnableToRun);
 			}
@@ -70,7 +68,7 @@ public class HackGSUApplication extends Application {
 
 	@NonNull
 	public static LocalDateTime getDateTimeOfHackathon () {
-		return new LocalDateTime().withDate(2016, 10, 21).withMillisOfSecond(0).withSecondOfMinute(0).withHourOfDay(19);
+		return new LocalDateTime().withDate(2016, 10, 21).withMillisOfSecond(0).withSecondOfMinute(0).withMinuteOfHour(0).withHourOfDay(0);
 	}
 
 	public static SharedPreferences getPrefs (Context context) {
@@ -171,6 +169,10 @@ public class HackGSUApplication extends Application {
 		DataStore.setScheduleEvents(scheduleEvents);
 	}
 
+	public static void runOnUI (Runnable runnable) {
+		HackGSUApplication.delayRunnableOnUI(0, runnable);
+	}
+
 	public static void showKeyboard (View parentViewToGetFocus, Context context) {
 		View view = parentViewToGetFocus.findFocus();
 		if (view != null) {
@@ -180,16 +182,17 @@ public class HackGSUApplication extends Application {
 	}
 
 	public static String toHumanReadableRelative (LocalDateTime timestamp) {
-		return toHumanReadableRelative(timestamp, false);
+		return toHumanReadableRelative(timestamp, false, true);
 	}
 
-	public static String toHumanReadableRelative (LocalDateTime timestamp, boolean seconds) {
-		return (String) DateUtils.getRelativeTimeSpanString(timestamp.toDateTime()
-																	 .getMillis(), System.currentTimeMillis(), seconds ? DateUtils.SECOND_IN_MILLIS : DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE);
+	public static String toHumanReadableRelative (LocalDateTime timestamp, boolean seconds, boolean abreviate) {
+		int  flags        = abreviate ? DateUtils.FORMAT_ABBREV_RELATIVE : 0;
+		long secondsFlags = seconds ? DateUtils.SECOND_IN_MILLIS : DateUtils.MINUTE_IN_MILLIS;
+		return (String) DateUtils.getRelativeTimeSpanString(timestamp.toDateTime().getMillis(), System.currentTimeMillis(), secondsFlags, flags);
 	}
 
 	public static void toast (final Context context, final String string) {
-		delayRunnableOnUI(0, new Runnable() {
+		runOnUI(new Runnable() {
 			@Override
 			public void run () {
 				Toast.makeText(context, string, Toast.LENGTH_LONG).show();
@@ -220,10 +223,6 @@ public class HackGSUApplication extends Application {
 				JodaTimeAndroid.init(HackGSUApplication.this);
 
 				startService(new Intent(HackGSUApplication.this, FirebaseService.class));
-
-				String string = toHumanReadableRelative(getDateTimeOfHackathon());
-				string = "Opening Ceremonies " + string.replaceFirst("In", "in");
-				//				toast(HackGSUApplication.this, string);
 			}
 		});
 	}

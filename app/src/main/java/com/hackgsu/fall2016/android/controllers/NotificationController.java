@@ -26,8 +26,8 @@ public class NotificationController {
 
 	private static PendingIntent createActivityIntent (Context context, Class<?> cls, Bundle extras) {
 		Intent intent = new Intent(context, cls);
-		intent.putExtras(extras);
-		return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		if (extras != null) { intent.putExtras(extras); }
+		return PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 	}
 
 	private static Notification createAnnouncementsHeader (Context context) {
@@ -59,7 +59,7 @@ public class NotificationController {
 
 		if (announcementBuilder == null) {
 			announcementBuilder = new NotificationCompat.Builder(context);
-			announcementBuilder.addAction(likeAction).addAction(bookmarkAction).setVibrate(new long[] { 0, 100, 300, 300, 100, 100 });
+			announcementBuilder.addAction(likeAction).addAction(bookmarkAction);
 		}
 		else if (announcementBuilder.mActions != null) {
 			announcementBuilder.mActions.clear();
@@ -71,8 +71,7 @@ public class NotificationController {
 								  .setStyle(new NotificationCompat.BigTextStyle().bigText(announcement.getBodyText()))
 								  .setSmallIcon(announcement.getTopicEnum().getIcon())
 								  .setContentIntent(pendingIntent)
-								  .setOnlyAlertOnce(true)
-								  .setAutoCancel(true)
+								  .setOnlyAlertOnce(true).setAutoCancel(true).setVibrate(new long[] { 0, 100, 300, 300 })
 								  .setWhen(announcement.getTimestamp())
 								  .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
 								  .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -85,6 +84,7 @@ public class NotificationController {
 								   .setSmallIcon(icon)
 								   .setAutoCancel(true)
 								   .setGroupSummary(true)
+								   .setContentIntent(createActivityIntent(context, MainActivity.class, null))
 								   .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
 								   .setPriority(NotificationCompat.PRIORITY_HIGH)
 								   .setGroup(notificationGroup);

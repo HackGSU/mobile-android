@@ -13,6 +13,7 @@ import java.util.Collections;
  */
 public class DataStore {
 	private static ArrayList<Announcement>  announcements  = new ArrayList<>();
+	private static String openingCeremoniesRoomNumber;
 	private static ArrayList<ScheduleEvent> scheduleEvents = new ArrayList<>();
 
 	public static ArrayList<Announcement> getAnnouncements () {
@@ -28,6 +29,10 @@ public class DataStore {
 		return filteredAnnouncements;
 	}
 
+	public static String getOpeningCeremoniesRoomNumber () {
+		return openingCeremoniesRoomNumber;
+	}
+
 	public static ArrayList<ScheduleEvent> getScheduleEvents () {
 		return scheduleEvents;
 	}
@@ -37,6 +42,10 @@ public class DataStore {
 		AnnouncementController.setIsBookmarkedByMeBasedOnPrefs(context, announcements);
 		AnnouncementController.setIsLikedByMeBasedOnPrefs(context, announcements);
 		DataStore.announcements = announcements;
+	}
+
+	public static void setOpeningCeremoniesRoomNumber (String openingCeremoniesRoomNumber) {
+		DataStore.openingCeremoniesRoomNumber = openingCeremoniesRoomNumber;
 	}
 
 	public static void setScheduleEvents (ArrayList<ScheduleEvent> scheduleEvents) {

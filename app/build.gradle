@@ -17,6 +17,7 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "0.1-alpha"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
