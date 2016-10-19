@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.hackgsu.fall2016.android.activities.FullscreenWebViewActivity;
 import com.hackgsu.fall2016.android.events.AnnouncementsUpdatedEvent;
 import com.hackgsu.fall2016.android.events.ScheduleUpdatedEvent;
 import com.hackgsu.fall2016.android.model.Announcement;
@@ -90,11 +91,11 @@ public class HackGSUApplication extends Application {
 	}
 
 	@NonNull
-	public static Runnable getUrlRunnable (final Context context, final String url) {
+	public static Runnable getUrlRunnable (final Context context, final String url, final boolean openInApp) {
 		return new Runnable() {
 			@Override
 			public void run () {
-				openWebUrl(context, url);
+				openWebUrl(context, url, openInApp);
 			}
 		};
 	}
@@ -118,9 +119,16 @@ public class HackGSUApplication extends Application {
 		return false;
 	}
 
-	public static void openWebUrl (Context context, String url) {
-		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-		context.startActivity(intent);
+	public static void openWebUrl (Context context, String url, boolean withinApp) {
+		if (withinApp) {
+			Intent codeOfConductViewIntent = new Intent(context, FullscreenWebViewActivity.class);
+			codeOfConductViewIntent.putExtra(FullscreenWebViewActivity.EXTRA_URL, url);
+			context.startActivity(codeOfConductViewIntent);
+		}
+		else {
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+			context.startActivity(intent);
+		}
 	}
 
 	public static void parseDataSnapshotForAnnouncements (Context context, DataSnapshot snapshot) {

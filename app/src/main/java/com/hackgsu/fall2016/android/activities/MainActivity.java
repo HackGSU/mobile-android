@@ -287,8 +287,10 @@ public class MainActivity extends AppCompatActivity
 				appbar.addOnOffsetChangedListener(MainActivity.this);
 				break;
 			case R.id.nav_code_of_conduct:
+				HackGSUApplication.openWebUrl(this, "https://docs.google.com/gview?embedded=true&url=static.mlh.io/docs/mlh-code-of-conduct.pdf", true);
 				break;
 			case R.id.nav_send_feedback:
+				HackGSUApplication.openWebUrl(this, "https://sri40.typeform.com/to/QTFwTX", true);
 				break;
 			default:
 				break;

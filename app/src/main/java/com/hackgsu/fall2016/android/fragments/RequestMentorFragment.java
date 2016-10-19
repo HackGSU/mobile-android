@@ -102,23 +102,16 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 		appBar.setExpanded(false);
 		appBar.addOnOffsetChangedListener(this);
 
-		TextView                   swipeToLabel                = (TextView) contentView.findViewById(R.id.swipe_to_label);
-		Button                     cancelRequestButton         = (Button) contentView.findViewById(R.id.cancel_request);
-		final TextInputEditText    titleEditText               = (TextInputEditText) contentView.findViewById(R.id.title);
-		final ProgressBar          activityProgressBar         = (ProgressBar) contentView.findViewById(R.id.activity_progress_bar);
-		final TextInputEditText    teamNameEditText            = (TextInputEditText) contentView.findViewById(R.id.team_name);
-		final Spinner              floorSpinner                = (Spinner) contentView.findViewById(R.id.floor_spinner);
-		final TextInputEditText    locationEditText            = (TextInputEditText) contentView.findViewById(R.id.location);
-		final TextInputEditText    platformEditText            = (TextInputEditText) contentView.findViewById(R.id.category);
-		final TextInputEditText    slackUsernameEditText       = (TextInputEditText) contentView.findViewById(R.id.slack_username);
-		final TextInputEditText    descriptionEditText         = (TextInputEditText) contentView.findViewById(R.id.description);
-		final TextInputLayout      titleEditTextLayout         = (TextInputLayout) contentView.findViewById(R.id.title_layout);
-		final TextInputLayout      teamNameEditTextLayout      = (TextInputLayout) contentView.findViewById(R.id.team_name_layout);
-		final TextInputLayout      locationEditTextLayout      = (TextInputLayout) contentView.findViewById(R.id.location_layout);
-		final TextInputLayout      platformEditTextLayout      = (TextInputLayout) contentView.findViewById(R.id.category_layout);
-		final TextInputLayout      slackUsernameEditTextLayout = (TextInputLayout) contentView.findViewById(R.id.slack_username_layout);
-		final TextInputLayout      descriptionEditTextLayout   = (TextInputLayout) contentView.findViewById(R.id.description_layout);
-		final FloatingActionButton fab                         = (FloatingActionButton) contentView.findViewById(R.id.fab);
+		TextView                   swipeToLabel        = (TextView) contentView.findViewById(R.id.swipe_to_label);
+		Button                     cancelRequestButton = (Button) contentView.findViewById(R.id.cancel_request);
+		final TextInputEditText    titleEditText       = (TextInputEditText) contentView.findViewById(R.id.title);
+		final ProgressBar          activityProgressBar = (ProgressBar) contentView.findViewById(R.id.activity_progress_bar);
+		final TextInputEditText    teamNameEditText    = (TextInputEditText) contentView.findViewById(R.id.team_name);
+		final Spinner              floorSpinner        = (Spinner) contentView.findViewById(R.id.floor_spinner);
+		final TextInputEditText    locationEditText    = (TextInputEditText) contentView.findViewById(R.id.location);
+		final TextInputEditText    platformEditText    = (TextInputEditText) contentView.findViewById(R.id.category);
+		final TextInputEditText    descriptionEditText = (TextInputEditText) contentView.findViewById(R.id.description);
+		final FloatingActionButton fab                 = (FloatingActionButton) contentView.findViewById(R.id.fab);
 
 		if (getArguments() != null) {
 			mentorRequest = (MentorRequest) getArguments().getSerializable(MentorsController.MENTOR_REQUESTS_KEY);
@@ -167,48 +160,11 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 					fab.hide();
 				}
 
-				/*TextWatcher textWatcher = new TextWatcher() {
-					@Override
-					public void beforeTextChanged (CharSequence s, int start, int count, int after) { }
-
-					@Override
-					public void onTextChanged (CharSequence s, int start, int before, int count) {
-						if (!HackGSUApplication.isNullOrEmpty(String.valueOf(titleEditText.getText()))) {
-							setErrorOnEditText(titleEditText, null);
-						}
-						if (!HackGSUApplication.isNullOrEmpty(String.valueOf(teamNameEditText.getText()))) {
-							setErrorOnEditText(teamNameEditText, null);
-						}
-						if (!HackGSUApplication.isNullOrEmpty(String.valueOf(locationEditText.getText()))) {
-							setErrorOnEditText(locationEditText, null);
-						}
-						if (!HackGSUApplication.isNullOrEmpty(String.valueOf(platformEditText.getText()))) {
-							setErrorOnEditText(platformEditText, null);
-						}
-						if (!HackGSUApplication.isNullOrEmpty(String.valueOf(slackUsernameEditText.getText()))) {
-							setErrorOnEditText(slackUsernameEditText, null);
-						}
-						if (!HackGSUApplication.isNullOrEmpty(String.valueOf(descriptionEditText.getText()))) {
-							setErrorOnEditText(descriptionEditText, null);
-						}
-					}
-
-					@Override
-					public void afterTextChanged (Editable s) { }
-				};
-				titleEditText.addTextChangedListener(textWatcher);
-				teamNameEditText.addTextChangedListener(textWatcher);
-				locationEditText.addTextChangedListener(textWatcher);
-				platformEditText.addTextChangedListener(textWatcher);
-				slackUsernameEditText.addTextChangedListener(textWatcher);
-				descriptionEditText.addTextChangedListener(textWatcher);*/
-
 				titleEditText.setEnabled(hasNotBeenCancelled);
 				teamNameEditText.setEnabled(hasNotBeenCancelled);
 				floorSpinner.setEnabled(hasNotBeenCancelled);
 				locationEditText.setEnabled(hasNotBeenCancelled);
 				platformEditText.setEnabled(hasNotBeenCancelled);
-				slackUsernameEditText.setEnabled(hasNotBeenCancelled);
 				descriptionEditText.setEnabled(hasNotBeenCancelled);
 
 				swipeToLabel.setText("Swipe down to close");
@@ -218,7 +174,6 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 				floorSpinner.setSelection(floorIndex);
 				locationEditText.setText(mentorRequest.getLocation());
 				platformEditText.setText(mentorRequest.getCategory());
-				slackUsernameEditText.setText(mentorRequest.getSlackUsername());
 				descriptionEditText.setText(mentorRequest.getDescription());
 			}
 		}
@@ -238,19 +193,17 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 		teamNameEditText.setOnFocusChangeListener(focusChangeListener);
 		locationEditText.setOnFocusChangeListener(focusChangeListener);
 		platformEditText.setOnFocusChangeListener(focusChangeListener);
-		slackUsernameEditText.setOnFocusChangeListener(focusChangeListener);
 		descriptionEditText.setOnFocusChangeListener(focusChangeListener);
 
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick (View view) {
-				String title         = String.valueOf(titleEditText.getText());
-				String teamName      = String.valueOf(teamNameEditText.getText());
-				String floor         = String.valueOf(floorSpinner.getSelectedItem());
-				String location      = String.valueOf(locationEditText.getText());
-				String platform      = String.valueOf(platformEditText.getText());
-				String slackUsername = String.valueOf(slackUsernameEditText.getText());
-				String description   = String.valueOf(descriptionEditText.getText());
+				String title       = String.valueOf(titleEditText.getText());
+				String teamName    = String.valueOf(teamNameEditText.getText());
+				String floor       = String.valueOf(floorSpinner.getSelectedItem());
+				String location    = String.valueOf(locationEditText.getText());
+				String platform    = String.valueOf(platformEditText.getText());
+				String description = String.valueOf(descriptionEditText.getText());
 
 				boolean titleValid    = !HackGSUApplication.isNullOrEmpty(title);
 				boolean teamNameValid = !HackGSUApplication.isNullOrEmpty(teamName);
@@ -272,7 +225,7 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 					fab.setEnabled(false);
 
 					if (mentorRequest == null) {
-						mentorRequest = new MentorRequest(title, teamName, floor, location, platform, slackUsername, description);
+						mentorRequest = new MentorRequest(title, teamName, floor, location, platform, description);
 					}
 					else {
 						mentorRequest.setTitle(title);
@@ -280,7 +233,6 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 						mentorRequest.setFloor(floor);
 						mentorRequest.setLocation(location);
 						mentorRequest.setCategory(platform);
-						mentorRequest.setSlackUsername(slackUsername);
 						mentorRequest.setDescription(description);
 					}
 					MentorsController.sendRequest(mentorRequest, getContext(), new CallbackWithType<DatabaseError>() {
@@ -341,7 +293,10 @@ public class RequestMentorFragment extends BottomSheetDialogFragment implements 
 		if (HackGSUApplication.isNullOrEmpty(error)) {
 			error = "";
 		}
-		else { editText.requestFocus(); }
+		else {
+			editText.requestFocus();
+			HackGSUApplication.showKeyboard(editText, getContext());
+		}
 
 		if (editText.getParent() != null && editText.getParent().getParent() instanceof TextInputLayout) {
 			((TextInputLayout) editText.getParent().getParent()).setErrorEnabled(true);

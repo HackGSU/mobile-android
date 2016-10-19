@@ -23,4 +23,9 @@
     <style name="AppTheme.MentorsScreen" />
 
     <style name="AppTheme.AnnouncementsScreen" />
+
+    <style name="AppTheme.NoActionBar.Fullscreen"
+           parent="android:Theme.Light.NoTitleBar.Fullscreen">
+        <item name="android:customNavigationLayout">@null</item>
+    </style>
 </resources>

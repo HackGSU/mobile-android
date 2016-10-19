@@ -16,7 +16,6 @@ public class MentorRequest implements Serializable {
 	private String               floor;
 	private String               location;
 	private String               mentor;
-	private String               slackUsername;
 	private MentorRequest.Status status;
 	private String               teamName;
 	private long                 timestamp;
@@ -24,27 +23,20 @@ public class MentorRequest implements Serializable {
 
 	public MentorRequest () { }
 
-	public MentorRequest (String title,
-						  String teamName,
-						  String floor,
-						  String location, String category,
-						  String slackUsername,
-						  String description,
-						  Status status) {
+	public MentorRequest (String title, String teamName, String floor, String location, String category, String description, Status status) {
 		this.title = title;
 		this.teamName = teamName;
 		this.floor = floor;
 		this.location = location;
 		this.category = category;
-		this.slackUsername = slackUsername;
 		this.description = description;
 		this.status = status;
 
 		setTimestampToNow();
 	}
 
-	public MentorRequest (String title, String teamName, String floor, String location, String category, String slackUsername, String description) {
-		this(title, teamName, floor, location, category, slackUsername, description, Status.Pending);
+	public MentorRequest (String title, String teamName, String floor, String location, String category, String description) {
+		this(title, teamName, floor, location, category, description, Status.Pending);
 	}
 
 	public enum Status {
@@ -102,10 +94,6 @@ public class MentorRequest implements Serializable {
 		this.category = category;
 	}
 
-	public void setSlackUsername (String slackUsername) {
-		this.slackUsername = slackUsername;
-	}
-
 	public void setTeamName (String teamName) {
 		this.teamName = teamName;
 	}
@@ -124,10 +112,6 @@ public class MentorRequest implements Serializable {
 
 	public String getCategory () {
 		return category;
-	}
-
-	public String getSlackUsername () {
-		return slackUsername;
 	}
 
 	public String getTeamName () {
