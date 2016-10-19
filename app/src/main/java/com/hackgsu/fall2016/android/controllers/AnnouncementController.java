@@ -77,11 +77,10 @@ public class AnnouncementController {
 			SharedPreferences prefs                   = HackGSUApplication.getPrefs(context);
 			Set<String>       notifiedAnnouncementIds = prefs.getStringSet(ANNOUNCEMENTS_NOTIFIED_KEY, new HashSet<String>());
 			returnValue = !notifiedAnnouncementIds.contains(announcement.getFirebaseKey());
-			// TODO: 10/16/16 : put this line back in
 			if (returnValue) {
 				notifiedAnnouncementIds.add(announcement.getFirebaseKey());
 				prefs.edit().remove(ANNOUNCEMENTS_NOTIFIED_KEY).commit();
-				prefs.edit().putStringSet(ANNOUNCEMENTS_NOTIFIED_KEY, notifiedAnnouncementIds).apply();
+				prefs.edit().putStringSet(ANNOUNCEMENTS_NOTIFIED_KEY, notifiedAnnouncementIds).commit();
 			}
 		}
 		else { return true; }

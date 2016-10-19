@@ -45,31 +45,44 @@ public class FirebaseService extends Service {
 					Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
 					HackGSUApplication.refreshSchedule();
-					HackGSUApplication.refreshAnnouncements(getApplicationContext());
 
-					DatabaseReference dbRef            = FirebaseDatabase.getInstance().getReference();
-					dbRef.child("opening_ceremonies_room").getRef().addValueEventListener(new ValueEventListener() {
+					DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+					dbRef.child("announcements").getRef().addListenerForSingleValueEvent(new ValueEventListener() {
 						@Override
-						public void onDataChange (DataSnapshot dataSnapshot) {
-							String openingCeremoniesRoomNumber = dataSnapshot.getValue(String.class);
-							BusUtils.post(new OpeningCeremoniesRoomNumberUpdateEvent(openingCeremoniesRoomNumber));
-							DataStore.setOpeningCeremoniesRoomNumber(openingCeremoniesRoomNumber);
-						}
-
-						@Override
-						public void onCancelled (DatabaseError databaseError) { }
-					});
-					DatabaseReference announcementsRef = dbRef.child("announcements").getRef();
-					announcementsRef.addValueEventListener(new ValueEventListener() {
-						@Override
-						public void onDataChange (DataSnapshot dataSnapshot) {
-							HackGSUApplication.parseDataSnapshotForAnnouncements(getApplicationContext(), dataSnapshot);
-
+						public void onDataChange (DataSnapshot snapshot) {
+							HackGSUApplication.parseDataSnapshotForAnnouncements(getApplicationContext(), snapshot);
 							for (Announcement announcement : DataStore.getAnnouncements()) {
-								if (AnnouncementController.shouldNotify(getApplicationContext(), announcement)) {
-									NotificationController.sendAnnouncementNotification(getApplicationContext(), announcement);
-								}
+								AnnouncementController.shouldNotify(getApplicationContext(), announcement);
 							}
+
+							DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+							dbRef.child("opening_ceremonies_room").getRef().addValueEventListener(new ValueEventListener() {
+								@Override
+								public void onDataChange (DataSnapshot dataSnapshot) {
+									String openingCeremoniesRoomNumber = dataSnapshot.getValue(String.class);
+									BusUtils.post(new OpeningCeremoniesRoomNumberUpdateEvent(openingCeremoniesRoomNumber));
+									DataStore.setOpeningCeremoniesRoomNumber(openingCeremoniesRoomNumber);
+								}
+
+								@Override
+								public void onCancelled (DatabaseError databaseError) { }
+							});
+							DatabaseReference announcementsRef = dbRef.child("announcements").getRef();
+							announcementsRef.addValueEventListener(new ValueEventListener() {
+								@Override
+								public void onDataChange (DataSnapshot dataSnapshot) {
+									HackGSUApplication.parseDataSnapshotForAnnouncements(getApplicationContext(), dataSnapshot);
+
+									for (Announcement announcement : DataStore.getAnnouncements()) {
+										if (AnnouncementController.shouldNotify(getApplicationContext(), announcement)) {
+											NotificationController.sendAnnouncementNotification(getApplicationContext(), announcement);
+										}
+									}
+								}
+
+								@Override
+								public void onCancelled (DatabaseError databaseError) { }
+							});
 						}
 
 						@Override

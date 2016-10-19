@@ -162,7 +162,6 @@ public class PostNewAnnouncementActivity extends AppCompatActivity {
 			AnnouncementController.sendOrUpdateAnnouncement(announcement, new CallbackWithType<Void>() {
 				@Override
 				public void onComplete (Void aVoid) {
-					HackGSUApplication.refreshAnnouncements(getApplicationContext());
 					PostNewAnnouncementActivity.this.finish();
 				}
 
