@@ -18,9 +18,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:background="@drawable/ic_lights"
-            android:backgroundTint="@color/transparent_white"
-            tools:showIn="@layout/nav_header_main">
+            android:background="@drawable/ic_lights">
 
 
         <TextView

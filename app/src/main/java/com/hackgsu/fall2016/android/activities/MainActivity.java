@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import com.hackgsu.fall2016.android.BuildConfig;
 import com.hackgsu.fall2016.android.DataStore;
 import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.R;
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity
 		setContentView(R.layout.activity_main);
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+
+		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+		navigationView.setVerticalScrollBarEnabled(false);
+		navigationView.getMenu().findItem(R.id.nav_version).setTitle(String.format("Version: %s", BuildConfig.VERSION_NAME));
 
 		DrawerLayout                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -285,6 +290,9 @@ public class MainActivity extends AppCompatActivity
 				hideBottomBar();
 				appbar.setExpanded(false, false);
 				appbar.addOnOffsetChangedListener(MainActivity.this);
+				break;
+			case R.id.nav_prizes:
+				HackGSUApplication.openWebUrl(this, "https://hackgsu-fall16.devpost.com/#prizes", true);
 				break;
 			case R.id.nav_code_of_conduct:
 				HackGSUApplication.openWebUrl(this, "https://docs.google.com/gview?embedded=true&url=static.mlh.io/docs/mlh-code-of-conduct.pdf", true);

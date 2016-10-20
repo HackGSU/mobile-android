@@ -38,7 +38,7 @@
             app:layout_anchor="@+id/announcement_swipe_to_refresh"
             app:layout_anchorGravity="bottom|right"
             app:layout_behavior="com.hackgsu.fall2016.android.views.SlideUpBehavior"
-            android:src="@drawable/ic_add"
             android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_add"
             app:useCompatPadding="true" />
 </android.support.design.widget.CoordinatorLayout>
