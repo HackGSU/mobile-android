@@ -111,7 +111,7 @@ public class ScheduleRecyclerView extends ThemedEmptyStateRecyclerView {
 
 			String timeTillString = HackGSUApplication.toHumanReadableRelative(scheduleEvent.getTimestamp());
 
-			DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder().appendDayOfWeekText().appendLiteral(" - ");
+			DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder();
 			DateTimeFormatter        dateTimeFormatter        = HackGSUApplication.getTimeFormatter24OrNot(getContext(), dateTimeFormatterBuilder);
 
 			title.setText(scheduleEvent.getTimestamp().toString(dateTimeFormatter));
