@@ -32,11 +32,11 @@
                     android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/floor_0"
+                    android:id="@+id/concourse"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_margin="20dp"
-                    android:src="@drawable/ic_floor0"
+                    android:src="@drawable/ic_concourse"
                     />
 
                 <TextView
@@ -64,8 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_margin="20dp"
-                    android:src="@drawable/ic_floor1"
-                    />
+                    android:src="@drawable/ic_floor_1"                    />
 
                 <TextView
                     android:layout_width="match_parent"
