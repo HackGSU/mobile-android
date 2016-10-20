@@ -47,6 +47,10 @@
                 android:screenOrientation="userPortrait"
                 android:theme="@style/AppTheme.NoActionBar.Fullscreen">
         </activity>
+        <activity
+                android:label="@string/title_activity_about_page"
+                android:name=".activities.AboutPageActivity"
+                android:theme="@style/AppTheme.About" />
     </application>
 
 </manifest>

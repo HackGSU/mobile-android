@@ -1,5 +1,6 @@
 package com.hackgsu.fall2016.android.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
@@ -293,6 +294,10 @@ public class MainActivity extends AppCompatActivity
 				break;
 			case R.id.nav_prizes:
 				HackGSUApplication.openWebUrl(this, "https://hackgsu-fall16.devpost.com/#prizes", true);
+				break;
+			case R.id.nav_about:
+				Intent aboutPageIntent = new Intent(this, AboutPageActivity.class);
+				startActivity(aboutPageIntent);
 				break;
 			case R.id.nav_code_of_conduct:
 				HackGSUApplication.openWebUrl(this, "https://docs.google.com/gview?embedded=true&url=static.mlh.io/docs/mlh-code-of-conduct.pdf", true);

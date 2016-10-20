@@ -28,4 +28,9 @@
            parent="android:Theme.Light.NoTitleBar.Fullscreen">
         <item name="android:customNavigationLayout">@null</item>
     </style>
+
+    <style name="AppTheme.About">
+        <item name="colorPrimary">#1d1d1d</item>
+        <item name="colorPrimaryDark">#000000</item>
+    </style>
 </resources>
