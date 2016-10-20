@@ -49,7 +49,7 @@ public class AnnouncementsRecyclerView extends ThemedEmptyStateRecyclerView {
 
 	public static String getTimestampString (Context context, LocalDateTime dateTime) {
 		String                   timeTillString           = HackGSUApplication.toHumanReadableRelative(dateTime);
-		DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder().appendDayOfWeekText().appendLiteral(" - ");
+		DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder();
 		DateTimeFormatter        dateTimeFormatter        = HackGSUApplication.getTimeFormatter24OrNot(context, dateTimeFormatterBuilder);
 		return String.format("%s | %s", timeTillString, dateTime.toString(dateTimeFormatter));
 	}
