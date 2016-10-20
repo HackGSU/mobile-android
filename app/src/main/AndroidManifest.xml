@@ -34,6 +34,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <activity
                 android:label="@string/title_activity_send_new_announcement"
                 android:name=".activities.PostNewAnnouncementActivity"
@@ -41,9 +42,9 @@
                 android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
-            android:name=".activities.AboutPageActivity"
-            android:label="@string/title_activity_about_page"
-            android:theme="@style/AppTheme"></activity>
+                android:label="@string/title_activity_about_page"
+                android:name=".activities.AboutPageActivity"
+                android:theme="@style/AppTheme.About" />
     </application>
 
 </manifest>

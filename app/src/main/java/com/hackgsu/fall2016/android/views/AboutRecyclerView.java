@@ -2,23 +2,20 @@ package com.hackgsu.fall2016.android.views;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.hackgsu.fall2016.android.DataStore;
 import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.model.AboutPerson;
 
-import org.w3c.dom.Text;
-
 public class AboutRecyclerView extends ThemedEmptyStateRecyclerView {
-    private AboutAdapter adapter;
-    private GridLayoutManager layoutManager;
+    private AboutAdapter               adapter;
+    private StaggeredGridLayoutManager layoutManager;
 
     public AboutRecyclerView(Context context) {
         super(context);
@@ -82,7 +79,7 @@ public class AboutRecyclerView extends ThemedEmptyStateRecyclerView {
     }
 
     @Override
-    public GridLayoutManager getLayoutManager() {
+    public StaggeredGridLayoutManager getLayoutManager () {
         return layoutManager;
     }
 
@@ -91,7 +88,7 @@ public class AboutRecyclerView extends ThemedEmptyStateRecyclerView {
         super.init(attrs, defStyle);
 
         setClipToPadding(false);
-        setLayoutManager(layoutManager = new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
+        setLayoutManager(layoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
         setAdapter(adapter = new AboutAdapter());
     }
 }

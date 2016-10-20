@@ -1,10 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hackgsu.fall2016.android.views.AboutRecyclerView
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.hackgsu.fall2016.android.activities.AboutPageActivity">
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="30dp"
-    android:paddingBottom="50dp"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:listitem="@layout/about_person_card"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_height="@dimen/app_bar_height"
+            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary">
+
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_width="match_parent"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="30dp">
+
+
+            <com.hackgsu.fall2016.android.views.AboutRecyclerView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    tools:listitem="@layout/about_person_card" />
+
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:paddingBottom="60dp"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:text="Also, Android is Better! ☺️"
+                    android:typeface="monospace"
+                    style="?android:textAppearanceSmall" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
