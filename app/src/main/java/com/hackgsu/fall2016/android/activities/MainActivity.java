@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
 	private BottomBar         bottomBar;
 	private FragNavController fragNavController;
 	private boolean           hasScrolled;
+	private View              headerView;
 	private BaseFragment      lastFragment;
 	private BaseFragment      lastHomeFragment;
 	private Menu              menu;
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity
 			navigationView.removeHeaderView(navigationView.getHeaderView(0));
 		}
 		if (HackGSUApplication.getDateTimeOfHackathon().isAfter(new LocalDateTime(System.currentTimeMillis()))) {
-			final View  view  = navigationView.inflateHeaderView(R.layout.opening_ceremonies_nav_header);
+			headerView = navigationView.inflateHeaderView(R.layout.opening_ceremonies_nav_header);
 			final Timer timer = new Timer();
 			TimerTask timerTask = new TimerTask() {
 				@Override
@@ -162,21 +163,24 @@ public class MainActivity extends AppCompatActivity
 					HackGSUApplication.runOnUI(new Runnable() {
 						@Override
 						public void run () {
-							if (HackGSUApplication.getDateTimeOfHackathon().isAfter(new LocalDateTime(System.currentTimeMillis()))) {
-								TextView openingCeremoniesIn = (TextView) view.findViewById(R.id.opening_ceremonies_in);
-								openingCeremoniesRoomNumber = (TextView) view.findViewById(R.id.opening_ceremonies_room_number);
+							try {
+								if (HackGSUApplication.getDateTimeOfHackathon().isAfter(new LocalDateTime(System.currentTimeMillis()))) {
+									TextView openingCeremoniesIn = (TextView) headerView.findViewById(R.id.opening_ceremonies_in);
 
-								String openingCeremoniesInString = HackGSUApplication.toHumanReadableRelative(HackGSUApplication.getDateTimeOfHackathon(), true, false);
-								openingCeremoniesInString = String.format("Opening Ceremonies \n%s", openingCeremoniesInString.replaceFirst("In", "in"));
-								openingCeremoniesIn.setText(openingCeremoniesInString);
-								openingCeremoniesRoomNumber.setText(HackGSUApplication.isNullOrEmpty(DataStore.getOpeningCeremoniesRoomNumber()) ? "" : DataStore
-										.getOpeningCeremoniesRoomNumber());
-							}
-							else {
-								if (navigationView.getHeaderCount() > 0) { navigationView.removeHeaderView(navigationView.getHeaderView(0)); }
-								navigationView.inflateHeaderView(R.layout.nav_header_main);
-								timer.cancel();
-							}
+									openingCeremoniesRoomNumber = (TextView) headerView.findViewById(R.id.opening_ceremonies_room_number);
+
+									String openingCeremoniesInString = HackGSUApplication.toHumanReadableRelative(HackGSUApplication.getDateTimeOfHackathon(), true, false);
+									openingCeremoniesInString = String.format("Opening Ceremonies \n%s", openingCeremoniesInString.replaceFirst("In", "in"));
+									openingCeremoniesIn.setText(openingCeremoniesInString);
+									openingCeremoniesRoomNumber.setText(HackGSUApplication.isNullOrEmpty(DataStore.getOpeningCeremoniesRoomNumber()) ? "" : DataStore
+											.getOpeningCeremoniesRoomNumber());
+								}
+								else {
+									if (navigationView.getHeaderCount() > 0) { navigationView.removeHeaderView(navigationView.getHeaderView(0)); }
+									headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+									timer.cancel();
+								}
+							} catch (Exception ignored) {}
 						}
 					});
 				}
@@ -184,7 +188,17 @@ public class MainActivity extends AppCompatActivity
 			timer.scheduleAtFixedRate(timerTask, 0, 1000);
 		}
 		else {
-			navigationView.inflateHeaderView(R.layout.nav_header_main);
+			headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+		}
+
+		if (headerView != null) {
+			headerView.setOnLongClickListener(new View.OnLongClickListener() {
+				@Override
+				public boolean onLongClick (View v) {
+					HackGSUApplication.openWebUrl(getApplicationContext(), "https://randomuser999.github.io/pantherHack_Space_Invaders_Sponsors/", true);
+					return true;
+				}
+			});
 		}
 
 		final List<Fragment> fragments = new ArrayList<>();
