@@ -1,7 +1,6 @@
 package com.hackgsu.fall2016.android.model;
 
 import com.google.firebase.database.Exclude;
-import com.hackgsu.fall2016.android.controllers.MentorsController;
 import org.joda.time.LocalDateTime;
 
 import java.io.Serializable;
@@ -40,7 +39,7 @@ public class MentorRequest implements Serializable {
 	}
 
 	public enum Status {
-		Completed, Pending, Cancelled
+		Accepted, Pending, Cancelled
 	}
 
 	@Exclude
@@ -133,17 +132,7 @@ public class MentorRequest implements Serializable {
 
 	@Exclude
 	public String getSubtitle () {
-		String soon   = "soon";
-		String prefix = "";
-		if (getStatusEnum().equals(Status.Completed)) {
-			prefix = "Was";
-			soon = "";
-		}
-		else if (getStatusEnum().equals(Status.Pending)) { prefix = "Will be"; }
-		else if (getStatusEnum().equals(Status.Cancelled)) { return "Cancelled"; }
-		String helpedBy = String.format(" helped %s", getMentor() == null ? soon : "by " + MentorsController.getMentor(getMentor()).getName());
-
-		return prefix + helpedBy;
+		return getStatusEnum().name();
 	}
 
 	@Exclude
