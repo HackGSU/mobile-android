@@ -78,7 +78,8 @@
                     android:id="@+id/location"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:hint="Location" />
+                    android:hint="Location"
+                    android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
         <TextView
