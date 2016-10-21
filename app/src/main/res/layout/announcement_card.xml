@@ -111,6 +111,7 @@
                     tools:layout_conversion_absoluteWidth="366dp"
                     tools:layout_conversion_absoluteX="22dp"
                     tools:layout_conversion_absoluteY="93dp"
+                    android:autoLink="all"
                     android:paddingBottom="20dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
