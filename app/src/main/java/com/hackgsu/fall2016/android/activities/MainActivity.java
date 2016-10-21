@@ -107,7 +107,13 @@ public class MainActivity extends AppCompatActivity
 	public boolean onOptionsItemSelected (MenuItem item) {
 		int id = item.getItemId();
 
-		if (id == R.id.scroll_to_now) {
+		if (id == R.id.mute_notifications) {
+			boolean enabled = HackGSUApplication.areNotificationsEnabled(getApplicationContext());
+			HackGSUApplication.setNotificationsEnabled(getApplicationContext(), enabled = !enabled);
+			item.setIcon(enabled ? R.drawable.ic_bell : R.drawable.ic_bell_off);
+			item.setTitle(enabled ? R.string.action_mute_notifications : R.string.action_unmute_notifications);
+		}
+		else if (id == R.id.scroll_to_now) {
 			if (lastFragment instanceof ScheduleFragment) { ((ScheduleFragment) lastFragment).getScheduleRecyclerView().showNowRow(); }
 		}
 		else if (id == R.id.filter_bookmarked_announcements) {
@@ -195,7 +201,7 @@ public class MainActivity extends AppCompatActivity
 			headerView.setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick (View v) {
-					HackGSUApplication.openWebUrl(getApplicationContext(), "https://randomuser999.github.io/pantherHack_Space_Invaders_Sponsors/", true);
+					HackGSUApplication.runOnUI(HackGSUApplication.getUrlRunnable(getApplicationContext(), "https://randomuser999.github.io/pantherHack_Space_Invaders_Sponsors/", true));
 					return true;
 				}
 			});
@@ -251,6 +257,9 @@ public class MainActivity extends AppCompatActivity
 	protected void onResume () {
 		super.onResume();
 
+		View devModeTV = findViewById(R.id.is_in_dev_mode_msg);
+		if (devModeTV != null && HackGSUApplication.isInDevMode(this)) { devModeTV.setVisibility(View.VISIBLE); }
+		else if (devModeTV != null) { devModeTV.setVisibility(View.GONE); }
 		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, lastFragment).commitNow();
 	}
 

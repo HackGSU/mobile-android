@@ -15,4 +15,10 @@
             android:title="@string/bookmarked_items"
             app:showAsAction="ifRoom"
             />
+    <item
+            android:id="@+id/mute_notifications"
+            android:icon="@drawable/ic_bell"
+            android:orderInCategory="100"
+            android:title="@string/action_mute_notifications"
+            app:showAsAction="always" />
 </menu>

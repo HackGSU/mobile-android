@@ -24,12 +24,17 @@ public class AnnouncementController {
 	public static final String ANNOUNCEMENTS_LIKED_KEY      = "announcements_liked";
 	public static final String ANNOUNCEMENTS_NOTIFIED_KEY   = "announcements_notified";
 	public static final String ANNOUNCEMENTS_TABLE          = "announcements";
+	public static final String ANNOUNCEMENTS_TABLE_DEV      = "announcements_dev";
 
-	public static void sendOrUpdateAnnouncement (Announcement announcement, final CallbackWithType<Void> callback) {
+	public static String getAnnouncementsTableString (Context context) {
+		return HackGSUApplication.isInDevMode(context) ? ANNOUNCEMENTS_TABLE_DEV : ANNOUNCEMENTS_TABLE;
+	}
+
+	public static void sendOrUpdateAnnouncement (Context context, Announcement announcement, final CallbackWithType<Void> callback) {
 		FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 		if (currentUser != null) {
 			DatabaseReference dbRef           = FirebaseDatabase.getInstance().getReference();
-			DatabaseReference announcementRef = dbRef.child(ANNOUNCEMENTS_TABLE).getRef();
+			DatabaseReference announcementRef = dbRef.child(getAnnouncementsTableString(context)).getRef();
 			DatabaseReference announcementRefWithId;
 			if (announcement.getFirebaseKey() == null || announcement.getFirebaseKey().equals("")) {
 				announcementRefWithId = announcementRef.push();
@@ -72,7 +77,8 @@ public class AnnouncementController {
 
 	@SuppressLint ("CommitPrefEdits")
 	public static boolean shouldNotify (Context context, Announcement announcement) {
-		boolean returnValue = true;
+		boolean notificationsEnabled = HackGSUApplication.areNotificationsEnabled(context);
+		boolean returnValue;
 		if (context != null && announcement != null && !HackGSUApplication.isNullOrEmpty(announcement.getFirebaseKey())) {
 			SharedPreferences prefs                   = HackGSUApplication.getPrefs(context);
 			Set<String>       notifiedAnnouncementIds = prefs.getStringSet(ANNOUNCEMENTS_NOTIFIED_KEY, new HashSet<String>());
@@ -83,8 +89,8 @@ public class AnnouncementController {
 				prefs.edit().putStringSet(ANNOUNCEMENTS_NOTIFIED_KEY, notifiedAnnouncementIds).commit();
 			}
 		}
-		else { return true; }
-		return returnValue;
+		else { return notificationsEnabled; }
+		return notificationsEnabled && returnValue;
 	}
 
 	@SuppressLint ("CommitPrefEdits")
@@ -114,7 +120,7 @@ public class AnnouncementController {
 			if (announcement.isLikedByMe()) { bookmarkedAnnouncementIds.add(announcement.getFirebaseKey()); }
 			else { bookmarkedAnnouncementIds.remove(announcement.getFirebaseKey()); }
 
-			sendOrUpdateAnnouncement(announcement, null);
+			sendOrUpdateAnnouncement(context, announcement, null);
 
 			prefs.edit().remove(ANNOUNCEMENTS_LIKED_KEY).commit();
 			prefs.edit().putStringSet(ANNOUNCEMENTS_LIKED_KEY, bookmarkedAnnouncementIds).apply();

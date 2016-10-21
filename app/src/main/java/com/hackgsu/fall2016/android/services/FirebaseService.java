@@ -47,7 +47,9 @@ public class FirebaseService extends Service {
 					HackGSUApplication.refreshSchedule();
 
 					DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-					dbRef.child("announcements").getRef().addListenerForSingleValueEvent(new ValueEventListener() {
+					dbRef.child(AnnouncementController.getAnnouncementsTableString(getApplicationContext()))
+						 .getRef()
+						 .addListenerForSingleValueEvent(new ValueEventListener() {
 						@Override
 						public void onDataChange (DataSnapshot snapshot) {
 							HackGSUApplication.parseDataSnapshotForAnnouncements(getApplicationContext(), snapshot);
@@ -67,7 +69,8 @@ public class FirebaseService extends Service {
 								@Override
 								public void onCancelled (DatabaseError databaseError) { }
 							});
-							DatabaseReference announcementsRef = dbRef.child("announcements").getRef();
+							DatabaseReference announcementsRef = dbRef.child(AnnouncementController.getAnnouncementsTableString(getApplicationContext()))
+																	  .getRef();
 							announcementsRef.addValueEventListener(new ValueEventListener() {
 								@Override
 								public void onDataChange (DataSnapshot dataSnapshot) {

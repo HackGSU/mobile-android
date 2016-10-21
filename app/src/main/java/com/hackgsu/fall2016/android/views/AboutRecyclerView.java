@@ -2,8 +2,8 @@ package com.hackgsu.fall2016.android.views;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +14,8 @@ import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.model.AboutPerson;
 
 public class AboutRecyclerView extends ThemedEmptyStateRecyclerView {
-    private AboutAdapter               adapter;
-    private StaggeredGridLayoutManager layoutManager;
+    private AboutAdapter      adapter;
+    private GridLayoutManager layoutManager;
 
     public AboutRecyclerView(Context context) {
         super(context);
@@ -68,6 +68,7 @@ public class AboutRecyclerView extends ThemedEmptyStateRecyclerView {
         public void loadPerson(AboutPerson aboutPerson) {
         personName.setText(aboutPerson.getName());
             personRole.setText(aboutPerson.getRole());
+            // TODO: 10/20/16 : Do linked in stuff
             //setText(aboutPerson.getLinkedInUrl());
             personImage.setImageDrawable(ContextCompat.getDrawable(AboutRecyclerView.this.getContext(), aboutPerson.getPicture()));
         }
@@ -79,7 +80,7 @@ public class AboutRecyclerView extends ThemedEmptyStateRecyclerView {
     }
 
     @Override
-    public StaggeredGridLayoutManager getLayoutManager () {
+    public GridLayoutManager getLayoutManager () {
         return layoutManager;
     }
 
@@ -88,7 +89,7 @@ public class AboutRecyclerView extends ThemedEmptyStateRecyclerView {
         super.init(attrs, defStyle);
 
         setClipToPadding(false);
-        setLayoutManager(layoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
+        setLayoutManager(layoutManager = new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
         setAdapter(adapter = new AboutAdapter());
     }
 }

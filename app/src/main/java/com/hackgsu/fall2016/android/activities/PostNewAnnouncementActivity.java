@@ -159,7 +159,7 @@ public class PostNewAnnouncementActivity extends AppCompatActivity {
 			newAnnouncementTypeSeekbar.setEnabled(false);
 
 			Announcement announcement = new Announcement(newAnnouncementTitleText, newAnnouncementBodyText, topics[newAnnouncementTypeSeekbar.getProgress()]);
-			AnnouncementController.sendOrUpdateAnnouncement(announcement, new CallbackWithType<Void>() {
+			AnnouncementController.sendOrUpdateAnnouncement(this, announcement, new CallbackWithType<Void>() {
 				@Override
 				public void onComplete (Void aVoid) {
 					PostNewAnnouncementActivity.this.finish();

@@ -1,5 +1,6 @@
 package com.hackgsu.fall2016.android;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.hackgsu.fall2016.android.activities.FullscreenWebViewActivity;
+import com.hackgsu.fall2016.android.controllers.AnnouncementController;
 import com.hackgsu.fall2016.android.events.AnnouncementsUpdatedEvent;
 import com.hackgsu.fall2016.android.events.ScheduleUpdatedEvent;
 import com.hackgsu.fall2016.android.model.Announcement;
@@ -37,8 +39,14 @@ import java.util.Collections;
  * Created by Joshua King on 9/27/16.
  */
 public class HackGSUApplication extends Application {
+	public static final String IS_IN_DEV_MODE        = "is_in_dev_mode";
+	public static final String NOTIFICATIONS_ENABLED = "notifications_enabled";
 	private FirebaseAuth                   firebaseAuth;
 	private FirebaseAuth.AuthStateListener firebaseAuthListener;
+
+	public static boolean areNotificationsEnabled (Context context) {
+		return getPrefs(context).getBoolean(NOTIFICATIONS_ENABLED, true);
+	}
 
 	@NonNull
 	private static Announcement convertDataSnapshotToAnnouncement (DataSnapshot child) {
@@ -108,6 +116,8 @@ public class HackGSUApplication extends Application {
 		}
 	}
 
+	public static boolean isInDevMode (Context context) { return getPrefs(context).getBoolean(IS_IN_DEV_MODE, false); }
+
 	public static boolean isNullOrEmpty (String s) {
 		return s == null || s.equals("");
 	}
@@ -145,7 +155,7 @@ public class HackGSUApplication extends Application {
 
 	public static void refreshAnnouncements (final Context context) {
 		DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-		dbRef.child("announcements").getRef().addListenerForSingleValueEvent(new ValueEventListener() {
+		dbRef.child(AnnouncementController.getAnnouncementsTableString(context)).getRef().addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange (DataSnapshot snapshot) {
 				parseDataSnapshotForAnnouncements(context, snapshot);
@@ -179,6 +189,23 @@ public class HackGSUApplication extends Application {
 
 	public static void runOnUI (Runnable runnable) {
 		HackGSUApplication.delayRunnableOnUI(0, runnable);
+	}
+
+	public static void setIsInDevMode (final Activity context, boolean isInDevMode) {
+		getPrefs(context).edit().putBoolean(IS_IN_DEV_MODE, isInDevMode).apply();
+
+		HackGSUApplication.toast(context, String.format("You're in %s mode! :D", isInDevMode ? "Dev" : "Prod"));
+		HackGSUApplication.delayRunnableOnUI(100, new Runnable() {
+			@Override
+			public void run () {
+				context.stopService(new Intent(context, FirebaseService.class));
+				//				context.finishAffinity();
+			}
+		});
+	}
+
+	public static void setNotificationsEnabled (Context context, boolean newValue) {
+		getPrefs(context).edit().putBoolean(NOTIFICATIONS_ENABLED, newValue).apply();
 	}
 
 	public static void showKeyboard (View parentViewToGetFocus, Context context) {

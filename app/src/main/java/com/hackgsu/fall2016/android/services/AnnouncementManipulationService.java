@@ -1,6 +1,5 @@
 package com.hackgsu.fall2016.android.services;
 
-import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -42,8 +41,6 @@ public class AnnouncementManipulationService extends Service {
 		if (bookmarkAnnouncement) { AnnouncementController.toggleBookmark(getApplicationContext(), announcementExtra); }
 
 		if (notificationId != -1) {
-			NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
-			//			notificationManager.cancel(notificationId);
 			NotificationController.sendAnnouncementNotification(getApplicationContext(), announcementExtra, notificationId);
 		}
 
