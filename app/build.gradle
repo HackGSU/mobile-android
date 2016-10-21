@@ -15,8 +15,8 @@ android {
         applicationId "com.hackgsu.fall2016.android"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 4
-        versionName "1.2"
+        versionCode 5
+        versionName "1.2.1"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
