@@ -79,7 +79,7 @@
                     tools:text="subtitle" />
 
 
-            <ImageButton
+            <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/announcement_bookmark_btn"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
