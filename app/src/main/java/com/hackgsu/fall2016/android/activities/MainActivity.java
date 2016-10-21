@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity
 		this.menu = menu;
 		setMenuItemVisibility(R.id.scroll_to_now, false);
 		setMenuItemVisibility(R.id.filter_bookmarked_announcements, true);
+		menu.findItem(R.id.mute_notifications)
+			.setIcon(HackGSUApplication.areNotificationsEnabled(getApplicationContext()) ? R.drawable.ic_bell : R.drawable.ic_bell_off);
 		return true;
 	}
 
