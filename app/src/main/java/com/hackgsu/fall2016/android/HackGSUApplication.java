@@ -133,6 +133,7 @@ public class HackGSUApplication extends Application {
 		if (withinApp) {
 			Intent codeOfConductViewIntent = new Intent(context, FullscreenWebViewActivity.class);
 			codeOfConductViewIntent.putExtra(FullscreenWebViewActivity.EXTRA_URL, url);
+			codeOfConductViewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(codeOfConductViewIntent);
 		}
 		else {
