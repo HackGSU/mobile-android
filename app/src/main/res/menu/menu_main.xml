@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/scroll_to_now"
+            android:icon="@drawable/ic_now"
+            android:orderInCategory="100"
+            android:title="@string/scroll_to_now"
+            app:showAsAction="ifRoom"
+            />
+    <item
+            android:id="@+id/filter_bookmarked_announcements"
+            android:icon="@drawable/ic_bookmarked_items_off"
+            android:orderInCategory="100"
+            android:title="@string/bookmarked_items"
+            app:showAsAction="ifRoom"
+            />
+    <item
+            android:id="@+id/mute_notifications"
+            android:icon="@drawable/ic_bell"
+            android:orderInCategory="100"
+            android:title="@string/action_mute_notifications"
+            app:showAsAction="always" />
+</menu>

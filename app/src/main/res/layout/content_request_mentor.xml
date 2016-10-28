@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_collapseMode="parallax"
+        app:layout_collapseParallaxMultiplier="0.5"
+        app:layout_scrollFlags="snap"
+        android:background="@color/dark_window_bkg"
+        tools:showIn="@layout/activity_request_mentor">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/team_name_layout"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/team_name"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:hint="Your name or team name"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+                android:id="@+id/your_location_label"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/team_name_layout"
+                android:text="Your Location"
+                />
+
+        <Spinner
+                android:id="@+id/floor_spinner"
+                android:layout_height="0dp"
+                android:layout_width="150dp"
+                app:layout_constraintBottom_toBottomOf="@+id/location_layout"
+                app:layout_constraintLeft_toRightOf="@+id/floor_label"
+                app:layout_constraintTop_toTopOf="@+id/location_layout"
+                app:layout_constraintVertical_bias="0.0"
+                android:entries="@array/aderhold_floors" />
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/location_layout"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toRightOf="@+id/floor_spinner"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/your_location_label"
+                app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/location"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:hint="Location"
+                    android:inputType="text"
+                    android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+                android:id="@+id/floor_label"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/floor_spinner"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/floor_spinner"
+                android:text="Floor:"
+                />
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/category_layout"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/floor_spinner"
+                app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/category"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:hint="What's the topic? (Android, iOS, IoT, etc)"
+                    android:inputType="text"
+                    android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/description_layout"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintHorizontal_bias="0.46"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/category_layout"
+                app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/description"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:hint="The general idea of your issue (description)"
+                    android:inputType="textMultiLine" />
+        </android.support.design.widget.TextInputLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -3,4 +3,13 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_mute_notifications">Mute Notifications</string>
+    <string name="action_unmute_notifications">Unmute Notifications</string>
+    <string name="bookmarked_event">Bookmarked event</string>
+    <string name="unbookmarked_event">Unbookmarked event</string>
+    <string name="now">NOW</string>
+    <string name="scroll_to_now">Scroll to now</string>
+    <string name="title_activity_request_mentor">Request a Mentor</string>
+    <string name="bookmarked_items">Bookmarked items</string>
+    <string name="title_activity_send_new_announcement">Post New Announcement</string>
+    <string name="title_activity_about_page">About Us</string>
 </resources>

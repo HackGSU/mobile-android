@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        tools:context="com.hackgsu.fall2016.android.MainActivity">
+        tools:context="com.hackgsu.fall2016.android.activities.MainActivity">
 
     <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
@@ -27,15 +27,15 @@
 
     <com.roughike.bottombar.BottomBar
             android:id="@+id/bottomBar"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
+            app:bb_activeTabAlpha="1"
             app:bb_behavior="shifting|shy|underNavbar"
+            app:bb_inActiveTabAlpha="0.4"
             app:bb_showShadow="true"
             app:bb_tabXmlResource="@xml/bottombar_tabs"
-            app:bb_tabletMode="@bool/is_tablet"
-            bb_activeTabAlpha="133"
-            bb_inActiveTabAlpha="80" />
+            app:bb_tabletMode="@bool/is_tablet" />
 
 
 </android.support.design.widget.CoordinatorLayout>

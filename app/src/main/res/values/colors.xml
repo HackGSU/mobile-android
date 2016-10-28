@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1E9AD6</color>
-    <color name="colorPrimaryDark">#0581BD</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#FB8C00</color>
 
+    <color name="red">#C8242D</color>
+    <color name="light_red">#EF5350</color>
+    <color name="transparent_black">#9E000000</color>
 
     <color name="announcementsPrimary">@color/colorPrimary</color>
     <color name="announcementsPrimaryDark">@color/colorPrimaryDark</color>
     <color name="announcementsAccent">@color/colorAccent</color>
 
-    <color name="schedulePrimary">#C8242D</color>
-    <color name="schedulePrimaryDark">#AF0B14</color>
-    <color name="scheduleAccent">#44699B</color>
+    <color name="schedulePrimary">#D23034</color>
+    <color name="schedulePrimaryDark">#8F1412</color>
 
-    <color name="facilityMapPrimary">#9E9E9E</color>
-    <color name="facilityMapPrimaryDark">#9e9e9e</color>
-    <color name="facilityMapAccent">#CC0000</color>
+    <color name="facilityMapPrimary">#159587</color>
+    <color name="facilityMapPrimaryDark">#064D40</color>
 
-    <color name="mentorsPrimary">#388e3c</color>
-    <color name="mentorsPrimaryDark">#33691e</color>
-    <color name="mentorsAccent">#CC0000</color>
+    <color name="mentorsPrimary">#673AB7</color>
+    <color name="mentorsPrimaryDark">#512DA8</color>
+    <color name="mentorsAccent">#8BC34A</color>
 
     <color name="sponsorsPrimary">#388e3c</color>
     <color name="sponsorsPrimaryDark">#33691e</color>
-    <color name="sponsorsAccent">#CC0000</color>
+
+    <color name="schedule_card_gray">#22000000</color>
+    <color name="dark_window_bkg">#303030</color>
+    <color name="transparent_white">#11FFFFFF</color>
+    <color name="transparent_white_x2">#33FFFFFF</color>
+    <color name="barely_transparent_black">#DD000000</color>
+    <color name="mostly_transparent_black">#22000000</color>
 </resources>

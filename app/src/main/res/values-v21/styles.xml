@@ -10,7 +10,8 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme"
+           parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -18,6 +19,37 @@
 
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+    <style name="AppTheme.MentorsScreen">
+        <item name="colorPrimary">@color/mentorsPrimary</item>
+        <item name="colorPrimaryDark">@color/mentorsPrimary</item>
+        <item name="colorAccent">@color/mentorsAccent</item>
+
+        <item name="android:navigationBarColor">@color/mentorsPrimary</item>
+        <!--<item name="android:windowTranslucentNavigation">false</item>-->
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+    </style>
+
+    <style name="AppTheme.AnnouncementsScreen">
+        <item name="colorPrimary">@color/announcementsPrimary</item>
+        <item name="colorPrimaryDark">@color/announcementsPrimaryDark</item>
+        <item name="colorAccent">@color/announcementsAccent</item>
+
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Fullscreen"
+           parent="Theme.AppCompat.NoActionBar">
+
+        <item name="android:customNavigationLayout">@null</item>
+
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 </resources>

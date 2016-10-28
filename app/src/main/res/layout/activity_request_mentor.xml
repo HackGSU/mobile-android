@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        style="@style/AppTheme.MentorsScreen">
+
+    <include
+            android:id="@+id/include"
+            layout="@layout/content_request_mentor" />
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_anchor="@+id/app_bar"
+            app:layout_anchorGravity="bottom|right"
+            android:tint="@color/transparent_black"
+            app:srcCompat="@drawable/ic_send" />
+
+    <!--<View-->
+    <!--android:layout_height="50dp"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:background="@color/mentorsPrimary"-->
+    <!--android:fitsSystemWindows="true" />-->
+
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_height="@dimen/app_bar_height"
+                android:layout_width="match_parent"
+                app:layout_scrollFlags="scroll|snap|enterAlwaysCollapsed"
+                android:background="@color/mentorsPrimary"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/mentorsPrimary">
+
+
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_width="match_parent"
+                    app:layout_collapseMode="parallax"
+                    android:title=""
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            </android.support.v7.widget.Toolbar>
+
+            <TextView
+                    android:id="@+id/swipe_to_label"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="end|top"
+                    android:layout_margin="20dp"
+                    app:layout_collapseMode="parallax"
+                    android:drawableLeft="@drawable/ic_arrow_down"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_arrow_down"
+                    android:text="Swipe down to cancel" />
+
+            <Button
+                    android:id="@+id/cancel_request"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="start|top"
+                    android:layout_margin="20dp"
+                    app:layout_collapseMode="parallax"
+                    android:backgroundTint="@color/light_red"
+                    android:elevation="24dp"
+                    android:text="Cancel request"
+                    android:textColor="@android:color/white"
+                    android:visibility="gone"
+                    style="@style/Base.Widget.AppCompat.Button.Colored" />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/mentorsPrimary"
+                android:gravity="bottom"
+                android:paddingBottom="30dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="40dp">
+
+            <android.support.design.widget.TextInputLayout
+                    android:id="@+id/title_layout"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+
+                <android.support.design.widget.TextInputEditText
+                        android:id="@+id/title"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:hint="Subject (Email style)"
+                        android:inputType="text|textAutoCorrect">
+
+                    <requestFocus />
+                </android.support.design.widget.TextInputEditText>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ProgressBar
+            android:id="@+id/activity_progress_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            app:layout_anchor="@+id/include"
+            app:layout_anchorGravity="top|center_horizontal"
+            android:indeterminate="true"
+            android:visibility="gone"
+            style="?android:attr/progressBarStyleHorizontal"
+            tools:visibility="visible" />
+</android.support.design.widget.CoordinatorLayout>

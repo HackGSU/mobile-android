@@ -1,12 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_height="match_parent"
-             android:layout_width="match_parent"
-             tools:context="com.hackgsu.fall2016.android.fragments.AnnouncementsFragment">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:layout_height="match_parent"
+                                                 android:layout_width="match_parent"
+                                                 tools:context="com.hackgsu.fall2016.android.fragments.AnnouncementsFragment">
 
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/announcement_swipe_to_refresh"
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:text="This is the announcements fragment" />
+            android:layout_width="match_parent">
 
-</FrameLayout>
+        <FrameLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+            <com.hackgsu.fall2016.android.views.AnnouncementsRecyclerView
+                    android:id="@+id/announcementRecyclerView"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:paddingBottom="60dp"
+                    android:paddingTop="10dp"
+                    app:colorTheme="@color/announcementsPrimary"
+                    app:emptyStateDrawable="@drawable/no_announcements"
+                    tools:listitem="@layout/announcement_card" />
+        </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="130dp"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            app:layout_anchor="@+id/announcement_swipe_to_refresh"
+            app:layout_anchorGravity="bottom|right"
+            app:layout_behavior="com.hackgsu.fall2016.android.views.SlideUpBehavior"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_add"
+            app:useCompatPadding="true" />
+</android.support.design.widget.CoordinatorLayout>

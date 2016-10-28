@@ -4,9 +4,20 @@
              android:layout_width="match_parent"
              tools:context="com.hackgsu.fall2016.android.fragments.SponsorsFragment">
 
-    <TextView
-            android:layout_height="match_parent"
+    <ScrollView
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="This is the sponsors fragment" />
+            android:layout_gravity="center">
 
+        <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/sponsors" />
+    </ScrollView>
 </FrameLayout>

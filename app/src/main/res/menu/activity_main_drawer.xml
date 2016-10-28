@@ -19,6 +19,10 @@
     <item android:title="Links">
         <menu>
             <item
+                    android:id="@+id/nav_prizes"
+                    android:icon="@drawable/ic_prizes"
+                    android:title="Prizes" />
+            <item
                     android:id="@+id/nav_about"
                     android:icon="@drawable/ic_menu_about"
                     android:title="About" />
@@ -30,6 +34,16 @@
                     android:id="@+id/nav_code_of_conduct"
                     android:icon="@drawable/ic_menu_code_of_conduct"
                     android:title="Code of conduct" />
+        </menu>
+    </item>
+    <item
+            android:id="@+id/nav_version"
+            android:enabled="false"
+            android:title=" ">
+        <menu>
+            <item
+                    android:enabled="false"
+                    android:title=" " />
         </menu>
     </item>
 
