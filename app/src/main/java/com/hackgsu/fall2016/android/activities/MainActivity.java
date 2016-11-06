@@ -318,7 +318,7 @@ public class MainActivity extends AppCompatActivity
 				appbar.addOnOffsetChangedListener(MainActivity.this);
 				break;
 			case R.id.nav_prizes:
-				HackGSUApplication.openWebUrl(this, "https://hackgsu-fall16.devpost.com/#prizes", true);
+				HackGSUApplication.openWebUrl(this, "https://hackgsu-fall16.devpost.com/#prizes", false);
 				break;
 			case R.id.nav_about:
 				Intent aboutPageIntent = new Intent(this, AboutPageActivity.class);

@@ -25,11 +25,11 @@ android {
             logger.quiet("GREENHOUSE_BUILD variable is true")
             def buildNumber = System.getenv()["BUILD_NUMBER"]
             logger.quiet("BUILD_NUMBER: " + buildNumber)
-            versionName = "1.2.1." + buildNumber
+            versionName = "1.2." + buildNumber
             versionCode = Integer.valueOf(buildNumber)
         } else {
             logger.quiet("GREENHOUSE_BUILD variable is false")
-            versionName = "1.2.1.dev"
+            versionName = "1.2.dev"
             versionCode = 1
         }
 
