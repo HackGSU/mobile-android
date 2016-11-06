@@ -2,15 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        debug {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-//            storeFile file('file.android/debug.keystore')
-            storePassword 'android'
-        }
         release {
-            keyAlias 'hackGSU'
-            storeFile file($KEYSTORE_PATH)
+//            keyAlias 'hackGSU'
+//            storeFile file($KEYSTORE_PATH)
         }
     }
     compileSdkVersion 24
@@ -32,7 +26,6 @@ android {
         admin {
             versionNameSuffix '-admin'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
             debuggable true
         }
     }
