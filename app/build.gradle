@@ -3,8 +3,12 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         release {
-//            keyAlias 'hackGSU'
-//            storeFile file($KEYSTORE_PATH)
+            if (System.getenv()["CI"]) {
+                storeFile file(System.getenv()["KEYSTORE_PATH"])
+                storePassword System.getenv()["GH_KEYSTORE_PASSWORD"]
+                keyAlias System.getenv()["GH_KEY_ALIAS"]
+                keyPassword System.getenv()["GH_KEY_PASSWORD"]
+            }
         }
     }
     compileSdkVersion 24
@@ -13,8 +17,19 @@ android {
         applicationId "com.hackgsu.fall2016.android"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 5
-        versionName "1.2.1"
+
+        def greenhouseBuild = System.getenv()["GREENHOUSE_BUILD"]
+        logger.quiet(System.getenv().toMapString())
+        if (greenhouseBuild) {
+            logger.quiet("GREENHOUSE_BUILD variable is true")
+            def buildNumber = System.getenv()["BUILD_NUMBER"]
+            logger.quiet("BUILD_NUMBER: " + buildNumber)
+            versionName = "1.2.1." + buildNumber
+            versionCode = Integer.valueOf(buildNumber)
+        } else {
+            logger.quiet("GREENHOUSE_BUILD variable is false")
+        }
+
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
