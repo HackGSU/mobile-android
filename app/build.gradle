@@ -10,7 +10,7 @@ android {
         }
         release {
             keyAlias 'hackGSU'
-            storeFile file('keystore.jks')
+            storeFile file($KEYSTORE_PATH)
         }
     }
     compileSdkVersion 24
