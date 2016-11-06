@@ -29,6 +29,8 @@ android {
             versionCode = Integer.valueOf(buildNumber)
         } else {
             logger.quiet("GREENHOUSE_BUILD variable is false")
+            versionName = "1.2.1.dev"
+            versionCode = 1
         }
 
         vectorDrawables.useSupportLibrary = true
