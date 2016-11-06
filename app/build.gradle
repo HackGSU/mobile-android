@@ -4,6 +4,7 @@ android {
     signingConfigs {
         release {
             if (System.getenv()["CI"]) {
+                logger.quiet(System.getenv().toMapString())
                 storeFile file(System.getenv()["KEYSTORE_PATH"])
                 storePassword System.getenv()["GH_KEYSTORE_PASSWORD"]
                 keyAlias System.getenv()["GH_KEY_ALIAS"]
