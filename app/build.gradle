@@ -8,6 +8,10 @@ android {
 //            storeFile file('file.android/debug.keystore')
             storePassword 'android'
         }
+        release {
+            keyAlias 'hackGSU'
+            storeFile file('keystore.jks')
+        }
     }
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
@@ -23,17 +27,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         admin {
             versionNameSuffix '-admin'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
             debuggable true
-        }
-        mentors {
-            debuggable true
-            signingConfig signingConfigs.debug
-            versionNameSuffix '-mentors'
         }
     }
 }
