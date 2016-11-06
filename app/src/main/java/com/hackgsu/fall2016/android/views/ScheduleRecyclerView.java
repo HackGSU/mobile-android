@@ -136,7 +136,7 @@ public class ScheduleRecyclerView extends ThemedEmptyStateRecyclerView {
 				openBtn.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick (View v) {
-						HackGSUApplication.openWebUrl(getContext(), scheduleEvent.getUrl(), true);
+						HackGSUApplication.openWebUrl(getContext(), scheduleEvent.getUrl(), false);
 					}
 				});
 			}
