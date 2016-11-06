@@ -56,7 +56,7 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.roughike:bottom-bar:2.0.2'
     compile 'com.ncapdevi:frag-nav:1.0.3'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta1'
+    compile 'com.android.support.constraint:constraint-layout:+'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
