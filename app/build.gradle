@@ -11,6 +11,12 @@ android {
                 keyPassword System.getenv()["GH_KEY_PASSWORD"]
             }
         }
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('~/.android/debug.keystore')
+            storePassword 'android'
+        }
     }
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
@@ -45,6 +51,7 @@ android {
             versionNameSuffix '-admin'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
+            signingConfig signingConfigs.debug
         }
     }
 }
