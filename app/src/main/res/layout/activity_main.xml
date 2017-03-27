@@ -30,6 +30,7 @@
             android:clipToPadding="false"
             android:fitsSystemWindows="true"
             android:scrollbars="none"
-            app:menu="@menu/activity_main_drawer" />
+            app:menu="@menu/activity_main_drawer"
+            app:theme="@style/MyNavigationViewWithRedHighlightedItems" />
 
 </android.support.v4.widget.DrawerLayout>

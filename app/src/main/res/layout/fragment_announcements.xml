@@ -21,7 +21,7 @@
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:paddingBottom="60dp"
                     android:paddingTop="10dp"
-                    app:colorTheme="@color/announcementsPrimary"
+                    app:colorTheme="@color/red"
                     app:emptyStateDrawable="@drawable/no_announcements"
                     tools:listitem="@layout/announcement_card" />
         </FrameLayout>

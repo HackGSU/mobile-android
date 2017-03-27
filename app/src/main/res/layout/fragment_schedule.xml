@@ -11,6 +11,6 @@
             android:layout_width="match_parent"
             android:paddingBottom="60dp"
             android:paddingTop="10dp"
-            app:colorTheme="@color/schedulePrimary"
+            app:colorTheme="@color/red"
             tools:listitem="@layout/schedule_event_card" />
 </FrameLayout>

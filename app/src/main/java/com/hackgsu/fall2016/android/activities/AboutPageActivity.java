@@ -11,8 +11,7 @@ import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.R;
 
 public class AboutPageActivity extends AppCompatActivity {
-	@Override
-	protected void onCreate (Bundle savedInstanceState) {
+	@Override protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about_page);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -26,12 +25,10 @@ public class AboutPageActivity extends AppCompatActivity {
 		devModeSwitch.setVisibility(getResources().getBoolean(R.bool.isAdmin) ? View.VISIBLE : View.GONE);
 		devModeSwitch.setChecked(HackGSUApplication.isInDevMode(this));
 		devModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged (CompoundButton buttonView, boolean isChecked) {
+			@Override public void onCheckedChanged (CompoundButton buttonView, boolean isChecked) {
 				HackGSUApplication.setIsInDevMode(AboutPageActivity.this, isChecked);
 				HackGSUApplication.delayRunnableOnUI(250, new Runnable() {
-					@Override
-					public void run () {
+					@Override public void run () {
 						HackGSUApplication.refreshAnnouncements(getApplicationContext());
 					}
 				});

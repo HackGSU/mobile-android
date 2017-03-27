@@ -14,7 +14,7 @@ android {
         debug {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
-            storeFile file('~/.android/debug.keystore')
+            storeFile file(System.getenv()["HOME"] + '/.android/debug.keystore')
             storePassword 'android'
         }
     }
@@ -31,11 +31,11 @@ android {
             logger.quiet("GREENHOUSE_BUILD variable is true")
             def buildNumber = System.getenv()["BUILD_NUMBER"]
             logger.quiet("BUILD_NUMBER: " + buildNumber)
-            versionName = "1.2." + buildNumber
+            versionName = "2.0." + buildNumber
             versionCode = Integer.valueOf(buildNumber)
         } else {
             logger.quiet("GREENHOUSE_BUILD variable is false")
-            versionName = "1.2.dev"
+            versionName = "2.0.dev"
             versionCode = 1
         }
 

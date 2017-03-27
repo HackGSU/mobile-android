@@ -53,8 +53,7 @@ public class MainActivity extends AppCompatActivity
 	private TextView          openingCeremoniesRoomNumber;
 	private Toolbar           toolbar;
 
-	@Override
-	protected void onCreate (Bundle savedInstanceState) {
+	@Override protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -65,19 +64,21 @@ public class MainActivity extends AppCompatActivity
 		navigationView.getMenu().findItem(R.id.nav_version).setTitle(String.format("Version: %s", BuildConfig.VERSION_NAME));
 
 		DrawerLayout                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+																	   drawer,
+																	   toolbar,
+																	   R.string.navigation_drawer_open,
+																	   R.string.navigation_drawer_close);
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
 		BusUtils.register(this);
 	}
 
-	@Override
-	public void onOffsetChanged (AppBarLayout appBarLayout, int verticalOffset) {
+	@Override public void onOffsetChanged (AppBarLayout appBarLayout, int verticalOffset) {
 		appBarLayout.setExpanded(false, false);
 	}
 
-	@Override
-	public void onBackPressed () {
+	@Override public void onBackPressed () {
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START);
@@ -94,8 +95,7 @@ public class MainActivity extends AppCompatActivity
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu (Menu menu) {
+	@Override public boolean onCreateOptionsMenu (Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
 		this.menu = menu;
 		setMenuItemVisibility(R.id.scroll_to_now, false);
@@ -105,8 +105,7 @@ public class MainActivity extends AppCompatActivity
 		return true;
 	}
 
-	@Override
-	public boolean onOptionsItemSelected (MenuItem item) {
+	@Override public boolean onOptionsItemSelected (MenuItem item) {
 		int id = item.getItemId();
 
 		if (id == R.id.mute_notifications) {
@@ -129,9 +128,7 @@ public class MainActivity extends AppCompatActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	@SuppressWarnings ("StatementWithEmptyBody")
-	@Override
-	public boolean onNavigationItemSelected (MenuItem item) {
+	@SuppressWarnings ("StatementWithEmptyBody") @Override public boolean onNavigationItemSelected (MenuItem item) {
 		handleAction(item.getItemId());
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -139,18 +136,15 @@ public class MainActivity extends AppCompatActivity
 		return true;
 	}
 
-	@Override
-	public void onTabSelected (@IdRes int tabId) {
+	@Override public void onTabSelected (@IdRes int tabId) {
 		handleAction(tabId);
 	}
 
-	@Override
-	public void onTabReSelected (@IdRes int tabId) {
+	@Override public void onTabReSelected (@IdRes int tabId) {
 		lastFragment.onReselected();
 	}
 
-	@Override
-	protected void onStart () {
+	@Override protected void onStart () {
 		super.onStart();
 
 		appbar = (AppBarLayout) findViewById(R.id.appbar);
@@ -166,22 +160,24 @@ public class MainActivity extends AppCompatActivity
 			headerView = navigationView.inflateHeaderView(R.layout.opening_ceremonies_nav_header);
 			final Timer timer = new Timer();
 			TimerTask timerTask = new TimerTask() {
-				@Override
-				public void run () {
+				@Override public void run () {
 					HackGSUApplication.runOnUI(new Runnable() {
-						@Override
-						public void run () {
+						@Override public void run () {
 							try {
 								if (HackGSUApplication.getDateTimeOfHackathon().isAfter(new LocalDateTime(System.currentTimeMillis()))) {
 									TextView openingCeremoniesIn = (TextView) headerView.findViewById(R.id.opening_ceremonies_in);
 
 									openingCeremoniesRoomNumber = (TextView) headerView.findViewById(R.id.opening_ceremonies_room_number);
 
-									String openingCeremoniesInString = HackGSUApplication.toHumanReadableRelative(HackGSUApplication.getDateTimeOfHackathon(), true, false);
-									openingCeremoniesInString = String.format("Opening Ceremonies \n%s", openingCeremoniesInString.replaceFirst("In", "in"));
+									String openingCeremoniesInString = HackGSUApplication.toHumanReadableRelative(HackGSUApplication.getDateTimeOfHackathon(),
+																												  true,
+																												  false);
+									openingCeremoniesInString = String.format("Opening Ceremonies \n%s",
+																			  openingCeremoniesInString.replaceFirst("In", "in"));
 									openingCeremoniesIn.setText(openingCeremoniesInString);
-									openingCeremoniesRoomNumber.setText(HackGSUApplication.isNullOrEmpty(DataStore.getOpeningCeremoniesRoomNumber()) ? "" : DataStore
-											.getOpeningCeremoniesRoomNumber());
+									openingCeremoniesRoomNumber.setText(HackGSUApplication.isNullOrEmpty(DataStore.getOpeningCeremoniesRoomNumber())
+																		? ""
+																		: DataStore.getOpeningCeremoniesRoomNumber());
 								}
 								else {
 									if (navigationView.getHeaderCount() > 0) { navigationView.removeHeaderView(navigationView.getHeaderView(0)); }
@@ -201,9 +197,10 @@ public class MainActivity extends AppCompatActivity
 
 		if (headerView != null) {
 			headerView.setOnLongClickListener(new View.OnLongClickListener() {
-				@Override
-				public boolean onLongClick (View v) {
-					HackGSUApplication.runOnUI(HackGSUApplication.getUrlRunnable(getApplicationContext(), "https://randomuser999.github.io/pantherHack_Space_Invaders_Sponsors/", true));
+				@Override public boolean onLongClick (View v) {
+					HackGSUApplication.runOnUI(HackGSUApplication.getUrlRunnable(getApplicationContext(),
+																				 "https://randomuser999.github.io/pantherHack_Space_Invaders_Sponsors/",
+																				 true));
 					return true;
 				}
 			});
@@ -219,8 +216,7 @@ public class MainActivity extends AppCompatActivity
 
 		fragNavController = new FragNavController(getSupportFragmentManager(), R.id.fragment_frame, fragments);
 		fragNavController.setNavListener(new FragNavController.NavListener() {
-			@Override
-			public void onTabTransaction (Fragment fragment, int index) {
+			@Override public void onTabTransaction (Fragment fragment, int index) {
 				BaseFragment baseFragment = null;
 				if (fragment instanceof BaseFragment) {
 					baseFragment = ((BaseFragment) fragment);
@@ -233,8 +229,7 @@ public class MainActivity extends AppCompatActivity
 				setTitle(baseFragment.getTitle());
 
 				HackGSUApplication.delayRunnableOnUI(500, new Runnable() {
-					@Override
-					public void run () {
+					@Override public void run () {
 						if (!hasScrolled && getIntent().hasExtra(HIGHLIGHT_ANNOUNCEMENT) && lastHomeFragment instanceof AnnouncementsFragment) {
 							Announcement announcementToHighlight = (Announcement) getIntent().getSerializableExtra(HIGHLIGHT_ANNOUNCEMENT);
 							((AnnouncementsFragment) lastHomeFragment).highlightAnnouncement(announcementToHighlight);
@@ -244,8 +239,7 @@ public class MainActivity extends AppCompatActivity
 				});
 			}
 
-			@Override
-			public void onFragmentTransaction (Fragment fragment) {
+			@Override public void onFragmentTransaction (Fragment fragment) {
 			}
 		});
 		fragNavController.switchTab(FragNavController.TAB1);
@@ -255,8 +249,7 @@ public class MainActivity extends AppCompatActivity
 		bottomBar.setOnTabReselectListener(this);
 	}
 
-	@Override
-	protected void onResume () {
+	@Override protected void onResume () {
 		super.onResume();
 
 		View devModeTV = findViewById(R.id.is_in_dev_mode_msg);
@@ -265,8 +258,7 @@ public class MainActivity extends AppCompatActivity
 		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, lastFragment).commitNow();
 	}
 
-	@Subscribe
-	public void onEvent (OpeningCeremoniesRoomNumberUpdateEvent openingCeremoniesRoomNumberUpdateEvent) {
+	@Subscribe public void onEvent (OpeningCeremoniesRoomNumberUpdateEvent openingCeremoniesRoomNumberUpdateEvent) {
 		openingCeremoniesRoomNumber.setText(DataStore.getOpeningCeremoniesRoomNumber());
 	}
 
@@ -317,15 +309,20 @@ public class MainActivity extends AppCompatActivity
 				appbar.setExpanded(false, false);
 				appbar.addOnOffsetChangedListener(MainActivity.this);
 				break;
+			case R.id.nav_hack_gsu_site:
+				HackGSUApplication.openWebUrl(this, "http://hackgsu.com/", false);
+				break;
 			case R.id.nav_prizes:
-				HackGSUApplication.openWebUrl(this, "https://hackgsu-fall16.devpost.com/#prizes", false);
+				HackGSUApplication.openWebUrl(this, "https://hackgsu-spring-2017.devpost.com/#prizes", false);
 				break;
 			case R.id.nav_about:
 				Intent aboutPageIntent = new Intent(this, AboutPageActivity.class);
 				startActivity(aboutPageIntent);
 				break;
 			case R.id.nav_code_of_conduct:
-				HackGSUApplication.openWebUrl(this, "https://docs.google.com/gview?embedded=true&url=static.mlh.io/docs/mlh-code-of-conduct.pdf", true);
+				HackGSUApplication.openWebUrl(this,
+											  "https://docs.google.com/gview?embedded=true&url=static.mlh.io/docs/mlh-code-of-conduct.pdf",
+											  true);
 				break;
 			case R.id.nav_send_feedback:
 				HackGSUApplication.openWebUrl(this, "https://sri40.typeform.com/to/QTFwTX", true);
@@ -336,8 +333,7 @@ public class MainActivity extends AppCompatActivity
 		appbar.setBackgroundResource(color);
 	}
 
-	@Nullable
-	private MenuItem setMenuItemVisibility (@IdRes int id, boolean visible) {
+	@Nullable private MenuItem setMenuItemVisibility (@IdRes int id, boolean visible) {
 		MenuItem menuItem = null;
 		if (menu != null) {
 			menuItem = menu.findItem(id);
@@ -353,8 +349,7 @@ public class MainActivity extends AppCompatActivity
 
 	private void hideBottomBar () {
 		bottomBar.animate().translationY(bottomBar.getHeight()).setDuration(500).withEndAction(new TimerTask() {
-			@Override
-			public void run () {
+			@Override public void run () {
 				bottomBar.setVisibility(View.GONE);
 			}
 		}).start();

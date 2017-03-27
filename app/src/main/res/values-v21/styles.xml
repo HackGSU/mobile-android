@@ -8,6 +8,8 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="android:textColorLink">@color/red</item>
     </style>
 
     <style name="AppTheme"
@@ -20,6 +22,8 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="android:textColorLink">@color/red</item>
     </style>
 
     <style name="AppTheme.MentorsScreen">
@@ -41,6 +45,8 @@
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="android:textColorLink">@color/red</item>
     </style>
 
     <style name="AppTheme.NoActionBar.Fullscreen"

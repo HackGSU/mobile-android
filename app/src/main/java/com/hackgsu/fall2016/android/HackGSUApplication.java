@@ -77,7 +77,7 @@ public class HackGSUApplication extends Application {
 
 	@NonNull
 	public static LocalDateTime getDateTimeOfHackathon () {
-		return new LocalDateTime().withDate(2016, 10, 21).withMillisOfSecond(0).withSecondOfMinute(0).withMinuteOfHour(0).withHourOfDay(19);
+		return new LocalDateTime().withDate(2017, 3, 31).withMillisOfSecond(0).withSecondOfMinute(0).withMinuteOfHour(0).withHourOfDay(19);
 	}
 
 	public static SharedPreferences getPrefs (Context context) {

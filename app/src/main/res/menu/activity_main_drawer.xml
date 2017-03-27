@@ -19,6 +19,10 @@
     <item android:title="Links">
         <menu>
             <item
+                    android:id="@+id/nav_hack_gsu_site"
+                    android:icon="@drawable/ic_web"
+                    android:title="hackGSU.com" />
+            <item
                     android:id="@+id/nav_prizes"
                     android:icon="@drawable/ic_prizes"
                     android:title="Prizes" />
