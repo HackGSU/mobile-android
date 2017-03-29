@@ -5,9 +5,6 @@
     android:id="@+id/fullscreen_content"
     tools:context="com.hackgsu.fall2016.android.activities.PhotoViewActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
     <com.github.chrisbanes.photoview.PhotoView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
