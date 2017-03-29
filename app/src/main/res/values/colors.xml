@@ -1,59 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="red">#C8242D</color>
-	<color name="light_red">#EF5350</color>
-	<color name="transparent_black">#9E000000</color>
+    <color name="red">#C8242D</color>
+    <color name="light_red">#EF5350</color>
+    <color name="transparent_black">#9E000000</color>
 
-	<!--<color name="colorPrimary">#2196F3</color>-->
-	<!--<color name="colorPrimaryDark">#1976D2</color>-->
-	<!--<color name="colorAccent">#FB8C00</color>-->
-	<!---->
-	<!--<color name="announcementsPrimary">@color/colorPrimary</color>-->
-	<!--<color name="announcementsPrimaryDark">@color/colorPrimaryDark</color>-->
-	<!--<color name="announcementsAccent">@color/colorAccent</color>-->
+    <!--<color name="colorPrimary">#2196F3</color>-->
+    <!--<color name="colorPrimaryDark">#1976D2</color>-->
+    <!--<color name="colorAccent">#FB8C00</color>-->
+    <!---->
+    <!--<color name="announcementsPrimary">@color/colorPrimary</color>-->
+    <!--<color name="announcementsPrimaryDark">@color/colorPrimaryDark</color>-->
+    <!--<color name="announcementsAccent">@color/colorAccent</color>-->
 
-	<!--<color name="schedulePrimary">#D23034</color>-->
-	<!--<color name="schedulePrimaryDark">#8F1412</color>-->
+    <!--<color name="schedulePrimary">#D23034</color>-->
+    <!--<color name="schedulePrimaryDark">#8F1412</color>-->
 
-	<!--<color name="facilityMapPrimary">#159587</color>-->
-	<!--<color name="facilityMapPrimaryDark">#064D40</color>-->
+    <!--<color name="facilityMapPrimary">#159587</color>-->
+    <!--<color name="facilityMapPrimaryDark">#064D40</color>-->
 
-	<!--<color name="mentorsPrimary">#673AB7</color>-->
-	<!--<color name="mentorsPrimaryDark">#512DA8</color>-->
-	<!--<color name="mentorsAccent">#8BC34A</color>-->
+    <!--<color name="mentorsPrimary">#673AB7</color>-->
+    <!--<color name="mentorsPrimaryDark">#512DA8</color>-->
+    <!--<color name="mentorsAccent">#8BC34A</color>-->
 
-	<!--<color name="sponsorsPrimary">#388e3c</color>-->
-	<!--<color name="sponsorsPrimaryDark">#33691e</color>-->
+    <!--<color name="sponsorsPrimary">#388e3c</color>-->
+    <!--<color name="sponsorsPrimaryDark">#33691e</color>-->
 
-	<color name="gsuRed">#700A0A</color>
-	<color name="gsuBlue">#0039A6</color>
-	<color name="gsuBlueDark">#0A2070</color>
+    <color name="gsuRed">#700A0A</color>
+    <color name="gsuBlue">#0039A6</color>
+    <color name="gsuBlueDark">#0A2070</color>
 
-	<color name="colorPrimary">@color/gsuBlue</color>
-	<color name="colorPrimaryDark">@color/gsuBlueDark</color>
-	<color name="colorAccent">@color/gsuRed</color>
+    <color name="colorPrimary">@color/gsuBlue</color>
+    <color name="colorPrimaryDark">@color/gsuBlueDark</color>
+    <color name="colorAccent">@color/gsuRed</color>
 
-	<color name="announcementsPrimary">@color/colorPrimary</color>
-	<color name="announcementsPrimaryDark">@color/colorPrimaryDark</color>
-	<color name="announcementsAccent">@color/colorAccent</color>
+    <color name="announcementsPrimary">@color/colorPrimary</color>
+    <color name="announcementsPrimaryDark">@color/colorPrimaryDark</color>
+    <color name="announcementsAccent">@color/colorAccent</color>
 
-	<color name="schedulePrimary">@color/gsuBlue</color>
-	<color name="schedulePrimaryDark">@color/gsuBlueDark</color>
+    <color name="schedulePrimary">@color/gsuBlue</color>
+    <color name="schedulePrimaryDark">@color/gsuBlueDark</color>
 
-	<color name="facilityMapPrimary">@color/gsuBlue</color>
-	<color name="facilityMapPrimaryDark">@color/gsuBlueDark</color>
+    <color name="facilityMapPrimary">@color/gsuBlue</color>
+    <color name="facilityMapPrimaryDark">@color/gsuBlueDark</color>
 
-	<color name="mentorsPrimary">@color/gsuBlue</color>
-	<color name="mentorsPrimaryDark">@color/gsuBlueDark</color>
-	<color name="mentorsAccent">@android:color/white</color>
+    <color name="mentorsPrimary">@color/gsuBlue</color>
+    <color name="mentorsPrimaryDark">@color/gsuBlueDark</color>
+    <color name="mentorsAccent">@android:color/white</color>
 
-	<color name="sponsorsPrimary">@color/gsuBlue</color>
-	<color name="sponsorsPrimaryDark">@color/gsuBlueDark</color>
+    <color name="sponsorsPrimary">@color/gsuBlue</color>
+    <color name="sponsorsPrimaryDark">@color/gsuBlueDark</color>
 
-	<color name="schedule_card_gray">#22000000</color>
-	<color name="dark_window_bkg">#303030</color>
-	<color name="transparent_white">#11FFFFFF</color>
-	<color name="transparent_white_x2">#33FFFFFF</color>
-	<color name="barely_transparent_black">#DD000000</color>
-	<color name="mostly_transparent_black">#22000000</color>
+    <color name="schedule_card_gray">#22000000</color>
+    <color name="dark_window_bkg">#303030</color>
+    <color name="transparent_white">#11FFFFFF</color>
+    <color name="transparent_white_x2">#33FFFFFF</color>
+    <color name="barely_transparent_black">#DD000000</color>
+    <color name="mostly_transparent_black">#22000000</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>
