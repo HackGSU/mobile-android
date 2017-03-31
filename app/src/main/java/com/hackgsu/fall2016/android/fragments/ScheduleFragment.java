@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.events.ScheduleUpdatedEvent;
 import com.hackgsu.fall2016.android.utils.BusUtils;
@@ -58,6 +59,12 @@ public class ScheduleFragment extends BaseFragment {
 	@Override
 	public boolean onBackPressed () {
 		return false;
+	}
+
+	@Override public void onResume () {
+		super.onResume();
+
+		HackGSUApplication.refreshSchedule();
 	}
 
 	@Subscribe
