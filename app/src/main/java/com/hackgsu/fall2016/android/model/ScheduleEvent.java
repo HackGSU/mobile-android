@@ -48,6 +48,9 @@ public class ScheduleEvent implements Comparable<ScheduleEvent> {
 		// TODO: 10/6/16 : Maybe make this share message more better..? Also add Play Store link
 		DateTimeFormatter dateTimeFormatter = HackGSUApplication.getTimeFormatter24OrNot(context);
 		String            time              = getTimestamp().toString(dateTimeFormatter);
-		return String.format("Look at this event at hackGSU\n\nTitle: %s\nWhen: %s - %s", getTitle(), HackGSUApplication.toHumanReadableRelative(getTimestamp()), time);
+		return String.format("Look at this event at HackGSU\n\nTitle: %s\nWhen: %s - %s",
+							 getTitle(),
+							 HackGSUApplication.toHumanReadableRelative(getTimestamp()),
+							 time);
 	}
 }

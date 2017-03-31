@@ -128,7 +128,11 @@ public class Announcement implements Serializable, Comparable<Announcement> {
 		// TODO: 10/6/16 : Maybe make this share message more better..? Also add Play Store link
 		DateTimeFormatter dateTimeFormatter = HackGSUApplication.getTimeFormatter24OrNot(context);
 		String            time              = getTimestampDateTime().toString(dateTimeFormatter);
-		return String.format("Look at this announcement at hackGSU\n\ntitle: %s\nWhen: %s - %s\nMessage: %s", getTitle(), HackGSUApplication.toHumanReadableRelative(getTimestampDateTime()), time, getBodyText());
+		return String.format("Look at this announcement at HackGSU\n\ntitle: %s\nWhen: %s - %s\nMessage: %s",
+							 getTitle(),
+							 HackGSUApplication.toHumanReadableRelative(getTimestampDateTime()),
+							 time,
+							 getBodyText());
 	}
 
 	@Exclude

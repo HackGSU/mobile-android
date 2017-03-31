@@ -5,55 +5,59 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name=".HackGSUApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".activities.MainActivity"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:screenOrientation="userPortrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".HackGSUApplication"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity
+                android:label="@string/app_name"
+                android:name=".activities.MainActivity"
+                android:screenOrientation="userPortrait"
+                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                    android:name="android.app.shortcuts"
+                    android:resource="@xml/shortcuts" />
         </activity>
 
         <service android:name=".services.AnnouncementManipulationService" />
         <service android:name=".services.FirebaseService" />
 
         <receiver
-            android:name=".services.BootCompletedReceiver"
-            android:enabled="true"
-            android:exported="false">
+                android:enabled="true"
+                android:exported="false"
+                android:name=".services.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name=".activities.PostNewAnnouncementActivity"
-            android:label="@string/title_activity_send_new_announcement"
-            android:screenOrientation="userPortrait"
-            android:theme="@style/AppTheme.AnnouncementsScreen"
-            android:windowSoftInputMode="adjustResize"></activity>
+                android:label="@string/title_activity_send_new_announcement"
+                android:name=".activities.PostNewAnnouncementActivity"
+                android:screenOrientation="userPortrait"
+                android:theme="@style/AppTheme.AnnouncementsScreen"
+                android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".activities.FullscreenWebViewActivity"
             android:screenOrientation="userPortrait"
             android:theme="@style/AppTheme.NoActionBar.Fullscreen"></activity>
         <activity
-            android:name=".activities.AboutPageActivity"
-            android:label="@string/title_activity_about_page"
-            android:theme="@style/AppTheme.About" />
+                android:label="@string/title_activity_about_page"
+                android:name=".activities.AboutPageActivity"
+                android:theme="@style/AppTheme.About" />
         <activity
-            android:name=".activities.PhotoViewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_photo_view"
-            android:theme="@style/FullscreenTheme"></activity>
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="@string/title_activity_photo_view"
+                android:name=".activities.PhotoViewActivity"
+                android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

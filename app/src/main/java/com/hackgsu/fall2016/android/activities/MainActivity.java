@@ -22,6 +22,7 @@ import com.hackgsu.fall2016.android.DataStore;
 import com.hackgsu.fall2016.android.HackGSUApplication;
 import com.hackgsu.fall2016.android.R;
 import com.hackgsu.fall2016.android.events.OpeningCeremoniesRoomNumberUpdateEvent;
+import com.hackgsu.fall2016.android.events.RequestAMentorEvent;
 import com.hackgsu.fall2016.android.fragments.*;
 import com.hackgsu.fall2016.android.model.Announcement;
 import com.hackgsu.fall2016.android.utils.BusUtils;
@@ -39,7 +40,8 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener, OnTabSelectListener, OnTabReselectListener, AppBarLayout.OnOffsetChangedListener {
-	public static final String HIGHLIGHT_ANNOUNCEMENT = "highlight_announcement";
+	public static final String APP_SHORTCUT_INTENT_KEY = "app_shortcut";
+	public static final String HIGHLIGHT_ANNOUNCEMENT  = "highlight_announcement";
 	private boolean           announcementsFilteredByBookmarked;
 	private AppBarLayout      appbar;
 	private BottomBar         bottomBar;
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity
 		navigationView.setVerticalScrollBarEnabled(false);
 		navigationView.getMenu().findItem(R.id.nav_version).setTitle(String.format("Version: %s", BuildConfig.VERSION_NAME));
 
-		DrawerLayout                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
 																	   drawer,
 																	   toolbar,
@@ -247,6 +249,15 @@ public class MainActivity extends AppCompatActivity
 		bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 		bottomBar.setOnTabSelectListener(this);
 		bottomBar.setOnTabReselectListener(this);
+
+		String appShortcut = getIntent().getStringExtra(APP_SHORTCUT_INTENT_KEY);
+		if (appShortcut != null) {
+			if (appShortcut.equals(getString(R.string.app_shortcut_request_a_mentor))) {
+				handleAction(R.id.nav_mentors);
+				BusUtils.post(new RequestAMentorEvent());
+			}
+			getIntent().removeExtra(APP_SHORTCUT_INTENT_KEY);
+		}
 	}
 
 	@Override protected void onResume () {
@@ -311,6 +322,11 @@ public class MainActivity extends AppCompatActivity
 				break;
 			case R.id.nav_hack_gsu_site:
 				HackGSUApplication.openWebUrl(this, "http://hackgsu.com/", false);
+				break;
+			case R.id.nav_hack_gsu_slack:
+				HackGSUApplication.openWebUrl(this,
+											  "https://hackgsu-spring17.slack.com/shared_invite/MTYyMjE3OTk2NjI2LTE0OTA4OTMzNzUtNmUxZWIyODA5Mg",
+											  false);
 				break;
 			case R.id.nav_prizes:
 				HackGSUApplication.openWebUrl(this, "https://hackgsu-spring-2017.devpost.com/#prizes", false);

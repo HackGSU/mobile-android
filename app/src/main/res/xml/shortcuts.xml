@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+		   xmlns:tools="http://schemas.android.com/tools"
+		   tools:targetApi="n_mr1">
+	<shortcut
+			android:enabled="true"
+			android:icon="@mipmap/ic_request_a_mentor"
+			android:shortcutId="shortcut_request_a_mentor"
+			android:shortcutLongLabel="@string/title_activity_request_mentor"
+			android:shortcutShortLabel="@string/title_activity_request_mentor">
+		<intent
+				android:action="android.intent.action.MAIN"
+				android:targetClass="com.hackgsu.fall2016.android.activities.MainActivity"
+				android:targetPackage="com.hackgsu.fall2016.android">
+			<extra
+					android:name="app_shortcut"
+					android:value="app_shortcut_request_a_mentor" />
+		</intent>
+	</shortcut>
+</shortcuts>

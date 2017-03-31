@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">hackGSU</string>
+    <string name="app_name">HackGSU</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_mute_notifications">Mute Notifications</string>
@@ -16,4 +16,5 @@
     <string name="title_activity_photo_view">PhotoViewActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="app_shortcut_request_a_mentor">app_shortcut_request_a_mentor</string>
 </resources>

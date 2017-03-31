@@ -31,7 +31,11 @@ public class NotificationController {
 	}
 
 	private static Notification createAnnouncementsHeader (Context context) {
-		return createHeaderBuilder(context, NOTIFICATION_GROUP, R.drawable.ic_announcements, "New hackGSU Announcements", R.color.announcementsPrimary)
+		return createHeaderBuilder(context,
+								   NOTIFICATION_GROUP,
+								   R.drawable.ic_announcements,
+								   "New HackGSU Announcements",
+								   R.color.announcementsPrimary)
 				.build();
 	}
 

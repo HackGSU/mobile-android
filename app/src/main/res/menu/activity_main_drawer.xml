@@ -21,7 +21,11 @@
             <item
                     android:id="@+id/nav_hack_gsu_site"
                     android:icon="@drawable/ic_web"
-                    android:title="hackGSU.com" />
+                    android:title="HackGSU.com" />
+            <item
+                    android:id="@+id/nav_hack_gsu_slack"
+                    android:icon="@drawable/ic_slack"
+                    android:title="HackGSU Slack" />
             <item
                     android:id="@+id/nav_prizes"
                     android:icon="@drawable/ic_prizes"
